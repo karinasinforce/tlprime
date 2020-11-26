@@ -1,0 +1,198 @@
+{% extends ['custom.app','core.app'] %}
+
+{% set HTMLHeaderTitle = '' %}
+
+{% if content.ID %}
+    {% if content.QtdQuarto %}{% set titleQtdQuarto = ' ' ~ content.QtdQuarto|join(', ') ~' Quarto(s)' %}{% endif %}    
+    {% if content.ValorLocacao %}{% set titleFinalidade = ' para alugar' %}{% endif %}
+    {% if content.ValorTemporada %}{% set titleFinalidade = ' para temporada' %}{% endif %}
+    {% if content.ValorVenda %}{% set titleFinalidade = ' à venda' %}{% endif %}
+    {% set HTMLHeaderTitle = content.TipoNome ~ titleQtdQuarto ~ titleFinalidade ~', '~ content.BairroNome ~', '~ content.CidadeNome %}
+
+    {% if (content.url_local.UF) %}
+        {% set titleUF = ' '~content.url_local.UF|upper %}
+    {% else %}
+        {% set titleUF = ' '~ content.CidadeNome|upper %}
+    {% endif %}   
+
+    {% if content.ID %}
+        {% set HTMLHeaderTitle = content.Nome ~ ' - ' ~ content.BairroNome %}
+    {% endif %}
+{% else %}
+    {% if (content.url_local.UF) %}{% set titleUF = ' '~content.url_local.UF|upper %}{% endif %}    
+    {% set HTMLHeaderTitle = "Lancamento em " ~ (titleUF) %}
+{% endif %}
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+{% set html_header_description = content.Descricao %}
+
+{% set bg_header_title = '/img/headers/lista-emp.jpg' %}
+{% block content_header_title %}
+    <div class="">{{HTMLHeaderTitle}}</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Lancamentos</div>
+{% endblock %}
+
+{% if content.ID %}
+    {% set header_facebook_url = url_current() %}
+    {% set header_facebook_type = "website" %}
+    {% set header_facebook_title =  HTMLHeaderTitle %}
+    {% set header_facebook_desc = HTMLHeaderTitle %}
+    {% set header_facebook_img  = data.IMG_PATH ~ '/' ~ content.ImageCapa ~ '.jpg?wm=5' %}
+{% endif %}
+
+{% block content_header_breadcrumb %}
+            
+        {{data.breadcrumb|raw}} <li>{{content.Nome|raw}}</li>
+
+{% endblock %}
+
+{% block content_share_bread %}
+    {% if content.ID %}
+        
+            <div class="social-share pull-right d-none d-lg-block">
+                <ul>
+                    <li>Compartilhar: </li>
+                    {# facebook #}
+                    <li>
+                        <a href="http://www.facebook.com/sharer/sharer.php?u={{url_current()|url_encode}}" target="_blank" class="share-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    {# twitter #}
+                    <li>
+                        <a href="http://twitter.com/share?url{{url_current()|url_encode}}/&text={{HTMLHeaderTitle}}&via={{APP_NAME}}" target="_blank" class="share-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?text=Olá, Veja este imóvel: {{content.Codigo}} {{ url_current()|replace({'+': '-'}) }}" target="_blank" class="share-btn whatsappp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        
+    {% endif %}
+{% endblock %}
+
+{% set actual_page = "page-lancamentos" %}
+{% set lightgal = "true" %}
+{% set slickslider = "true" %}
+
+{% block main_content %}
+        <div class="spark-screen">
+            <!-- MESSAGES -->
+            <div class="container">
+                <div class="row">
+                    {% include ['custom.errors.mesages','core.errors.mesages'] %}
+                </div>
+            </div>
+                
+            <!-- MAIN -->
+            <div class="container">
+                <!-- CONTENT DETAIL -->
+                <div class="row">
+                    {#{% if data.isMobile %}
+                        <div class="social-share pull-right">
+                            <ul>
+                            <li class="social-label">Compartilhar: </li>
+                            {# facebook 
+                            <li class="social-icon"><a href="http://www.facebook.com/sharer/sharer.php?u={{url_current()|url_encode}}" target="_blank" class="share-btn facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a></li>                        
+                            {# twitter 
+                            <li class="social-icon"><a href="http://twitter.com/share?url{{url_current()|url_encode}}/&text={{HTMLHeaderTitle}}&via={{APP_NAME}}" target="_blank" class="share-btn twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a></li>
+                            {# whatsapp 
+                            <li class="social-icon"><a href="whatsapp://send?text=Veja este imóvel! {{url_current()|url_encode}}" class="share-btn whatsapp">
+                                <i class="fa fa-whatsapp"></i>
+                            </a></li>                                
+                            </ul>                                
+                        </div>
+                    {% endif %}#}
+                    
+                    {% include ['custom.layouts.lancamentos.interna','core.layouts.lancamentos.interna'] with {content: content, data:data} %}
+                      <div class="container">
+                        <div class="social-share d-block d-lg-none">
+                            <h5 class="text-center">Compartilhar</h5>
+                            <ul class="d-flex justify-content-center">
+                                {# facebook #}
+                                <li class="social-icon"><a href="http://www.facebook.com/sharer/sharer.php?u={{url_current()|url_encode}}" target="_blank" class="share-btn facebook">
+                                        <i class="fab fa-facebook"></i>
+                                    </a></li>
+                                {# twitter #}
+                                <li class="social-icon"><a href="http://twitter.com/share?url{{url_current()|url_encode}}/&text={{HTMLHeaderTitle}}&via={{APP_NAME}}" target="_blank" class="share-btn twitter">
+                                        <i class="fab fa-twitter"></i>
+                                    </a></li>
+                                {# whatsapp #}
+                                {# <li class="social-icon"><a href="https://api.whatsapp.com/send?phone={{ siteparam.telefones.whatsappnumber }}&text=Olá, gostaria de saber mais sobre o imóvel {{content.Codigo}} {{ url_current()|replace({'+': '-'}) }}" class="share-btn whatsapp" target="_blank">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a> #}
+                                    <li class="social-icon"> <a href="https://api.whatsapp.com/send?text=Olá, Veja este imóvel: {{content.Codigo}} {{ url_current()|replace({'+': '-'}) }}" target="_blank" class="share-btn whatsappp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+
+                {#{% include ['custom.partials.barra-flutuante','core.partials.barra-flutuante'] %}#}
+        </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+
+    {% if content.ID %}
+        {% include ['custom.helpers.modal-interessado','core.helpers.modal-interessado'] %}
+    {% endif %}
+
+    <script src="/js/controller/busca-avancada.js" defer type="text/javascript"></script>
+    <script src="/js/controller/lancamentos.js" defer type="text/javascript"></script>            
+    
+    <script src="/js/plugins/custom.list.js" defer></script>
+
+    <script src="/js/plugins/nouislider.min.js" defer></script>
+    <link  href="/js/plugins/nouislider.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/plugins/wNumb.js" defer></script>
+
+    <script src="/js/plugins/jquery.simplePagination.js" defer></script>
+    <link  href="/js/plugins/jquery.simplePagination.css" rel="stylesheet" type="text/css" />    
+    
+    <script>
+        /* LANCAMENTOS */ 
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            $( document ).ready(function() {
+                
+
+                {% if data.isMobile %}
+                // inicializa o slider de valor
+                initSliderValor();
+
+                // inicializa o slider de area util
+                initSliderAreaUtil();        
+                {% endif %}    
+
+                var $lightGall = $('.lightGalDestaque');
+
+                $lightGall.lightGallery({
+                  selector: '.item ',
+                  //exThumbImage: 'data-exthumbimage'
+                });     
+                
+            });
+        });
+
+    </script>
+
+{% endblock %}

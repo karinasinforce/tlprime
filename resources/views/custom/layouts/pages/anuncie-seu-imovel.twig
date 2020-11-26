@@ -1,0 +1,60 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Anuncie seu Imóvel{% endblock %}
+{# 
+{% block content_header_title %}
+                <div class="">{{data.Titulo}}</div>
+{% endblock %} #}
+
+{% block content_header_description %}
+                <div class="hide">Anuncie seu Imóvel</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-anuncie-seu-imovel page_form" %}
+
+{% block main_content %}
+    
+    <!-- CONTENT -->
+    <div class="spark-screen">
+
+        <div class="container">
+
+            <div class="row box-newsletter">
+                {% include ['custom.helpers.formulario-anuncie-seu-imovel','core.helpers.formulario-anuncie-seu-imovel'] %}
+                
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    {#<script src="{{ asset('/js/controller/anuncie-seu-imovel.js') }}" type="text/javascript"></script> #}
+    {% if data.isMobile %}
+        <script src="{{ asset('/js/controller/busca-avancada.js') }}" type="text/javascript"></script>
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

@@ -1,0 +1,180 @@
+{% if content is not null %}
+<div class="vitrine emp_vitrine home-vitrine-imoveis d-none" id="home-vitrine-imoveis">
+    <div class="container">
+        {# <h2>Imóveis Prontos em Destaque</h2> #}
+        <h2 class="title">{{content.Titulo}}</h2>
+        <div class="product_item_sec row mx-0">
+            
+            <div class="col-sm-12 px-0">
+                <div id="owl-home-vitrine3" class="owl-carousel">
+                {% for entry in content.Itens %}
+
+                    {% if ( loop.index == 1 or loop.index0 is divisibleby(2) ) and entry|length > 5 %}
+                    <div class="item"> <!-- item duplo -->
+                    {% endif %}
+                    
+                    {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg?wm=0" %}
+                    {% if entry.UrlTrack %}
+                        {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                    {% else %}
+                        {% set product_url = "/venda/oferta/ID-" ~ entry.ID %}
+                    {% endif %}
+
+                    <div class="product_itemBx mb-4 item-id-{{entry.ID}}" onclick="window.location.href='{{product_url}}'" style="cursor:pointer;"><!-- item unico -->
+
+                        <div class="product_itemBxTop">
+                            <a class="vit_link_foto">
+                                <div class="pdct_pic">
+                                    <div class="vitrine-venda-img owl-lazy" data-src="{{entry.ImageUrl|replace({'http://': 'https://'})}}?wm=0">
+                                        <div class="hover_img"></div>        
+                                        <div class="statustag tag_obra">
+                                            <span class="text"> <i class="fas fa-map-marker-alt"></i> {{entry.BairroNome}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="product_itemBxBot">
+                            
+                            <div class="tipos"><span>{{entry.Tipos|default(entry.TipoNome)}}</span></div>
+                            <h3>
+                                {% if entry.TipoNome or entry.QtdQuarto %}
+                                    {% if entry.TipoNome %}
+                                        {{ entry.TipoNome }}
+                                    {% endif %}
+                            
+                                    {% if entry.TipoNome and entry.ValorVenda or entry.TipoNome and entry.ValorLocacao %}
+                                        para
+                                    {% endif %}
+                            
+                                    {% if entry.ValorLocacao %}
+                                        locação
+                                    {% elseif entry.ValorVenda %}
+                                        venda
+                                    {% endif %}
+                            
+                                    {% if entry.QtdQuarto %}
+                                        com {{ entry.QtdQuarto }}
+                                        {{ entry.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                    {% endif %}
+                            
+                                    {% if entry.QtdSuite %}sendo {{ entry.QtdSuite }} {{ entry.QtdSuite > 1 ? 'Suites' : 'Suíte' }}{% endif %}
+                                {% endif %}
+                            </h3>
+                             <div class="content_imv_caract mx-0" style="min-height:65px;">
+                                {% if entry.QtdQuarto %}
+                                    <div class="item wt-50" data-toggle="tooltip" title="Quartos">
+                                        <i class="fas fa-bed"></i>
+                                        <div class="qtd">{{entry.QtdQuarto}}</div>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if entry.QtdSuite %}
+                                    <div class="item wt-50" data-toggle="tooltip" title="Suítes">
+                                        <i class="fas fa-bath"></i>
+                                        <div class="qtd">{{entry.QtdSuite}}</div>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if entry.QtdVaga %}
+                                    <div class="item wt-50" data-toggle="tooltip" title="Vagas">
+                                        <i class="fas fa-car"></i>
+                                        <div class="qtd">{{entry.QtdVaga}}</div>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if entry.AreaUtil %}
+                                    <div class="item wt-50" data-toggle="tooltip" title="Área">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-blazy="/img/svg/area.svg" class="tosvgdata">
+                                        <div class="qtd">{{entry.AreaUtil}} m²</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            {% if entry.ValorVenda %}
+                                <div class="valor px-1 d-flex text-left">
+                                    <div>
+                                    <small>R$ </small>{{ entry.ValorVenda|number_format(0, ',', '.') }}</strong></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+
+                    {% if loop.index is divisibleby(2) and entry|length > 5 %}
+                    </div> <!-- item duplo -->
+                    {% endif %}
+
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                            
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+
+        function link(link) {
+            debugger
+            window.location.href = link;
+        }
+
+        $(document).ready(function() {
+            var owl_home_vitrine = $("#owl-home-vitrine3");
+            
+            owl_home_vitrine.owlCarousel({
+                onInitialized : function(element){
+                    $('#home-vitrine-imoveis').removeClass('d-none');
+                    setTimeout(function(){
+                        imageToSvgData();
+                    }, 3000);
+                },     
+                loop: false,
+                margin: 20,
+                nav: true,
+                lazyLoad: true,
+                navText: ['<i class="fas fa-chevron-left"></i>','<i class="fas fa-chevron-right"></i>'],
+                items: 4,
+                responsive: {
+                    300:{
+                        items:1,
+                        // nav:true
+                        margin: 5
+                    },
+                    700:{
+                        items:2,
+                        // nav:true
+                    },
+                    1000:{
+                        items:3,
+                        // nav:true
+                    },
+                    1200:{
+                        items:4,
+                       
+                    },
+                    1400:{
+                        items:4,
+                      
+                    },
+                    1600:{
+                        items:4,
+                    
+                    }
+                }
+                
+            });
+        });
+    });
+</script>
+{% endif %}
+
+{% if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{% endif %}

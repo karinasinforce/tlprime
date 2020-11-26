@@ -1,0 +1,526 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+
+
+{% set HTMLHeaderTitle = '' %}
+{% if content.ID %}
+    {% if content.QtdQuarto %}{% set titleQtdQuarto = ' '~content.QtdQuarto ~ ' Quarto(s)' %}{% endif %}    
+    {% if content.ValorLocacao %}{% set titleFinalidade = ' para alugar' %}{% endif %}
+    {% if content.ValorTemporada %}{% set titleFinalidade = ' para temporada' %}{% endif %}
+    {% if content.ValorVenda %}{% set titleFinalidade = ' à venda' %}{% endif %}
+    {% set HTMLHeaderTitle = content.TipoNome ~ titleQtdQuarto ~ titleFinalidade ~ ', ' ~ content.BairroNome ~', '~ content.CidadeNome %}
+{% else %}
+
+    {% if (info_api.url_local.Finalidade)=='venda' %}
+        {% set titleFinalidade = ' Imóveis' %}
+    {% else %}
+        {% if info_api.url_local.Finalidade == 'lancamentos' %}
+            {% set titleFinalidade = ' Lançamentos' %}
+            {% set bg_header_title = '/img/headers/lista-emp.jpg' %}
+        {% else %}
+            {% set titleFinalidade = ' Imóveis' %}
+            {% set bg_header_title = '/img/headers/lista.jpg' %}
+        {% endif %}
+    {% endif %}
+
+    {% if (info_api.url_local.Finalidade)=='aluguel' %}
+        {% set titleFinalidade = titleFinalidade ~ ' para alugar, ' %}
+    {% else %}
+        {% set titleFinalidade = titleFinalidade ~ ' à venda, ' %}
+    {% endif %}
+
+    {% if (info_api.url_local.Finalidade)=='prontos' %}
+        {% set titleFinalidade = titleFinalidade ~ ' prontos, ' %}
+    {% else %}
+        {% set titleFinalidade = titleFinalidade ~ ' à venda, ' %}
+    {% endif %}
+
+    {% if localizacao %}
+        {% set titleFinalidade = titleFinalidade ~ localizacao %}
+    {% else %}
+        {% set titleFinalidade = "Imóveis para venda no Rio de Janeiro" %}
+    {% endif %}
+
+    {% set HTMLHeaderTitle = titleFinalidade %}
+{% endif %}
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+{% set html_header_description = "Os melhores imóveis no Rio de Janeiro" %}
+
+{% block content_header_title %}
+    <div class="">{{HTMLHeaderTitle}}</div>
+{% endblock %}
+
+{% block content_header_description %}
+    <div class="hide">Prontos</div>
+{% endblock %}
+
+{% if content.ID %}
+    {% set header_facebook_url = url_current() %}
+    {% set header_facebook_type = "website" %}
+    {% set header_facebook_title =  HTMLHeaderTitle %}
+    {% set header_facebook_desc = HTMLHeaderTitle %}
+    {% set header_facebook_img  = data.IMG_PATH ~ '/' ~ content.Imagens[0] ~ '.jpg?wm=5' %}
+{% endif %}
+
+
+
+{% block content_header_breadcrumb %}
+
+    {{data.breadcrumb|raw}} <li><a href='url_current()'>{{HTMLHeaderTitle|raw}}</a></li>
+
+{% endblock %}
+
+{% block content_share_bread %}
+    {% if content.ID %}
+        
+            <div class="social-share pull-right d-none d-lg-block">
+                <ul>
+                    <li>Compartilhar: </li>
+                    {# facebook #}
+                    <li>
+                        <a href="http://www.facebook.com/sharer/sharer.php?u={{url_current()|url_encode}}" target="_blank" class="share-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    {# twitter #}
+                    <li>
+                        <a href="http://twitter.com/share?url{{url_current()|url_encode}}/&text={{HTMLHeaderTitle}}&via={{APP_NAME}}" target="_blank" class="share-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?text=Olá, veja este imóvel {{content.Codigo}} {{ url_current()|replace({'+': '-'}) }}" target="_blank" class="share-btn whatsappp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        
+    {% endif %}
+{% endblock %}
+
+{% set actual_page = "page-prontos" %}
+{% set lightgal = "true" %}
+{% set slickslider = "true" %}
+
+{% block main_content %}
+        
+    {% if content.ID %}
+        <div class="d-md-none">
+            {% include ['custom.helpers.busca-avancada-lateral-new','core.helpers.busca-avancada-lateral-new'] %}
+        </div>
+    {% endif %}
+    
+    <div class="spark-screen">
+        <!-- MESSAGES -->
+        <div class="container">
+            <div class="row">
+                {% include ['custom.errors.mesages','core.errors.mesages'] %}
+            </div>
+        </div>
+
+
+        <!-- MAIN -->
+        {% if content.ID %}
+
+            <div class="container">
+                <!-- CONTENT DETAIL -->
+                {% include ['custom.layouts.prontos.interna','core.layouts.prontos.interna'] with {content: content, data:data} %}
+            </div>
+            <div class="container">
+                <div class="social-share d-block d-lg-none">
+                    <h5 class="text-center">Compartilhar</h5>
+                    <ul class="d-flex justify-content-center">
+                        {# facebook #}
+                        <li class="social-icon"><a href="http://www.facebook.com/sharer/sharer.php?u={{url_current()|url_encode}}" target="_blank" class="share-btn facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a></li>
+                        {# twitter #}
+                        <li class="social-icon"><a href="http://twitter.com/share?url{{url_current()|url_encode}}/&text={{HTMLHeaderTitle}}&via={{APP_NAME}}" target="_blank" class="share-btn twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a></li>
+                        {# whatsapp #}
+                       <li class="social-icon">
+                        <a href="https://api.whatsapp.com/send?text=Olá, veja este imóvel {{content.Codigo}} {{ url_current()|replace({'+': '-'}) }}" target="_blank" class="share-btn whatsappp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        
+        {% else %}
+
+            <div class="container mt-xl-4">
+                
+                <div class="row">
+                    <!-- BUSCA AVANCADA -->
+                    <div class="col-xl-3 col-12 px-0">
+                        {% include ['custom.helpers.busca-avancada-lateral-new','core.helpers.busca-avancada-lateral-new'] with { inputs: content.inputs, selectTipos: selectTipos } %}
+                    </div>
+                    
+                    
+                    <!-- CONTENT LIST -->
+                    <div class="col-xl-9 col-12 pl-xl-4">        
+                        <div class="row justify-content-between">
+                            <div id="content_finalidade_info" class="col-md-6 col-12 order-2 order-xl-1">
+                                <div class="menu_fin">
+                                    <a data-product="imovel" data-fin="venda" 
+                                        class="bt_finalidade active">Comprar</a>
+                                    <a data-product="imovel" data-fin="lancamentos" 
+                                        class="bt_finalidade" >Empreendimento</a>
+                                    <a data-product="aluguel" data-fin="aluguel" 
+                                        class="bt_finalidade" >Alugar</a>
+                                </div>
+                            </div>
+
+                            {# paginacao e grid-list #}
+                            <div class="resulto_top col-xl-5 col-12 order-1 order-xl-1">
+                                <!-- CONTROLS -->    
+                                <div class="controls">
+                                    <div class="row">
+                                        {# show busca avancada mobile #}
+                                        <div class="col-6 pl-3 pr-0 d-xl-none">
+                                            <button id="open_busca">
+                                                <i class="fas fa-filter"></i>
+                                                <span>Busca Avancada</span>
+                                            </button>
+                                        </div>
+
+                                        {# pagesize #}
+                                        <div class="col-sm-3 px-md-1 d-none d-xl-block">
+                                            <select class="search-param form-control" data-filtro="InputsPageSize" id='products-per-page'>
+                                                <option value="1" {{info_api.inputs.PageSize|default('') == 1 ? 'selected' : ''}}>1</option>
+                                                <option value="4" {{info_api.inputs.PageSize|default('') == 4 ? 'selected' : ''}}>4</option>
+                                                <option value="10" {{info_api.inputs.PageSize|default('selected') == 10 ? 'selected' : ''}}>10</option>
+                                                <option value="20" {{info_api.inputs.PageSize|default('') == 20 ? 'selected' : ''}}>20</option>
+                                                <option value="30" {{info_api.inputs.PageSize|default('') == 30 ? 'selected' : ''}}>30</option>
+                                            </select>
+                                        </div>
+
+                                        {# ordenar #}
+                                        <div class="col-6 px-md-1">
+                                            <select class="form-control search-param" data-filtro="InputsOrder" id="products-order" >
+                                                <option value="">Padrão</option>
+                                                <option value="Menor Valor" {{info_api.inputs.Order|default('') == 'Menor Valor' ? 'selected' : ''}}>Menor Valor</option>
+                                                <option value="Maior Valor" {{info_api.inputs.Order|default('') == 'Maior Valor' ? 'selected' : ''}}>Maior Valor</option>
+                                                <option value="Bairro A-Z" {{info_api.inputs.Order|default('') == 'Bairro A-Z' ? 'selected' : ''}}>Bairro A-Z</option>
+                                                <option value="Bairro Z-A" {{info_api.inputs.Order|default('') == 'Bairro Z-A' ? 'selected' : ''}}>Bairro Z-A</option>
+                                                <option value="Mais Quartos" {{info_api.inputs.Order|default('') == 'Mais Quartos' ? 'selected' : ''}}>Mais Quartos</option>
+                                                <option value="Menos Quartos" {{info_api.inputs.Order|default('') == 'Menos Quartos' ? 'selected' : ''}}>Menos Quartos</option>
+                                                <option value="Maior Área" {{info_api.inputs.Order|default('') == 'Maior Área' ? 'selected' : ''}}>Maior Área</option>
+                                                <option value="Menor Área" {{info_api.inputs.Order|default('') == 'Menor Área' ? 'selected' : ''}}>Menor Área</option>
+                                            </select>
+                                        </div>
+
+                                        {# grid-list #}
+                                        <div class="col-sm-3 px-1 d-none d-xl-block">
+                                            <div class="grid_list text-right">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="list active">
+                                                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="grid">
+                                                            <i class="fa fa-th-large" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 order-2 order-xl-1">
+                                <!-- TOTAL -->
+                                <div id="content_info_imv">
+                                    <div class="count-total">
+                                        <span class="pull-left">
+                                            <h2>
+                                                <span class="ttcount"></span> imóveis 
+                                                {% if info_api.url_local.Finalidade == 'aluguel' %}
+                                                    para locação
+                                                {% else %}
+                                                    à venda
+                                                {% endif %}
+                                            </h2>
+                                        </span>
+                                        <div class="tags_filtro">
+                                            {% for item in AutoSuggest %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="sugest" data-sugest-tag="{{item.Tag}}">
+                                                    {{item.Nome}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endfor %}
+
+                                            {% if info_api.inputs.Tipos %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="selectTipo">
+                                                    {{info_api.inputs.Tipos|capitalize}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if info_api.inputs.QtdQuarto %}
+                                                {% set num_quarto = info_api.inputs.QtdQuarto|split(';') %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="inputs" data-target="InputsQtdQuarto">
+                                                    {{num_quarto.0 == '4 ou mais' ? 4 : num_quarto.0 }} {{num_quarto.0 > 1 ? 'ou mais': ''}} 
+                                                    {{num_quarto.0 > 1 ? 'Quartos' : 'Quarto'}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if info_api.inputs.QtdBanheiro %}
+                                                {% set num_ban = info_api.inputs.QtdBanheiro|split(';') %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="inputs" data-target="InputsQtdBanheiro">
+                                                    {{num_ban.0 == '4 ou mais' ? 4 : num_ban.0 }} {{num_ban.0 > 1 ? 'ou mais': ''}} 
+                                                    {{num_ban.0 > 1 ? 'Banheiros' : 'Banheiro'}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if info_api.inputs.QtdVaga %}
+                                                {% set num_vaga = info_api.inputs.QtdVaga|split(';') %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="inputs" data-target="InputsQtdVaga">
+                                                    {{num_vaga.0 == '4 ou mais' ? 4 : num_vaga.0 }} {{num_vaga.0 > 1 ? 'ou mais': ''}} 
+                                                    {{num_vaga.0 > 1 ? 'Vagas' : 'Vaga'}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+                                            
+                                            {% if info_api.inputs.ValorMin > 0  %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="valmin">
+                                                    <small>a partir de R$ </small>{{info_api.inputs.ValorMin|number_format(2, ',', '.')}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+                                            
+                                            {% set default_value_max = 5000000 %}
+                                            {% if info_api.inputs.ValorMax != default_value_max and info_api.inputs.ValorMax != null %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="valmax" data-default-value="{{default_value_max}}">
+                                                    <small>até R$ </small>{{info_api.inputs.ValorMax|number_format(2, ',', '.')}} <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if info_api.inputs.AreaMin > 0 %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="areamin">
+                                                    <small>a partir de </small>{{info_api.inputs.AreaMin|number_format(0, '.', '.')}}m² <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+                                            
+                                            {% set default_area_max = 6000 %} 
+                                            {% if info_api.inputs.AreaMax != default_area_max and info_api.inputs.AreaMax != null %}
+                                                <a href="javascript:;" class="tag_filtro" data-tipo="areamax" data-default-value="{{default_area_max}}">
+                                                    <small>até </small>{{info_api.inputs.AreaMax|number_format(0, '.', '.')}}m² <i class="fas fa-times"></i>
+                                                </a>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {% include ['custom.layouts.prontos.lista','core.layouts.prontos.lista'] with {content: content} %}
+                    </div>
+                
+
+                    <!-- TOTAL -->
+                    <div class="col-xl-4 col-12 d-none d-xl-block count-total mb-xl-5">
+                        <p class="pull-left"><strong><span class="ttmin"></span> - <span class="ttmax"></span></strong> de <strong><span class="ttcount"></span></strong> imóveis encontrados</p>
+                    </div>
+
+                    <!-- PAGINACAO RODAPE -->
+                    <div class="col-xl-8 col-12 d-none d-xl-block mb-xl-5">               
+                        <div class="pagination-container float-right"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        {% endif %}
+
+        
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    
+    {% if content.ID %}
+        {% include ['custom.helpers.modal-interessado','core.helpers.modal-interessado'] %}
+    {% endif %}
+
+    <script src="/js/controller/busca-avancada.min.js?2" defer type="text/javascript"></script>
+    <script src="/js/controller/prontos.js" defer type="text/javascript"></script>
+    
+    <script src="/js/plugins/custom.list.js" defer></script>
+
+    <script src="/js/plugins/wNumb.js" defer></script>
+
+    <script src="/js/plugins/jquery.simplePagination.js" defer></script>
+    <link  href="/js/plugins/jquery.simplePagination.css" rel="stylesheet" type="text/css" />
+            
+    
+    <script>
+        /* PRONTOS */ 
+
+        function callPage(){
+            gAJAX = "abort";
+            setLoading("remove");
+            window.location.reload();
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            $( document ).ready(function() {
+
+                $('#products-order').niceSelect();
+                $('#products-per-page').niceSelect();
+
+                // seta as variaves globais
+                gAPI    = '{{ siteparam.https == "true" ? info_api.url_api|raw|default("")  : info_api.url_api|raw|default("") }}';
+                gAPIKEY = '{{info_api.url_apikey|raw}}';
+                gQS     = '{{info_api.query_string|raw}}';
+                gDATA   = null;
+                
+                gELEM   = $("#product-list");
+                
+                {% if not content.ID %}
+                    
+                    // seta as variaveis necessarias
+                    if (gQS==""){
+                        getParamSearch();
+                    }
+                    
+                    // inicializa a lista de prontos
+                    initProdutosLista(gAPI+gQS, gDATA, gELEM, function() {
+                        
+                        // $('ul.itens').each(function(index, el){
+                        //     var li = $(this).find('li');
+                        //     console.log(li.length);
+                        //     console.log(el);
+                        //     if (li.length <= 4) {
+                        //         $(el).find('li').css('width', '24%');
+                        //      }
+                        // });
+                    });
+                    //doSearch();
+                        
+                {% endif %}
+                
+                
+                if ( $('.grid_list').length > 0 ) {
+
+                    
+                    $('.grid_list a').click(function(event) {
+                        var item = $(this);
+
+                        $('.grid_list a').removeClass('active')
+                        item.addClass('active');
+
+                        if (item.hasClass('grid')) {
+
+                            if (!$('#product-list').hasClass('view_grid')) {
+                                $('.load_grid_list').show();
+                                setTimeout(function(){
+                                    $('.load_grid_list').fadeOut();
+                                },500);
+                            }
+
+                            $('#product-list').addClass('view_grid');
+
+                            $('.group-slides').addClass('col-md-12').removeClass('col-md-5');
+                            $('#product-list .content_row_product').addClass('col-lg-6').removeClass('col-lg-12');
+                            $('#product-list .group-info').addClass('col-lg-12').removeClass('col-lg-7');
+                            $('#product-list .group-slides').addClass('col-lg-12').removeClass('col-lg-5');
+                            $('#product-list .group-actions').addClass('col-lg-12').removeClass('col-lg-6');
+                            $('#product-list .valor-imovel.valor').addClass('col-lg-12').removeClass('col-lg-6');
+                            
+                            $(".product-list-container .slick-initialized").slick('unslick');
+                            $(".product-list-container .slides").slick({
+                                slidesToShow: 1, 
+                                slidesToScroll: 1,
+                                nextArrow: '<i class="fa fa-chevron-right"></i>',
+                                prevArrow: '<i class="fa fa-chevron-left"></i>',
+                                responsive: [
+                                  {
+                                    breakpoint: 600,
+                                    settings: {
+                                      slidesToShow: 1,
+                                      slidesToScroll: 1,
+                                      infinite: false,
+                                      dots: false
+                                    }
+                                  }                
+                                ]
+                            });
+                            
+
+                        } else {
+
+                            if ($('#product-list').hasClass('view_grid')) {
+
+                                $('.load_grid_list').show();
+                                setTimeout(function(){
+                                    $('.load_grid_list').fadeOut();
+                                },500);
+                            }
+
+                            $('#product-list').removeClass('view_grid');
+
+                            $('.group-slides').addClass('col-md-12').removeClass('col-md-5');
+                            $('#product-list .content_row_product').addClass('col-lg-12').removeClass('col-lg-6');
+                            $('#product-list .group-info').addClass('col-lg-7').removeClass('col-lg-12');
+                            $('#product-list .group-slides').addClass('col-lg-5').removeClass('col-lg-12');
+                            $('#product-list .group-actions').addClass('col-lg-6').removeClass('col-lg-12');
+                            $('#product-list .valor-imovel.valor').addClass('col-lg-6').removeClass('col-lg-12');
+
+                            $(".product-list-container .slick-initialized").slick('unslick');
+                            $(".product-list-container .slides").slick({
+                                slidesToShow: 1, 
+                                slidesToScroll: 1,
+                                nextArrow: '<i class="fa fa-chevron-right"></i>',
+                                prevArrow: '<i class="fa fa-chevron-left"></i>',
+                                responsive: [
+                                  {
+                                    breakpoint: 600,
+                                    settings: {
+                                      slidesToShow: 1,
+                                      slidesToScroll: 1,
+                                      infinite: false,
+                                      dots: false
+                                    }
+                                  }                
+                                ]
+                            });
+                            
+                        }
+
+                    });
+                }
+                
+            });
+        });
+
+
+
+    </script>
+    <style>
+    .bt_finalidade{
+        cursor:pointer;
+    }
+    </style>
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

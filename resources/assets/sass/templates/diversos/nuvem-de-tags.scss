@@ -1,0 +1,36 @@
+#nuvem_de_tags {
+	padding: 60px 0;
+
+	h3 {
+		text-align: center;
+		color: #096c39;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 26px;
+		margin-bottom: 25px;
+	}
+	
+	.tags {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	    flex-wrap: wrap;
+
+		a {
+			display: inline-block;
+			padding: 5px 15px;
+			border-radius: 50px;
+			border: 1px solid #ccc;
+			margin: 5px;
+			transition: all .3s;
+			text-align: center;
+
+			&:hover {
+				text-decoration: none;
+				background: #f1f1f1;
+				color: $color-base;
+			}
+		}
+	}
+
+}

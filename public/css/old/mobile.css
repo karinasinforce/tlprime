@@ -1,0 +1,992 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700|Open+Sans:400,400i,600,700,800);/* CSS Mobile */
+
+/*@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,900');
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400i');*/
+
+/* MOBILE */
+
+.mobile {
+  /* BASE */
+  /* CABECALHO / HEADER */
+  /* RODAPE / FOOTER */
+  /* CORPO / CONTENT / BODY */
+  /* BUSCA / SEARCH */
+  /* HOME */
+  /* LISTA DE PRODUTOS/IMOVEIS */
+  /* INTERNA DE VENDA/LOCACAO */
+  /* INTERNA DE LANCAMENTOS/EMPREENDIMENTOS */
+  /* BLOG */
+  /* CONTATO / FALE CONOSCO */
+  /* FAVORITOS */
+}
+
+.mobile .corpo {
+  margin: 0;
+}
+
+.mobile .spark-screen {
+  padding-top: 0px !important;
+}
+
+.mobile .full-loader {
+  opacity: 0.9;
+}
+
+.mobile .full-loader .loading {
+  top: 25%;
+  position: relative;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.mobile .full-loader .loading img {
+  height: 120px;
+}
+
+.mobile .content {
+  padding-top: 0;
+}
+
+.mobile header .pre-header {
+  padding: 10px 0;
+}
+
+.mobile header .pre-header .label-filial label {
+  padding: 3px 0 0px;
+}
+
+.mobile header .main-header .logo img,
+.mobile header .main-header .logo object {
+  margin-top: 0;
+  height: 30px;
+}
+
+.mobile header .main-header .navbar {
+  border: 0;
+}
+
+.mobile header .main-header .navbar-collapse {
+  border: 0;
+  display: none !important;
+  box-shadow: none;
+}
+
+.mobile header .main-header .navbar-collapse.collapsing {
+  display: block !important;
+}
+
+.mobile header .main-header .navbar-collapse.in {
+  display: block !important;
+}
+
+.mobile header .main-header .navbar-toggle {
+  display: block;
+}
+
+.mobile header .main-header .navbar-toggle.btn-menu {
+  float: left;
+}
+
+.mobile header .main-header .navbar-toggle.btn-search {
+  float: right;
+}
+
+.mobile .footer-main {
+  margin-top: 15px;
+}
+
+.mobile .footer-main .container {
+  padding: 15px;
+}
+
+.mobile .footer-main .f_logo img {
+  width: 100%;
+}
+
+.mobile .footer-sub {
+  padding: 15px 0;
+  text-align: center;
+  background: #262930;
+  color: #FFF;
+}
+
+.mobile .footer-sub .container {
+  opacity: 0.5;
+}
+
+.mobile .footer-sub .container a,
+.mobile .footer-sub .container a:hover {
+  color: #fff;
+}
+
+.mobile .content-wrapper .content-header breadcrumb .social-share {
+  position: relative;
+  right: 0;
+  top: 0;
+  text-align: right;
+  margin-top: 7px;
+  z-index: 99;
+  margin-right: 15px;
+}
+
+.mobile header .main-header .navbar-search-box {
+  padding: 10px 0 0;
+  border: 0;
+  overflow: hidden;
+  /*max-height: 330px;*/
+}
+
+.mobile header .main-header .navbar-search-box.overflow-search {
+  overflow: scroll;
+  max-height: initial;
+}
+
+.mobile header .main-header .navbar-search-box .search_box {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-top: 0;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search-top .produto-tipo {
+  margin-top: 15px;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search-top .search_select {
+  margin-top: 15px;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search-top .search_select .select2-search {
+  width: 100%;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search-top .search_select .select2-search .select2-search__field {
+  width: 100% !important;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search_Box1 {
+  margin-bottom: 10px;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search_bottm {
+  padding: 15px 0;
+}
+
+.mobile header .main-header .navbar-search-box .search_box .search .search_bottm .bt-buscar {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+.mobile header .main-header .navbar-search-box #toggle-busca-avancada {
+  background: none;
+  font-size: 12px;
+}
+
+.mobile header .main-header #busca-avancada-box {
+  display: block;
+}
+
+.mobile header .main-header #busca-avancada-box .expand_top .form-group {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.mobile header .main-header #busca-avancada-box .expand_top .valor,
+.mobile header .main-header #busca-avancada-box .expand_top .area {
+  text-align: left;
+}
+
+.mobile.page-home .banner .image-box {
+  height: 300px;
+}
+
+.mobile.page-home .banner .image-box .text-box {
+  bottom: 30px;
+  max-width: 290px;
+  padding: 15px 20px;
+}
+
+.mobile.page-home .banner .image-box .text-box h1 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.mobile.page-home .banner .image-box .text-box .subtitulo {
+  width: 100%;
+}
+
+.mobile.page-home .banner .carousel .image-box {
+  height: 200px;
+}
+
+.mobile.page-home .banner .carousel .image-box .text-box h1 {
+  font-size: 25px;
+  line-height: 25px;
+  margin-top: 15px;
+}
+
+.mobile.page-home .banner .carousel .image-box .text-box .subtitulo {
+  width: 100%;
+}
+
+.mobile.page-home .banner .carousel .carousel-indicators li {
+  width: 16px;
+  height: 16px;
+  margin: 0 5px;
+}
+
+.mobile.page-home .banner_Box {
+  background-size: cover !important;
+  height: 340px;
+}
+
+.mobile.page-home .banner_Box .banner_txt h1 {
+  font-size: 8vw;
+  margin: 64px 0 0 0;
+}
+
+.mobile.page-home .banner_Box .banner_txt .subtitulo {
+  width: 60%;
+}
+
+.mobile.page-home .corpo .vitrine {
+  padding: 10px 0;
+}
+
+.mobile.page-home #home-mosaico-imoveis {
+  padding: 10px 0;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm {
+  height: 300px;
+  padding-top: 25px;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt p.tipo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .nomeh5 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .valor {
+  font-size: 18px;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .preco {
+  height: 40px;
+  margin-top: 5px;
+  color: #FFF;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .preco .moeda {
+  font-size: 18px;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .preco .valor {
+  font-size: 24px;
+}
+
+.mobile.page-home #home-mosaico-imoveis .lancamentos_pic_colm .lancamentos_pic_txt .preco .milhar {
+  font-size: 18px;
+}
+
+.mobile.page-home .home-vitrine-imoveis {
+  margin: 0;
+}
+
+.mobile.page-home .home-vitrine-imoveis .owl-nav {
+  top: inherit;
+  bottom: 0;
+}
+
+.mobile.page-home .home-vitrine-imoveis .owl-nav .owl-prev {
+  margin-left: 0;
+}
+
+.mobile.page-home .home-vitrine-imoveis .owl-nav .owl-next {
+  margin-right: 0;
+}
+
+.mobile #a_imobiliaria_home {
+  padding-bottom: 15px;
+}
+
+.mobile #a_imobiliaria_home h3 {
+  font-size: 40px;
+}
+
+.mobile #a_imobiliaria_home .btn-default {
+  margin-bottom: 30px;
+}
+
+.mobile .product-list-container {
+  /*background: #f9f9f9;*/
+}
+
+.mobile .product-list-container .product-row {
+  background: #fff;
+}
+
+.mobile .product-list-container .product-row .slides {
+  /*margin-top: 15px;*/
+}
+
+.mobile .product-list-container .product-row .slides img {
+  height: 144px;
+}
+
+.mobile .product-list-container .product-row .slides .slick-arrow {
+  top: 33%;
+}
+
+.mobile .product-list-container .product-row .label-condominio {
+  left: 0px;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.mobile .product-list-container .product-row .group-info {
+  height: 280px;
+}
+
+.mobile .product-list-container .product-row .group-info a h2 {
+  font-size: 16px;
+}
+
+.mobile .product-list-container .product-row .group-info .sub-info {
+  min-height: 150px;
+}
+
+.mobile .product-list-container .product-row .group-info .sub-info .label-tipos {
+  width: 50%;
+}
+
+.mobile .product-list-container .product-row .group-info .valor-imovel {
+  width: 100%;
+  position: static;
+  margin: 0;
+  padding: 0 15px;
+  text-align: center;
+}
+
+.mobile .product-list-container .product-row .group-info .valor-lancamento {
+  top: -28px;
+  width: 100%;
+  height: 28px;
+  left: 0;
+}
+
+.mobile .product-list-container .product-row .group-info .group-actions {
+  width: 100%;
+  position: static;
+  margin: 5px 0 0;
+}
+
+.mobile .product-list-container .btn-mobile-veja-mais {
+  background: #096c39;
+  border: 0;
+  color: #FFF;
+  width: 100%;
+  border-radius: 4px;
+  padding: 15px 0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+.mobile .product-list-container .btn-mobile-veja-mais:active {
+  box-shadow: none;
+  transform: translate3d(1px, 1px, 0px);
+}
+
+.mobile .product-list-container .btn_box {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+}
+
+.mobile .product-list-container .btn_box-veja-mais {
+  margin-top: 15px;
+}
+
+.mobile.page-prontos .social-share {
+  width: 100%;
+  margin: 15px 0 0 0;
+}
+
+.mobile.page-prontos .social-share ul {
+  text-align: center;
+  padding: 0;
+}
+
+.mobile.page-prontos .social-share ul li {
+  display: inline-block;
+}
+
+.mobile.page-prontos .social-share ul li.social-label {
+  display: none;
+}
+
+.mobile.page-prontos .social-share ul li.social-icon {
+  font-size: 32px;
+  padding: 0 15px;
+}
+
+.mobile.page-prontos #product-content .row-box.basic-info h1 {
+  margin-bottom: 0;
+}
+
+.mobile.page-prontos #product-content .row-box.basic-info h1 .logradouro {
+  font-size: 24px;
+}
+
+.mobile.page-prontos #product-content .row-box.basic-info .regiao {
+  line-height: 22px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.mobile.page-prontos #product-content .row-box.video iframe {
+  width: 100%;
+  height: auto;
+}
+
+.mobile.page-prontos #product-content .row-box .item_info_mobile {
+  min-height: 45px;
+  width: 33%;
+  float: left;
+  padding: 5px 10px;
+  text-align: center;
+  line-height: 1.4;
+  border-right: 1px dotted #ccc;
+}
+
+.mobile.page-prontos #product-content .row-box .item_info_mobile i {
+  display: block;
+  padding: 10px;
+  font-size: 18px;
+  color: #096c39;
+}
+
+.mobile.page-prontos #product-content .row-box .item_info_mobile:nth-child(3),
+.mobile.page-prontos #product-content .row-box .item_info_mobile:nth-child(6) {
+  border-right: none;
+}
+
+.mobile.page-prontos #product-content .row-box .item_info_mobile:nth-child(1),
+.mobile.page-prontos #product-content .row-box .item_info_mobile:nth-child(2),
+.mobile.page-prontos #product-content .row-box .item_info_mobile:nth-child(3) {
+  border-bottom: 1px dotted #ccc;
+}
+
+.mobile.page-lancamentos .bg-lancamento {
+  height: 545px;
+}
+
+.mobile.page-lancamentos .social-share {
+  width: 100%;
+  margin: 15px 0 0 0;
+}
+
+.mobile.page-lancamentos .social-share ul {
+  text-align: center;
+  padding: 0;
+}
+
+.mobile.page-lancamentos .social-share ul li {
+  display: inline-block;
+}
+
+.mobile.page-lancamentos .social-share ul li.social-label {
+  display: none;
+}
+
+.mobile.page-lancamentos .social-share ul li.social-icon {
+  font-size: 32px;
+  padding: 0 15px;
+}
+
+.mobile.page-lancamentos #product-content .row-box.destaque {
+  height: 200px;
+}
+
+.mobile.page-lancamentos #product-content .row-box.video iframe,
+.mobile.page-lancamentos #product-content .row-box.topics iframe {
+  width: 100%;
+  height: auto;
+}
+
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile {
+  min-height: 45px;
+  width: 50%;
+  float: left;
+  padding: 5px 10px;
+  text-align: center;
+  line-height: 1.4;
+  border-right: 1px dotted #ccc;
+}
+
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile i {
+  display: block;
+  padding: 10px;
+  font-size: 18px;
+  color: #096c39;
+}
+
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile:nth-child(3),
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile:nth-child(6) {
+  border-right: none;
+}
+
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile:nth-child(4),
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile:nth-child(5),
+.mobile.page-lancamentos #product-content .row-box .item_info_mobile:nth-child(6) {
+  border-top: 1px dotted #ccc;
+}
+
+.mobile.page-blog .content-header .main_title {
+  padding: 30px 0;
+}
+
+.mobile.page-blog .content-header .main_title h1 {
+  font-size: 16px;
+}
+
+.mobile.page-blog .blog-list-container #blog-list {
+  padding-top: 50px;
+}
+
+.mobile.page-blog .blog-list-container #blog-list.content-list .blog-row button {
+  position: relative;
+  right: inherit;
+  bottom: inherit;
+  float: right;
+  margin-right: 15px;
+}
+
+.mobile.page-blog .blog-list-container #blog-list.content-list .blog-row .box-date .data-dia {
+  font-size: 40px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos {
+  padding: 0 15px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot {
+  height: 305px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot h3 {
+  font-size: 15px;
+  height: 32px;
+  padding: 0;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot .valor-label {
+  float: left;
+  display: inline;
+  font-size: 10px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot .valor-imovel {
+  float: right;
+  display: inline;
+  height: 26px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot .product-att {
+  height: 75px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .product_itemBxBot .product-att i.fa {
+  font-size: 15px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .owl-nav .owl-prev {
+  margin-left: -15px;
+}
+
+.mobile.page-favoritos #vitrine-favoritos .owl-nav .owl-next {
+  margin-right: -15px;
+}
+
+.mobile .busca_avancada_mobile {
+  width: 90%;
+  margin: 15px auto;
+  display: block;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-weight: 600;
+  color: #666;
+  padding: 8px 15px;
+  text-align: left;
+  position: relative;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.mobile .busca_avancada_mobile i {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 10px 15px;
+  color: #fff;
+  background: #096c39;
+}
+
+.mobile.no_scroll {
+  overflow-y: hidden;
+}
+
+.mobile #busca_fixa_mobile {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  right: -101%;
+  top: 0;
+  z-index: 999;
+  transition: all .3s;
+  overflow-y: scroll;
+}
+
+.mobile #busca_fixa_mobile.opened {
+  right: 0;
+}
+
+.mobile #busca_fixa_mobile h4 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.mobile #busca_fixa_mobile .search_select {
+  width: 100%;
+}
+
+.mobile #busca_fixa_mobile .search_box {
+  border-radius: 0;
+  position: relative;
+  color: #333;
+}
+
+.mobile #busca_fixa_mobile .search_box .search {
+  padding-top: 0;
+}
+
+.mobile #busca_fixa_mobile .search_box .search .search-top .control_back {
+  background: #fff;
+  padding: 20px 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.mobile #busca_fixa_mobile .search_box .search .search-top .control_back a {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mobile #busca_fixa_mobile .search_box .search .search-top .control_back a i {
+  margin-right: 15px;
+}
+
+.mobile #busca_fixa_mobile .search_box .search .search_Box1 {
+  margin-bottom: 15px;
+}
+
+.mobile #busca_fixa_mobile .search_box .search #busca-avancada-box {
+  display: block;
+}
+
+.mobile #busca_fixa_mobile .search_box .search #busca-avancada-box .expand_top .area,
+.mobile #busca_fixa_mobile .search_box .search #busca-avancada-box .expand_top .valor {
+  margin: 15px auto;
+}
+
+.mobile #busca_fixa_mobile .search_box .search #busca-avancada-box .expand_top .noUi-target {
+  margin-bottom: 15px;
+}
+
+.mobile #busca_fixa_mobile .search_box .search #busca-avancada-box .expand_top .input-sm {
+  width: 40%;
+}
+
+.mobile #busca_fixa_mobile #bt-busca-avancada {
+  float: none;
+  width: 90%;
+  margin: 5px auto 15px;
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@media (min-width: 310px) and (max-width: 650px) {
+  .mobile header {
+    height: 62px;
+  }
+
+  .mobile header .pre-header {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+
+  .mobile header .main-header {
+    position: absolute;
+    top: 0;
+    z-index: 101;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .mobile header .main-header nav.navbar {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
+  .mobile header .main-header .navbar-custom-menu {
+    margin-left: -5px;
+    margin-right: -5px;
+    padding: 0;
+    margin-top: 15px;
+    border-top: 1px dashed #595959;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav {
+    width: 100%;
+    margin: 0;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li {
+    width: 100%;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a,
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a:link,
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a:visited {
+    padding: 10px 15px 10px 30px;
+  }
+
+  .mobile #newsletter_home h2 {
+    margin-bottom: 10px;
+  }
+
+  .mobile .footer-main .menu_header,
+  .mobile .footer-main .social_area h4 {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .mobile .footer-main .ftr_menu a {
+    padding: 8px;
+    display: block;
+    text-align: center;
+    background: #096c39;
+    color: #FFF;
+    text-decoration: none;
+    border: 2px solid #FFF;
+  }
+
+  .mobile .footer-main .ftr_menu a:link,
+  .mobile .footer-main .ftr_menu a:hover,
+  .mobile .footer-main .ftr_menu a:active {
+    background: #0d9b52;
+  }
+
+  .mobile .footer-main .desk {
+    margin-top: 15px;
+  }
+
+  .mobile .footer-main .logo_footer {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .mobile .footer-main .box-endereco {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  #home-mosaico-imoveis h2 {
+    font-size: 20px;
+  }
+
+  #home-mosaico-imoveis .owl-nav {
+    position: absolute;
+    top: -62px;
+    width: 100%;
+  }
+
+  #home-mosaico-imoveis .owl-prev {
+    float: left;
+  }
+
+  #home-mosaico-imoveis .owl-next {
+    float: right;
+  }
+
+  #home-vitrine-imoveis .owl-nav,
+  #vitrine-ultimosacessados .owl-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 780px) {
+  .mobile header {
+    height: 53px;
+  }
+
+  .mobile header .pre-header {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+
+  .mobile header .main-header {
+    position: absolute;
+    top: 0;
+    z-index: 101;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .mobile header .main-header nav.navbar {
+    margin-top: 0;
+  }
+
+  .mobile header .main-header .navbar-custom-menu {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav {
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px dashed #595959;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li {
+    width: 100%;
+  }
+
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a,
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a:link,
+  .mobile header .main-header .navbar-custom-menu .navbar-nav > li a:visited {
+    padding: 10px 15px 10px 30px;
+  }
+
+  .mobile.page-home .banner .carousel .image-box {
+    height: 360px;
+  }
+
+  .mobile.page-home .banner .carousel .image-box .text-box h1 {
+    font-size: 35px;
+    margin-top: 75px;
+    line-height: 40px;
+  }
+
+  .mobile.page-prontos .product-list-container {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-top: 10px;
+  }
+
+  .mobile.page-prontos .product-list-container .product-row {
+    max-width: 345px;
+    margin: 15px;
+  }
+
+  .mobile.page-prontos .product-list-container .product-row .slides img {
+    height: 240px;
+  }
+
+  .mobile.page-prontos .product-list-container .btn-mobile-veja-mais {
+    font-size: 20px;
+    width: 96%;
+    margin: 0 15px;
+  }
+
+  .mobile.page-lancamentos #product-content .row-box.destaque {
+    height: 400px;
+  }
+
+  #home-mosaico-imoveis {
+    background: transparent;
+  }
+
+  #home-mosaico-imoveis h2 {
+    font-size: 26px;
+    text-transform: uppercase;
+  }
+
+  #home-mosaico-imoveis .lancamentos_pic_colm .nomeh5 {
+    height: 98px;
+  }
+
+  #home-mosaico-imoveis .lancamentos_pic_colm .consulte {
+    margin-bottom: 65px;
+    margin-top: 56px;
+  }
+
+  #home-mosaico-imoveis .owl-nav {
+    position: absolute;
+    top: -62px;
+    width: 100%;
+  }
+
+  #home-mosaico-imoveis .owl-prev {
+    float: left;
+  }
+
+  #home-mosaico-imoveis .owl-next {
+    float: right;
+  }
+
+  #home-vitrine-imoveis,
+  #vitrine-ultimosacessados {
+    margin-top: 40px;
+  }
+
+  #home-vitrine-imoveis .product_itemBxBot,
+  #vitrine-ultimosacessados .product_itemBxBot {
+    background: none;
+    height: initial;
+    padding-bottom: 28px;
+  }
+
+  #home-vitrine-imoveis h2,
+  #vitrine-ultimosacessados h2 {
+    font-size: 26px;
+    text-transform: uppercase;
+  }
+
+  #home-vitrine-imoveis .owl-nav,
+  #vitrine-ultimosacessados .owl-nav {
+    display: none;
+  }
+
+  footer .btn-brand {
+    margin-left: 25%;
+    width: 50%;
+  }
+}
+
+@media (max-width: 780px) {
+  .mobile .vitrine_interna {
+    padding: 10px;
+  }
+
+  .mobile .vitrine_interna .product_itemBxTop .vitrine-venda-img {
+    height: 200px;
+  }
+}

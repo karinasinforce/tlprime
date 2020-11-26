@@ -1,0 +1,71 @@
+<!-- Modal -->
+<div id="FormInteressado" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Quero receber um contato</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row" style="margin: 0!important;">
+                    <form class="form-contato-modal">
+                        {{ csrf_field() }}
+
+                        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}" data="false">
+                        
+                        <input type="hidden" name="LancamentoID" value="{{content.ID}}" data="true">
+                        <input type="hidden" name="Tag" value="contato/land-empreendimento">
+                        
+                        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}" data="false">
+                        <input type="hidden" name="id" value="{{content.ID}}" data="false" class="form-control">
+                        <input type="hidden" name="Origem" value="form-modal" data="values">
+                        <input type="hidden" name="Lancamento" value="{{content.Nome}}" data="values">
+                        
+                        <div class="formEnviar">
+                        
+                            <div class="form-group">
+                                {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                                <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+                            </div>
+                            <div class="form-group ">
+                                <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+                            </div>        
+                            <div class="form-group ">
+                                <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+                            </div>        
+                            <div class="form-group">
+                                <textarea name="Mensagem" class="form-control" placeholder="Mensagem"></textarea>
+                            </div>        
+                            <div class="form-group">
+                                
+                                {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                                <span class="contato-mss"></span>
+                                <label>
+                                    <input type="checkbox" name="FlagNewsletter" value="true" checked>
+                                    <span>Desejo receber novidades por e-mail</span>
+                                </label>
+                                {# o botao de submit precisa ter a classe 'form-submit' #}
+                                <button class="btn form-control form-submit" value="ok">Enviar</button>
+                                
+                            </div>
+                        </div>
+
+                        <div class="formResposta">
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            <h2><strong>Mensagem enviada,</strong> breve entraremos em contato.</h2>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

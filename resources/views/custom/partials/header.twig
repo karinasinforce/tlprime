@@ -1,0 +1,162 @@
+<!-- Main Header -->
+<header>
+    <div class="main-header">
+        <div id="headerBar">
+            <nav class="navbar navbar-expand-xl">
+                <div class="container d-flex justify-content-start">
+                    
+                    <div class="content-links d-flex">
+                        <button class="navbar-toggler d-xl-none" type="button" data-target="#navbarNavDropdown" aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <a class="navbar-brand" href="/">
+                        <img alt="{{APP_NAME}}" src="/img/logo.png" class="">
+                    </a>
+                    
+                    <div class="overlay_menu d-xl-none" data-target="#navbarNavDropdown"></div>
+
+                    <div class="menu_site navbar-collapse ml-xl-auto" id="navbarNavDropdown">
+                        <header class="d-xl-none">
+                            <img alt="{{APP_NAME}}" src="/img/logo.png" class="">
+                            <button type="button" class="close_mobile" data-target="#navbarNavDropdown">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </header>
+                        <ul class="navbar-nav">
+                            {% include ['custom.partials.menu-main','core.partials.menu-main'] %}
+
+                            <li class="d-xl-none contact_item">
+                            <a target="_blank" href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, estou no site {{url().current()}} e gostaria de mais informações..." class="nav-link">
+                                <span class="icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </span>
+                                <span class="text">
+                                    <strong>Whatsapp</strong>
+                                    <span class="strong">{{siteparam.telefones.whatsapp}}</span>
+                                </span>
+                            </a>
+                            </li>
+
+                            <li class="social d-xl-none ">
+                            <ul class="justify-content-start">
+                                {% if siteparam.facebook_url %}
+                                    <li class="px-2">
+                                        <a href="{{siteparam.facebook_url}}" target="_blank">
+                                            <i class="fab fa-facebook-square"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if siteparam.instagram_url %}
+                                    <li class="px-2">
+                                        <a href="{{siteparam.instagram_url}}" target="_blank">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if siteparam.linkedin_url %}
+                                    <li>
+                                        <a href="{{siteparam.linkedin_url}}" target="_blank">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if siteparam.twitter_url %}
+                                    <li>
+                                        <a href="{{siteparam.twitter_url}}" target="_blank">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if siteparam.youtube_url %}
+                                    <li>
+                                        <a href="{{siteparam.youtube_url}}" target="_blank">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>        
+        </div>
+    </div>
+    
+    {% if actual_page == 'page-home' or actual_page == 'page-prontos' or actual_page == 'page-lancamentos' %}
+        <style>
+
+            .mobile-search-button {
+                display: flex;
+                width: 85%;
+                margin: 5% auto;
+                padding: 12px 45px 12px 35px;
+                align-items: center;
+                justify-content: flex-start;
+                box-shadow: 0px 1px 4px -1px #c0c0c0;
+                border-radius: 10px;
+                position: relative;
+                
+            }
+
+            .mobile-search-button::before {
+                content: '\f3c5';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                width: auto;
+                height: auto;
+                position: absolute;
+                left: 15px;
+                font-size: 14px;
+            }
+
+            .mobile-search-button::after {
+                content: '\f002';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                width: 15%;
+                height: 100%;
+                position: absolute;
+                right: 0px;
+                background: #096C39;
+                border-radius: 0px 10px 10px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #FFFFFF;
+            }
+
+            .mobile-search-button .mobile-search-button__text {
+                margin: 0;
+                font-size: 13px;
+                color: #a1a1a1;
+                font-weight: 500;
+            }
+
+            #headerBar .container-top {
+                width: 85%;
+                justify-content: space-evenly;
+            }
+            
+            @media (max-width: 992px) {
+                #headerBar nav.navbar {
+                    background: #000;
+                }
+
+                #headerBar .container-top {
+                    width: 100%;
+                    justify-content: space-between;
+                }
+            }
+            
+        </style>
+
+        <div class="mobile-search-button d-lg-none" id="open_busca">
+            <p class="mobile-search-button__text">Digite o código cidade ou bairro</p>
+        </div>
+    {% endif %}
+</header>

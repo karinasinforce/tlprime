@@ -1,0 +1,218 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content is not null %}
+
+<div class="vitrine home-vitrine-imoveis bg_gray">
+    <div class="container">
+            <h2>Imóveis Prontos</h2>
+            <div class="product_item_sec row mx-0">
+                    
+                <div class="col-sm-12 px-0 px-md-3">
+                    <div id="owl-home-vitrine" class="owl-carousel">
+                        {% for entry in content.Itens %}
+                            
+                            {#
+                            {% if loop.index == 1 or loop.index0 is divisibleby(2) %}
+                            <div class="item"> <!-- item duplo -->
+                            {% endif %}
+                            #}
+                    
+                            {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg" %}
+                            {% if entry.UrlTrack %}
+                                {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                            {% else %}
+                                {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                            {% endif %}
+                    
+                            <div class="product_itemBx mb-4 item-id-{{entry.ID}}"><!-- item unico -->
+                                
+                                <div class="product_itemBxTop">
+                                    <a class="vit_link_foto" href="{{product_url}}">
+                                        <div class="pdct_pic">                                    
+                                            <!-- <div class="vitrine-venda-img" style="background-image: url('{{entry.ImageUrl}}?wm=0');"> -->
+                                            <div class="vitrine-venda-img owl-lazy" data-src="{{entry.ImageUrl}}?wm=0">
+                                                <div class="hover_img"></div>
+                                            </div>
+                                        </div>
+                                        <span class="cod_imv statustag"><i class="fas fa-map-marker-alt"></i> {{ entry.BairroNome }}</span>
+                                        {% if entry.EmpreendimentoNome %}
+                                            <div class="condominio_nome">Emp: {{ entry.EmpreendimentoNome }}</div>
+                                        {% endif %}
+                                    </a>                                        
+                                </div>
+                                                
+                                <div class="product_itemBxBot">
+                                    <h3 class="text-center">
+                                        
+                                    {% if entry.TipoNome or entry.QtdQuarto %}
+                                            {% if entry.TipoNome %}
+                                                {{ entry.TipoNome }}
+                                            {% endif %}
+                                    
+                                            {% if entry.TipoNome and entry.ValorVenda or entry.TipoNome and entry.ValorLocacao %}
+                                                para
+                                            {% endif %}
+                                    
+                                            {% if entry.ValorVenda %}
+                                                venda
+                                            {% elseif entry.ValorLocacao %}
+                                                locação
+                                            {% endif %}
+                                    
+                                            {% if entry.QtdQuarto %}
+                                                com {{ entry.QtdQuarto }}
+                                                {{ entry.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                            {% endif %}
+                                    
+                                            {% if entry.QtdSuite %}sendo {{ entry.QtdSuite }} {{ entry.QtdSuite > 1 ? 'Suites' : 'Suíte' }}{% endif %}
+                                    {% endif %}
+                                    </h3>
+                                    
+                                    <div class="content_imv_caract row mx-0">
+                                        {% if entry.AreaUtil %}
+                                            <div class="col-3 item px-1">
+                                                <div class="icon text-center">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-blazy="/img/svg/area.svg" class="tosvgdata">
+                                                </div>
+                                                <div class="qtd">
+                                                    {{entry.AreaUtil}}<small>m<sup>2</sup></small>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if entry.QtdVaga %}
+                                            <div class="col-3 item px-1">
+                                                <div class="icon text-center">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-blazy="/img/svg/vagas.svg" class="tosvgdata">
+                                                </div>
+                                                <div class="qtd">
+                                                    {{entry.QtdVaga}}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if entry.QtdQuarto %}
+                                            <div class="col-3 item px-1">
+                                                <div class="icon text-center">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-blazy="/img/svg/quartos.svg" class="tosvgdata">
+                                                </div>
+                                                <div class="qtd">
+                                                    {{entry.QtdQuarto}}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if entry.QtdWcTotal %}
+                                            <div class="col-3 item px-1">
+                                                <div class="icon text-center">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-blazy="/img/svg/banheiros.svg" class="tosvgdata">
+                                                </div>
+                                                <div class="qtd">
+                                                    {{entry.QtdWcTotal}}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+
+                                    {% set Preco = entry.Valor %}
+                
+                                    {% if entry.ValorLocacao %}
+                                        {% set Preco = entry.ValorLocacao %}
+                                    {% elseif entry.ValorVenda %}
+                                        {% set Preco = entry.ValorVenda %}
+                                    {% endif %}
+                
+                                    {% if Preco %}
+                                        <div class="valor">
+                                            <span><small>R$</small> <strong>{{ Preco|number_format(0, ',', '.') }}</strong></span>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="text-center wrapper_btn_more">
+                                        <a class="bt-saibamais" href="{{product_url}}">Quero conhecer</a>
+                                    </div>
+                                    
+                                    
+                                </div>
+                    
+                            </div>
+                    
+                            {#
+                            {% if loop.index is divisibleby(2) %}
+                            </div> <!-- item duplo -->
+                            {% endif %}
+                            #}
+                    
+                        {% endfor %}
+                    </div> 
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+                            
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            var owl_home_vitrine = $("#owl-home-vitrine");
+            
+            owl_home_vitrine.owlCarousel({
+                // onInitialize : function(element){
+                //     vit_bLazy.revalidate();
+                // },            
+                onInitialized : function(element){
+                    setTimeout(function(){
+                        imageToSvgData();
+                    }, 4000);
+                },            
+                loop: true,
+                margin: 10,
+                // nav: false,
+                lazyLoad: true,
+                navText: ['<i class="fa fa-angle-left">','<i class="fa fa-angle-right">'],
+                items: 4,
+                responsive: {
+                    300:{
+                        items:1,
+                    },
+                    700:{
+                        items:2,
+                    },
+                    1000:{
+                        items:3,
+                    },
+                    1200:{
+                        items:4,
+                    },
+                    1400:{
+                        items:4,
+                    },
+                    1600:{
+                        items:4,
+                    }
+                }
+                
+            });
+        });
+    });
+</script>
+{% endif %}
+
+{% if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{% endif %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

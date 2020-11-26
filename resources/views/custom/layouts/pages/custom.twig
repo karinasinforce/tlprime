@@ -1,0 +1,70 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}{{content.Nome}}{% endblock %}
+
+{% block content_header_title %}
+                <div class="">{{content.Nome}}</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">{{content.Nome}}</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                <li>{{content.Nome}}</li>
+{% endblock %}
+
+{% set bg_header_title = content.HeaderID  %}
+
+{% set actual_page = 'pag_interna dinamic_page ' ~ content.UrlAmigavel %}
+
+{% block main_content %}
+    
+    <!-- CONTENT -->                                            
+    <div class="spark-screen">
+        
+        <div class="container">
+            
+            <div class="row">
+                {% if content %}
+                <div class="col-md-12 box-{{content.UrlAmigavel}} box-page-custom">
+                    <h2>{{content.Titulo}}</h2>
+                    <section class="corpo">{{content.Corpo|raw}}</section>
+                </div>
+                {% else %}
+                <div class="col-md-12 text-center box-{{content.UrlAmigavel}}">
+                    <!-- <img src="theme/images/img_erro_imovel.jpg" class="img-responsive" alt=""> -->
+                    <h2>Ops! <strong>Não achamos o conteúdo que você tentou acessar.</strong></h2>
+                    <p>O conteúdo que você tentou acessar não existe ou ocorreu algum erro no nosso site. Mande um
+                        <a href="/contato/fale-conosco/">e-mail</a> para nossa equipe relatando o problema. Obrigado!
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+                
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{#
+    <!-- EXTRA JS -->
+    <script src="{{ asset('/js/controller/newsletter.js') }}" type="text/javascript"></script> 
+#}
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

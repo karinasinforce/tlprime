@@ -1,0 +1,41 @@
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Fale Conosco{% endblock %}
+
+{% block content_header_breadcrumb %}
+    {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% block content_header_title %}
+    <span>{{data.Titulo|raw}}</span>
+{% endblock %}
+
+{% block content_header_description %}
+    <span class="hide">Teste</span>
+{% endblock %}
+
+
+
+{% set actual_page = "page-teste" %}
+
+{% block main_content %}
+
+    <!-- CONTENT -->
+    <div class="spark-screen">
+
+        <div class="container">
+
+        <p>Página de teste inforce</p>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="//chat.inforce2.com.br/livechat/php/app.php?widget-init.js"></script>
+
+{% endblock %}
+

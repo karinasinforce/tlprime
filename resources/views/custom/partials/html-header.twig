@@ -1,0 +1,87 @@
+<head>
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="57x57" href="/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+<link rel="manifest" href="/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="API_PATH" id="API_PATH" data-path="{{ API_PATH }}"/>
+    <title>{{ html_header_title|raw }} | {{ APP_NAME }}</title>    
+
+    {# **SEO - Cache do navegador (86400 = 60s x 60m x 24h) #}
+    <meta http-equiv="Cache-Control" content="max-age=86400, public"/>
+
+    {# facebook og #}
+    {% if content.ID %}
+        {%if header_facebook_url  %}<meta property="og:url"         content="{{header_facebook_url}}" />{%endif%}
+        {%if header_facebook_type %}<meta property="og:type"        content="website" />{%endif%}
+        {%if header_facebook_title%}<meta property="og:title"       content="{{HTMLHeaderTitle}}" />{%endif%}
+        {%if header_facebook_desc %}<meta property="og:description" content="{{content.TipoNome}}{% if content.QtdQuarto %} com {{content.QtdQuarto|join(',')}} quarto(s){% endif %}{% if content.ValorVenda %} para venda{% endif %}{% if content.AreaTotal %}, {{content.AreaTotal}} m²{% endif %}" />{% endif %}
+        {%if header_facebook_img  %}<meta property="og:image" content="{{header_facebook_img}}" />{%endif%}
+    {% else %}
+        <meta property="og:url"         content="{{url_current()}}" />
+        <meta property="og:type"        content="website" />
+        <meta property="og:title"       content="{{html_header_title}}" />
+        <meta property="og:description" content="{{html_header_description|default('Imóveis para venda e locação')}}" />
+        <meta property="og:image" content="{{asset('/img/facebook-share.png')}}" />
+    {% endif %}
+    {# facebook og #}
+    
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    
+    <meta name="description" content="{{ html_header_description|raw|default( APP_NAME ~ " Imóveis para venda e locação") }}"/>
+    <meta name="keywords" content="{{ html_header_description|raw|default("Imóveis para venda e locação.") }}"/>
+    
+    {# Bootstrap 3.3.7 CSS #}
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+
+    {# Font Awesome Icons CSS #}
+    {#<link href="/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" />#}
+
+    {# Light Slider #}
+    <link href="/js/plugins/lightSlider/dist/css/lightslider.min.css" rel="stylesheet">
+
+    <link href="/js/plugins/jquery.nice-select.min.css" rel="stylesheet">
+    <link href="/js/plugins/toggle-switch.css" rel="stylesheet">
+    
+    {# BASE/Custom CSS #}
+    <link href="/css/base.css?7" rel="stylesheet" type="text/css" />
+
+   
+
+    <!-- jQuery 2.2.4 JS -->
+    <script src="/js/jquery-3.3.1.min.js" defer crossorigin="anonymous"></script>
+    
+    
+    {% if siteparam.googleanalytics %}
+        <script>
+            var _gacode = '{{siteparam.googleanalytics}}';
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', _gacode, 'auto');
+            ga('send', 'pageview');
+
+        </script>        
+    {% endif %}    
+</head>

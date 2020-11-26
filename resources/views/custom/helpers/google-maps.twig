@@ -1,0 +1,109 @@
+
+<!-- END CONTENT -->
+
+<style type="text/css">
+
+    .maps {
+        position: relative; 
+    }
+    #{{element|default('map_canvas')}} {
+        width: 100%;
+        height: 350px;
+        margin-top: 5%;
+        background-image: url('/img/maps_base_small_1.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #{{element|default('map_canvas')}}.blur {
+        filter: blur(0.8px);
+        -webkit-filter: blur(0.8px);
+    }
+    #{{element|default('map_canvas')}} .titulo {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+        color: #07406a;
+    }
+    #{{element|default('map_canvas')}} p {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .container_button_map {
+        position: absolute; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        top: 0px;
+        width: 100%; 
+        height: 100%;
+        cursor: pointer; 
+    }
+</style>
+
+
+<script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', function() {
+        (function($) {
+            $(document).ready(function(){
+                var activateMap = (function() {
+                    
+                    try{
+                        var latitude = "{{latitude}}";
+                        var longitude = "{{longitude}}"; 
+
+                        if (latitude && longitude) {
+                            loadMap(latitude, longitude);
+                        } else {
+                            var geocoder = new google.maps.Geocoder();
+                            geocoder.geocode( {'address':address}, function(results) {
+                                latitude =  latitude + results[0].geometry.location.lat();
+                                longitude = longitude + results[0].geometry.location.lng();
+                                loadMap(latitude, longitude);
+                            });
+                        }
+                    }catch(err){
+                        console.log(err.message);
+                    }
+                    
+                });
+
+                function loadMap(latitude, longitude) {
+
+                    var latlng = new google.maps.LatLng(latitude, longitude);
+                    var myOptions = {
+                        zoom: 14,
+                        center: latlng,
+                        scrollwheel: false,
+                        draggable: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    var map = new google.maps.Map(document.getElementById("{{element|default('map_canvas')}}"), myOptions);
+
+                    new google.maps.Circle({
+                        strokeColor: '{{cor}}',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '{{cor}}',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: latlng,
+                        radius: 500
+                    });
+                }
+
+                $('#activate-map').click(function() {
+                    activateMap();
+                    $('.container_button_map').hide();
+                    $('#map_canvas').removeClass('blur');
+                });
+                    
+            });
+        })(jQuery);
+    });
+</script>
+

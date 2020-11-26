@@ -1,0 +1,282 @@
+
+<div class="vitrine" id="vitrine-ultimosacessados">
+    <div class="container">
+        <div class="product_item_sec">
+            <div class="row">
+
+            
+            <div class="col-sm-12">         
+                <h2 class="mb-4">Últimos Acessados</h2>
+                {#<p class="subtitulo"></p>#}
+            </div>
+        
+
+        
+            <div class="col-sm-12">
+                <div id="owl-vitrine-ultimosacessados" class="owl-carousel">                    
+                </div>  
+            </div>
+        
+
+        {% verbatim %}                        
+            <script id="handlebars-ultimosacessados" type="text/x-handlebars-template" class="hide">
+
+                {{#each items}}                        
+                    {{#if Tipo }}                
+
+                        <div class="product_itemBx"><!-- item unico -->            
+
+                            <div class="product_itemBxTop">
+                                <a class="vit_link_foto" href="/imovel/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}">
+                                    <div class="pdct_pic">
+                                        <div class="vitrine-venda-img" style="
+                                            width: 100%;
+                                            height: 300px;
+                                            background: url({%endverbatim%}{{IMG_PATH}}{%verbatim%}/thumb/{{Imagens.[0]}}.jpg) no-repeat center center;
+                                            background-size: cover;">
+                                                <div class="hover_img">
+                                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="product_itemBxBot">
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <div class="nomeh4">{{TipoNome}}</div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <h3>{{BairroNome}}</h3>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <div class="nomeh4">{{CidadeNome}} - {{EstadoSigla}}</div>
+                                </div>
+
+                                <div class="text-center wrapper_btn_more">
+                                    <a class="bt-saibamais" href="/lancamento/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}">Saiba mais</a>
+                                </div>
+
+                            </div>                    
+                        </div>
+        
+                    {{ else }}
+                        <div class="product_itemBx item-id-{{ID}}"><!-- item unico -->
+                            
+                            {% endverbatim %}{% if siteparam.userfavoritos == 1 %}{% verbatim %}
+                            {{#if Tipo}}<!-- FAVORITOS DESABILITADOS PARA EMPREENDIMENTOS -->{{else}}
+                            <div class="icon-favoritos">
+                                <a class="btn-favoritos" onclick="addFav({{ID}})">
+                                    <span>Adicionar aos Favoritos</span>
+                                    <i class="fa fa-heart heart-{{ID}}"></i>
+                                    <i class="fa fa-heart animated heart-{{ID}}"></i></a>
+                            </div>
+                            <input type="text" class="hide produto-favorito prod-id-{{ID}}" value='{"ID":"{{ID}}", 
+                                "ValorVenda":"{{ValorVenda}}", "ValorLocacao":"{{ValorLocacao}}", 
+                                "BairroNome":"{{BairroNome}}", "ImagemDestaque":"{%endverbatim%}{{IMG_PATH}}{%verbatim%}/thumb/{{Imagens.[0]}}.jpg", 
+                                "TipoNome":"{{TipoNome}}", "AreaUtil":"{{AreaUtil}}", "QtdSuite":"{{QtdSuite}}", 
+                                "QtdQuarto":"{{QtdQuarto}}", "QtdWcTotal":"{{QtdWcTotal}}", "QtdVaga":"{{QtdVaga}}" }'>
+                            {{/if}}
+                            {% endverbatim %}{% endif %}{% verbatim %}    
+                                                            
+                            <div class="product_itemBxTop">
+                                <a class="vit_link_foto" href="/imovel/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}">
+                                    <div class="pdct_pic">
+                                        <div class="vitrine-venda-img" style="
+                                            width: 100%;
+                                            height: 300px;
+                                            background: url({%endverbatim%}{{IMG_PATH}}{%verbatim%}/thumb/{{Imagens.[0]}}.jpg) no-repeat center center;
+                                            background-size: cover;">
+                                                <div class="hover_img">
+                                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="product_itemBxBot">
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <div class="nomeh4">{{TipoNome}}</div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <h3>{{BairroNome}}</h3>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 text-center">
+                                    <div class="nomeh4">{{CidadeNome}} - {{EstadoSigla}}</div>
+                                </div>
+
+                                <div class="text-center wrapper_btn_more">
+                                    <a class="bt-saibamais" href="/imovel/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}">Saiba mais</a>
+                                </div>
+
+                            </div>                    
+                        </div>
+                    {{/if}}                
+                    
+                {{/each}}
+
+            </script>
+        {% endverbatim %}            
+        
+        <!-- SEM RESULTADOS -->
+        <div class="message-box">
+            <div class="conteudo-carregando text-center">
+                <h3>Carregando...</h3>
+            </div>
+            <div class="conteudo-nao-encontrado hide">
+                {% include ['custom.errors.conteudo-nao-encontrado','core.errors.conteudo-nao-encontrado'] %}
+            </div>
+            <div class="acesso-nao-autorizado hide">
+                {% include ['custom.errors.acesso-nao-autorizado','core.errors.acesso-nao-autorizado'] %}
+            </div>
+            <div class="nenhum-encontrado hide">
+                {% include ['custom.errors.nenhum-encontrado','core.errors.nenhum-encontrado'] %}
+            </div>
+            <div class="erro-servidor hide">
+                {% include ['custom.errors.erro-servidor','core.errors.erro-servidor'] %}
+            </div>
+        </div>
+            
+    </div>
+        </div>
+    </div>
+</div>
+                            
+
+<script>
+    
+    $(document).ready(function() {
+        var visitados           = [];
+        var ultimos             = "'0'";
+    
+        var owl_home_vitrine    = $("#owl-vitrine-ultimosacessados");        
+        var API                 = "{{API_PATH}}/{{API_KEY}}/Anuncio";
+
+        var ProductsID          = ""; //"['211','266','269']";
+
+        // verifica os ultimos acessados
+        var guest = getCookie('guest');
+        if(guest){ 
+            guest = JSON.parse(guest)            
+            var visitados = guest.visitados;    
+        }
+
+        console.log('visitados', visitados);
+        
+        if(visitados.length < 4){
+            $("#vitrine-ultimosacessados").remove();
+			return false;
+        }
+
+        // roda entre os ultimos acessados para formatar a string exigida pela API
+        $.each(visitados, function( index, value ){
+            ultimos = ultimos + ",'" + value.ID + "'";
+        })
+        ProductsID = "[" + ultimos + "]";
+           
+        // se não retornar nenhum produto, esconde todo a vitrine
+        if(ProductsID=="[]"){
+            $("#vitrine-ultimosacessados").remove();
+            return false;
+        }
+        
+        // faz a busca pelos ultimos produtos acessados 
+        if(gAJAX=="abort"){ return false };
+
+        gAJAX = $.ajax({
+            method: "GET",
+            url:    API,
+            data:   { ID : ProductsID },
+            cache:  true,
+            statusCode: {
+                401: function() {
+                    pageListMessages(401);
+                },
+                404: function() {
+                    pageListMessages(404);
+                },
+                500: function() {
+                    pageListMessages(500);
+                },
+                undefined: function() {
+                    pageListMessages(null);
+                }
+            }
+        })
+        .done(function( json ) {
+            
+            $(".conteudo-carregando").hide();
+            
+            var source      = $("#handlebars-ultimosacessados").html();
+            var template    = Handlebars.compile(source);
+            var html        = template(json);
+
+            // atualiza a lista
+            owl_home_vitrine.html(html);                                           
+            
+            // inicializa o carrossel
+            owl_home_vitrine.owlCarousel({
+                onInitialize : function(element){
+                    owl_home_vitrine.children().sort(function(){
+                        return Math.round(Math.random()) - 0.5;
+                    }).each(function(){
+                        $(this).appendTo(owl_home_vitrine);
+                    });
+                },        
+                onInitialized : function(element){
+                {% if siteparam.userfavoritos == 1 %}   
+                    $.each(gFAVS, function( i, item ) {
+                        if( (item) && (item.ID) ){
+                            $(".item-id-"+item.ID+" .icon-favoritos .btn-favoritos").addClass("favoritado");
+                            flyHeart(item.ID);
+                        }
+                    });                           
+                {% endif %}
+                },
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left">','<i class="fa fa-angle-right">'],
+                items: 3,
+                responsive: {
+                    300:{
+                        items:1,
+                        nav:true
+                    },
+                    700:{
+                        items:2,
+                        nav:true
+                    },                    
+                    1000:{
+                        items:3,
+                        nav:true
+                    },
+                    1200:{
+                        items:3,
+                        nav:true
+                    },
+                    1400:{
+                        items:3,
+                        nav:true
+                    },
+                    1600:{
+                        items:3,
+                        nav:true
+                    }
+                }
+
+            });        
+    
+        });        
+
+    });
+</script>
+
+

@@ -1,0 +1,152 @@
+
+{% set class_mobile = '' %}{% if data.isMobile %} {% set class_mobile = 'mobile' %} {% endif %}
+
+<style>
+    .load_slider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        color: #f47320;
+        font-size: 28px;
+        z-index: 999999;
+        transition: none;
+    }
+</style>
+
+{% if content.Itens %}
+    <div class="load_slider">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+    </div>
+{% endif %}
+<div class="banner">
+
+    {% if content.Itens %}
+
+   {# <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for key, item in content.Itens %}
+            <li data-target="#carousel-example-generic" data-slide-to="{{key}}" class="active"></li>
+            {% endfor %}    
+        </ol>
+        <!-- Wrapper for slides -->
+        
+        <div class="carousel-inner" role="listbox">
+        {% for key, item in content.Itens %}
+
+            {% if data.APP_DEBUG == TRUE %}
+                {% set image_url = '' %}
+            {% else %}
+                {% set image_url = data.IMG_PATH . item.Arquivo %}
+            {% endif %}
+
+            {% set image_url = item.Url %}
+        
+            <div class="item {{key == 0 ? 'active' : ''}}">
+                {% if item.Link %}<a href="{{item.Link}}" title="{{item.Titulo}}">{%endif%}
+                <div class="image-box {{class_mobile}}" style="background: url({{image_url}}) no-repeat center center; background-size: cover;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-box">
+                                    <h1>{{item.Titulo|convert_encoding('UTF-8','iso-8859-1')}}</h1>
+                                    <h1>{{item.Titulo|default('')}}</h1> 
+                                    <div class="subtitulo">{{item.SubTitulo|default('')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if item.Link %}</a>{%endif%}
+            </div>
+        {% endfor %}    
+        </div>
+    </div>#}
+
+    <div id="content-slider">
+            <ul id="slider_home">
+
+                {% for key, item in content.Itens %}
+
+                    {% if data.APP_DEBUG == TRUE %}
+                        {% set image_url = '' %}
+                    {% else %}
+                        {% set image_url = data.IMG_PATH . item.Arquivo %}
+                    {% endif %}
+
+                    {% set image_url = item.Url %}
+
+                    <li>
+                        {% if item.Link %}<a href="{{item.Link}}" title="{{item.Titulo}}">{%endif%}
+
+                            <div class="image-box {{class_mobile}}" style="background: url({{image_url}}) no-repeat center center; background-size: cover;">
+                                <div class="container">
+                                    <div class="text-box">
+                                        <h1>{{item.Titulo|default('')}}</h1>
+                                        <div class="subtitulo">{{item.SubTitulo|default('Os melhores imóveis do Rio de Janeiro estão aqui!')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% if item.Link %}</a>{%endif%}
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+       
+    {% else %} {# PLACEHOLDER #}
+    {#<div id="carousel-example-generic" class="carousel slide">
+        <div class="item active">
+            <div class="banner_Box {{class_mobile}}" style="background: url(/theme/img/slide-bg.jpg) no-repeat center center;">
+                <div class="banner_txt_main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="banner_txt">
+                                    <h1>Venha morar no melhor lugar da região!</h1>
+                                    <div class="subtitulo">Encontre aqui os melhores imóveis!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>#}
+
+
+
+    {% endif %} {# PLACEHOLDER #}
+    
+    {%if content.ExceptionMessage %}
+        <div class="col-md-12">
+            <h3>{{content.ExceptionMessage}}</h3>
+        </div>
+    {%endif%}
+     
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#slider_home").lightSlider({
+            auto:true,
+            loop: true,
+            keyPress: true,
+            item:1,
+            // pause é a duração de cada slide (ms)
+            pause: 6000,
+            onSliderLoad: function() {
+                $(".load_slider").fadeOut(800);
+            }
+        });
+    });
+</script>
+    
+

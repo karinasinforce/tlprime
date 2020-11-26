@@ -1,0 +1,103 @@
+#places_home {
+    padding: 40px 0;
+    background: #fff;
+
+    .nav_vit {
+        margin-bottom: 35px;
+        padding-bottom: 5px;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        align-items: baseline;
+
+        h2 {
+            font-weight: bold;
+            font-size: 22px;
+
+        }
+
+        p {
+            font-size: 14px;
+            color: #959595;
+        }
+    }
+
+    .content_places {
+        display: none;
+        @include mobile {
+            width: 90%;
+            margin: 0 auto;
+        }        
+
+        &.show {
+            display: block;
+
+            &.short {
+                height: 200px;
+            }
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+
+            li {
+                list-style: none;
+                padding: 0;
+                line-height: 1;
+                width: 23%;
+                margin: 1% 1%;
+                cursor: pointer;
+                border: 1px solid #c7c6c6;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 5px;
+
+                @include mobile {
+                    width: 100%;
+                    margin: 4% 1%;
+                }
+
+                span {
+                    font-size: 14px;
+                    color: #959595;
+                    display: block;
+                    line-height: 1.5;
+                    font-weight: 500;
+                    text-align: center;
+                }
+
+                small {
+                    @include rem('font-size', 14);
+                    color: #666;
+                }
+            }
+        }
+    }
+
+    .ver_mais_places {
+        text-align: center;
+        @include rem('font-size', 12);
+        color: #666;
+        padding: 15px 0;
+
+        &.opened {
+            i {
+                transform: rotate(180deg);
+            }
+        }
+
+        span {
+            margin: 0 5px;
+        }
+
+        i {
+            @include rem('font-size', 11);
+        }
+    }
+}

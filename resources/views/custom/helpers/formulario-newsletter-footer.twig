@@ -1,0 +1,51 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+                {# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+                <div class="contato-newsletter box-contato">
+                    {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+                    
+
+                    <h4>Quer receber nosso conteúdo em primeira mão?</h4>
+
+                    <form class="form-contato">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+                        <input type="hidden" name="FormularioID" value="2">
+                        <input type="hidden" name="Tag" value="contato/newsletter">
+                        <input type="hidden" name="FlagNewsletter" value="true">
+                        
+                        
+                        {# <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' 
+                            <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                        </div> #}
+
+                        <div class="input-group mb-3">
+                            <div class="icon">
+                                <i class="far fa-envelope-open"></i>
+                            </div>
+                            <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>                            
+                            <div class="input-group-append">
+                                {# o botao de submit precisa ter a classe 'form-submit' #}
+                                <button class="btn form-control form-submit"><i class="fas fa-share"></i></button>
+                            </div>
+                        </div>
+                            
+                        
+                        <span class="contato-mss" style="display: block;"></span>
+                          
+                            
+                            
+                    </form>
+                </div>
+                                
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+

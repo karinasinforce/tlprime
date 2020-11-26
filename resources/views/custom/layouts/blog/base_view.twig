@@ -1,0 +1,29 @@
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}
+    {{content.Titulo}}
+{% endblock %}
+
+{% block html_header_description %}
+    {{content.Sumario|slice(0, 100)}}
+{% endblock %}
+
+{% block content_header_breadcrumb %}    
+        {{data.breadcrumb|raw}}
+{% endblock %}
+
+
+{% set actual_page = "page-blog interna-blog" %}
+
+{% block main_content %}
+
+    <!-- CONTENT -->                                            
+    <div class="spark-screen">
+        
+        {% include ['custom.layouts.blog.interna','core.layouts.blog.interna'] with { content: content, data: data }%}
+        
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

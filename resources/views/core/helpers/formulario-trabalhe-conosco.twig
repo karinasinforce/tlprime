@@ -1,0 +1,88 @@
+
+
+
+    {# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+    <div class="contato-trabalhe-conosco box-contato">
+        {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+
+        <div class="col-sm-12">
+            <h3>Preencha o Formulário Abaixo</h3>
+        </div>
+
+        <form class="form-contato">
+            {#{ csrf_field() }#}
+            <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+            <input type="hidden" name="Tag" value="contato/trabalhe-conosco">
+            <div class="row mx-0">
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                </div>
+
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+                </div>
+
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+                </div>
+
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+                </div>
+
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input class="form-control" type="text" name="Assunto" value="" placeholder="* Assunto" required/>
+                </div>
+
+             
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                    <select class="form-control" name="interesse">
+                        <option>-- Interesse --</option>
+                        <option value="Corretagem">Corretagem</option>
+                        <option value="Administrativo">Administrativo</option>
+                        <option value="Financeiro">Financeiro</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Recursos Humanos">Recursos Humanos</option>
+                        <option value="Tecnologia da Informação">Tecnologia da Informação</option>
+                        <option value="Jurídico">Jurídico</option>
+                        <option value="Contabilidade">Contabilidade</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                    <textarea name="Mensagem" class="form-control" placeholder="Mensagem*" required rows="6"></textarea>
+                </div>
+
+                {# EXEMPLOS
+                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                    <input type="checkbox" value="teste 1" id="chk1" name="chk_teste" class="form-control">
+                    <label for="chk1" class="chk-label">Teste 1</label>
+                </div>
+
+                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                    <input type="checkbox" value="teste 2" id="chk2" name="chk_teste" class="form-control">
+                    <label for="chk2" class="chk-label">Teste 2</label>
+                </div>
+                #}
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">    
+                    {# o botao de submit precisa ter a classe 'form-submit' #}
+                    <div class="col-sm-4 px-0 float-right">
+                        <button class="btn form-control form-submit" value="ok"/>Enviar email</button>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                    {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                    <span class="contato-titulo"></span>
+                    <span class="contato-mss"></span>
+                </div>
+
+            </div>
+            <div class="formResposta text-center">
+                            <i class="far fa-check-circle"></i>
+                            <h2><strong>Mensagem enviada,</strong> breve entraremos em contato.</h2>
+                        </div>
+        </form>
+    </div>
+

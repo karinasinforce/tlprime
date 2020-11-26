@@ -1,0 +1,58 @@
+{% set tags = cloudTags.content %}
+<section id="places_home">
+    <div class="container">
+        <section class="nav_vit">
+            <h2>Imóveis nos principais bairros do Rio de Janeiro</h2>
+            <p>Se você ainda não encontrou seu imóvel, podemos facilitar sua busca através dos bairros mais procurados do site.</p>
+
+            {# <select id="change_places" class="custom-select-nice">
+                <option value="bairros">Bairros</option>
+                <option value="condominios">Condomínios</option>
+            </select> #}
+        </section>
+        
+        <section class="content_places content_bairros show">
+            <div class="row">
+                <ul>
+                    {% for tag in tags %}
+                        <li data-tag-params="{{tag.Filter|json_encode()}}">
+                            <span>
+                                + {{tag.TipoNome}}
+                                em {{tag.Bairro}} com {{tag.Quartos > 1 ? tag.Quartos ~ ' Quartos' : tag.Quartos ~ ' Quarto'}}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+</section>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+
+        $('[data-tag-params]').click(function() {
+            
+            var data = $(this).attr('data-tag-params'); 
+            var obj = JSON.parse(data); 
+
+            if (obj.Tipos !== undefined && obj.Tipos.length > 0) {
+                obj.Tipos = obj.Tipos.join(',');
+                obj.Tipos = obj.Tipos.toLowerCase();
+            }
+            
+            if (obj.QtdQuarto !== undefined && obj.QtdQuarto.length > 0) {
+                obj.QtdQuarto = obj.QtdQuarto.join(',');
+            }
+
+             if (obj.UF !== undefined && obj.UF.length > 0) {
+                obj.UF = obj.UF.join(',');
+            }
+
+            var busca = JSON.stringify(obj); 
+            window.location.href = "/venda/imoveis?busca="+busca;
+        })
+    });
+
+</script>

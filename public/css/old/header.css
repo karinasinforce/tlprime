@@ -1,0 +1,185 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700|Open+Sans:400,400i,600,700,800);/* CSS do HEADER do site */
+
+/*@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,900');
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400i');*/
+
+header .pre-header {
+  background: #333;
+  color: #FFF;
+  padding: 8px 0;
+}
+
+header .pre-header ul {
+  margin-bottom: 0;
+}
+
+header .pre-header ul li {
+  list-style: none;
+  display: inline-block;
+}
+
+header .pre-header ul li .select-filial {
+  background: #ededed;
+  padding: 0 10px;
+  color: #000;
+  border: none;
+  outline: none;
+}
+
+header .pre-header select.select-filial {
+  height: 40px;
+  padding: 0 0 0 10px;
+  margin: 0px;
+  transition: all 0.5s ease-in-out;
+  border: none;
+  background: #fff;
+  text-align: center;
+  font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+  color: #a0a1a0;
+  text-decoration: none;
+  border-radius: 3px;
+  box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);
+}
+
+header .pre-header .label-filial label {
+  padding: 12px 0 7px;
+}
+
+header .main-header {
+  background: #096c39;
+  color: #FFF;
+  padding: 16px 0;
+}
+
+header .main-header .logo {
+  margin-right: 15px;
+}
+
+header .main-header .logo img,
+header .main-header .logo object {
+  max-height: 40px;
+}
+
+header .main-header nav.navbar {
+  min-height: 0px;
+  margin: 0;
+}
+
+header .main-header nav.navbar a,
+header .main-header nav.navbar a:link,
+header .main-header nav.navbar a:visited {
+  text-transform: uppercase;
+  color: #FFF;
+  background: #096c39;
+  padding: 10px 24px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  line-height: 14px;
+  border-radius: 6px;
+}
+
+header .main-header nav.navbar a:hover,
+header .main-header nav.navbar a:active,
+header .main-header nav.navbar a .active,
+header .main-header nav.navbar a:link:hover,
+header .main-header nav.navbar a:link:active,
+header .main-header nav.navbar a:link .active,
+header .main-header nav.navbar a:visited:hover,
+header .main-header nav.navbar a:visited:active,
+header .main-header nav.navbar a:visited .active {
+  background: #333;
+}
+
+header .main-header .navbar-toggle {
+  margin: 0;
+  font-size: 25px;
+  padding: 0 10px;
+  position: relative;
+  top: 0px;
+}
+
+header .main-header .telefones ul {
+  margin: 16px 0;
+}
+
+header .main-header .telefones ul li {
+  display: inline;
+}
+
+header .main-header .telefones ul li.cel {
+  display: none;
+}
+
+header .sub-header {
+  background: #212a31;
+  color: #FFF;
+}
+
+header .sub-header nav.navbar {
+  margin: 0;
+}
+
+header .sub-header nav.navbar a {
+  color: #FFF;
+}
+
+header .sub-header .telefones ul {
+  margin: 16px 0;
+}
+
+header .sub-header .telefones ul li {
+  display: inline;
+}
+
+header .sub-header .telefones ul li.cel {
+  display: none;
+}
+
+.content-header {
+  background: #FFF;
+}
+
+.content-header .breadcrumb {
+  background: #FFF;
+  font-size: 13px;
+  margin-bottom: 0;
+  padding: 10px;
+}
+
+.content-header h1 {
+  margin: 0;
+}
+
+.content-header .social-share {
+  margin-right: -15px;
+  margin-top: -8px;
+}
+
+.content-header .social-share ul li {
+  list-style: none;
+  display: inline-block;
+  padding-left: 8px;
+}
+
+.content-header .social-share ul li a {
+  border-radius: 32px;
+  width: 32px;
+  padding: 8px;
+  display: block;
+  text-align: center;
+}
+
+.content-header .main_title {
+  text-align: center;
+  padding: 70px 0;
+}
+
+.content-header .main_title h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.content .resulto_top_sec2_right {
+  width: auto;
+  float: right;
+  padding: 0;
+}

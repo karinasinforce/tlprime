@@ -1,0 +1,68 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+         
+
+                {# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+                <div class="contato-fale-conosco box-contato">
+                    {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+                    
+                    <form class="form-contato-modal">
+
+                        <div class="formEnviar">
+                            <div class="col-sm-12">
+                                <h3>Deixe seus dados que entraremos em contato com você!</h3>
+                            </div>
+
+                            <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+                            <input type="hidden" name="FormularioID" value="1">
+                            <input type="hidden" name="Tag" value="contato/fale-conosco">
+                            {% if sitecorretor.Apelido %}<input type="hidden" name="corretor" value="{{sitecorretor.Apelido}}"/>{%endif%}
+
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input class="form-control mask-email" type="email" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input class="form-control" type="text" name="Assunto" value="" placeholder="* Assunto" required/>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-xs-12">
+                                <textarea name="Mensagem" class="form-control" placeholder="* Mensagem" required></textarea>
+                                <h3 class="contato-titulo"></h3>
+                                <span class="contato-mss"></span>
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    {# o botao de submit precisa ter a classe 'form-submit' #}
+                                    <div class="col-sm-4 pull-right">
+                                        <button class="btn form-control form-submit" value="ok"/>Enviar email</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="formResposta">
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            <h2><strong>Mensagem enviada,</strong> breve entraremos em contato.</h2>
+                        </div>
+                            
+                    </form>
+                </div>
+
+                                
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

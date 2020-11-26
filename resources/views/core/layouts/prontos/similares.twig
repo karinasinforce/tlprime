@@ -1,0 +1,151 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% set content = ImoveisSimilares %}
+{% if content is not null %}
+<div class="vitrine" id="home-vitrine-imoveis">
+    <div class="container">
+       <div class="row">
+            <div class="col-sm-12">
+                <div class="product_item_sec">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Imóveis Similares</h2>
+                            <p class="subtitulo">Veja outras opções</p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="owl-home-vitrine" class="owl-carousel">
+                            {% for entry in content.Itens %}
+
+                                {#
+                                {% if loop.index == 1 or loop.index0 is divisibleby(2) %}
+                                <div class="item"> <!-- item duplo -->
+                                {% endif %}
+                                #}
+
+                                {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg" %}
+                                {% if entry.UrlTrack %}
+                                    {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                                {% else %}
+                                    {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                                {% endif %}
+
+                                <div class="product_itemBx"><!-- item unico -->
+                                    <div class="product_itemBxTop">
+                                        <div class="pdct_pic">
+                                            <div class="vitrine-venda-img" style="
+                                                width: 100%;
+                                                height: 300px;
+                                                background: url('{{image_url}}') no-repeat center center;
+                                                background-size: cover;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product_itemBxBot">
+                                        <div class="col-sm-12 text-center">
+                                            <h4>{{entry.Tipo|default(entry.TipoNome)}}</a></h4>
+                                        </div>
+                                        <div class="col-sm-12 text-center">
+                                            {#<h3>{{entry.Titulo}}</h3>#}
+                                            <h3>{{entry.BairroNome}}</h3>
+                                        </div>
+                                        <div class="col-sm-12 text-center">
+                                            <h4>{{entry.CidadeNome}} - {{entry.EstadoSigla}}</a></h4>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3"></div>
+                                        <div class="col-xs-3 col-sm-3 text-center">
+                                            <div class="product-att">
+                                                {#<img src="img/placeholders/prd_icon1.png">#}
+                                                <i class="fa fa-bed"></i>
+                                                <span class="att">{{ entry.QtdQuarto > 0 ? entry.QtdQuarto~" Qt(s)" : '-'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 text-center">
+                                            <div class="product-att">
+                                                {#<img src="img/placeholders/prd_icon2.png"> #}
+                                                <i class="fa fa-map"></i>
+                                                <span class="att">{{ entry.AreaUtil > 0 ? entry.AreaUtil~" m2" : '-'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3"></div>
+                                        <div class="col-sm-12 text-center">
+                                            <a class="bt-saibamais" href="{{product_url}}">Saiba mais</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                {#
+                                {% if loop.index is divisibleby(2) %}
+                                </div> <!-- item duplo -->
+                                {% endif %}
+                                #}
+
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+    $(document).ready(function() {
+        var owl_home_vitrine = $("#owl-home-vitrine");
+
+        owl_home_vitrine.owlCarousel({
+            onInitialize : function(element){
+                owl_home_vitrine.children().sort(function(){
+                    return Math.round(Math.random()) - 0.5;
+                }).each(function(){
+                    $(this).appendTo(owl_home_vitrine);
+                });
+            },
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: ['<i class="fa fa-chevron-left">','<i class="fa fa-chevron-right">'],
+            items: 3,
+            responsive: {
+                300:{
+                    items:1,
+                    nav:true
+                },
+                1000:{
+                    items:3,
+                    nav:true
+                },
+                1200:{
+                    items:3,
+                    nav:true
+                },
+                1400:{
+                    items:3,
+                    nav:true
+                },
+                1600:{
+                    items:3,
+                    nav:true
+                }
+            }
+
+        });
+    });
+</script>
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

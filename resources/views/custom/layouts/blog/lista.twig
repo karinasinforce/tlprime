@@ -1,0 +1,104 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{#
+
+            [NoticiaID] => 5
+            [Titulo] => Aluguel de imóvel na Zona Sul do Rio está 10% mais baixo, diz sindicato
+            [Data] => 2015-08-18T00:00:00
+            [Conteudo] => 
+            [Chamada] => Oferta de apartamentos para alugar aumentou 59% em 1 ano. Inquilino está com poder de negociar, diz sindicato de empresas do setor
+            [Autor] => 
+            [Fonte] => O Globo
+            [Link] => 
+            [FlagDestaque] => 0
+            [DataCadastro] => 2016-01-08T11:18:07
+            [DataAlteracao] => 2016-06-16T12:28:18
+            [FlagPublico] => -1
+            [GaleriaImagemID] => 44
+            [GaleriaArquivoID] => 
+            [CategoriaID] => 5
+            [CategoriaNome] => Notícias de Mercado
+            [AgrImagem] => 
+            [Imagens] => Array
+                (
+                    [0] => 
+                )
+
+
+#}
+
+{% set class_mobile = '' %}{% if data.isMobile %} {% set class_mobile = 'mobile' %} {% endif %}
+
+{% set content = content %}
+
+{% include "custom.layouts.blog.menu-categoria" with { categorias: categorias } %}
+
+<div class="container blog-list-container {{class_mobile}}">
+    <div class="row">
+
+        {% include "custom.layouts.blog.destak" %}
+        
+        <div class="col-xl-12 col-12 content-list" id="blog_list">
+            {# container handlebars #}
+            <div id="listNoticies" class="row">
+                <div class="col-12">
+                    <h3>Notícias</h3>
+                </div>
+                {% for item in content %}
+                {# <pre>
+                    {{ dump(item) }}
+                </pre> #}
+                     {% set img = item.ImagemCapaId == null ? : item.ImagemCapaId %}
+
+                    <div class="col-12 col-xl-4 item_list">
+                        <a href="/blog/{{ item.UrlAmigavel }}/{{item.ConteudoID}}">
+                            {# <div class="img_post img_" style="background-image: url({{item.ImagemCapaId ? IMG_PATH ~ item.ImagemCapaId ~ '.jpg?wm=0' : '/img/blog-default.jpg'}});"></div> #}
+                             <div class="img_post img_" style="background-image: url('{{data.IMG_PATH}}/{{img}}.jpg?wm=0')"></div>
+                        <a href="/blog/{{ item.UrlAmigavel }}/{{item.ConteudoID}}">
+                            <h4>{{item.Titulo}}</h4>
+                        </a>
+                        <p>
+                            {{item.Sumario}}
+                        </p>
+                        <span class="dt_post">
+                            {{item.Data|date("d/m/Y - g:i")}}
+                        </span>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+            <div class="more_posts">
+                <button type="button">
+                    <i class="fas fa-angle-double-down"></i>
+                    <span>Ver mais</span>
+                    <i class="fas fa-angle-double-down"></i>
+                </button>
+            </div>
+        </div>        
+        
+        {# <div class="col-xl-4 col-12">
+            <div id="sidebar_blog">
+                {% include ['custom.layouts.blog.sidebar-destaque','core.layouts.blog.sidebar-destaque'] with {posts:sidebar.destaks} %}
+            </div>
+        </div> #}
+    </div>
+                    
+</div>
+
+<style>
+#listNoticies .item_list .img_post.img_::after{
+    content: none;
+}
+</style>
+
+
+
+{% include "custom.layouts.blog.hendlebar-template-lista" %}
+            
+

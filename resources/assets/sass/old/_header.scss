@@ -1,0 +1,170 @@
+/* CSS do HEADER do site */
+
+@import "_variables";
+
+
+header {
+    .pre-header{
+        background: $color-base-darker;
+        color: $text-color;
+        padding: 8px 0;
+        ul{
+            margin-bottom: 0;        
+            
+            li{
+                list-style: none;
+                display: inline-block;
+                
+                .select-filial{
+                    background: $body-bg;
+                    padding: 0 10px;
+                    color: #000;
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+        
+        select.select-filial{            
+            height: 40px;
+            padding: 0 0 0 10px;
+            margin: 0px;
+            transition: all 0.5s ease-in-out;
+            border: none;
+            background: #fff;
+            text-align: center;
+            font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+            color: #a0a1a0;
+            text-decoration: none;
+            border-radius: 3px;
+            box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);            
+        }
+        .label-filial{
+            label{
+              padding: 12px 0 7px;
+            }
+        }
+    }
+    
+    .main-header {
+        background: $color-base;
+        color: $text-color;
+        padding: 16px 0;
+        
+        .logo{ 
+            margin-right: 15px; 
+            img, object {
+                max-height: 40px;
+            }            
+        }
+        nav.navbar{ 
+            min-height: 0px;
+            margin: 0;
+            a, a:link, a:visited{ 
+                text-transform: uppercase;
+                color: $text-color; 
+                background: $color-base;
+                padding: 10px 24px;
+                font-family: $font-family-sans-serif-1;
+                line-height: 14px;
+                border-radius: $navbar-item-radius;
+                
+                &:hover, &:active, .active{
+                    background: $color-base-darker;
+                }
+            }            
+        }
+        
+        .navbar-toggle{
+            margin: 0;
+            font-size: 25px;
+            padding: 0 10px;  
+            position: relative;
+            top: 0px;
+        }        
+        
+        .telefones{
+            ul { margin: 16px 0; }
+            ul li{ display: inline; }
+            ul li.tel{}
+            ul li.cel{ display: none; }
+            ul li.whats{}
+        }
+    }
+   
+        
+    .sub-header {
+        background: #212a31;
+        color: #FFF;
+        
+        nav.navbar{ margin: 0; }
+        nav.navbar a{ color: #FFF; }
+
+        .telefones{
+            ul { margin: 16px 0; }
+            ul li{ display: inline; }
+            ul li.tel{}
+            ul li.cel{ display: none; }
+            ul li.whats{}
+        }
+        
+    }
+    
+}
+
+
+.content-header{
+    background: #FFF;
+    
+    .breadcrumb{
+        background: #FFF;
+        font-size: 13px;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+
+    h1 {
+        margin: 0;
+    }
+    
+    .social-share{
+        margin-right: -15px;
+        margin-top: -8px;
+
+        ul{
+            li{
+                list-style: none;
+                display: inline-block;
+                padding-left: 8px;
+                a{
+                    border-radius: 32px;
+                    width: 32px;
+                    padding: 8px;
+                    display: block;
+                    text-align: center;                    
+                }
+            }            
+        }
+    }
+
+    .main_title {
+        text-align: center;
+        padding: 70px 0;
+
+        h1 {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+}
+
+    
+    
+.content{
+    .resulto_top_sec2_right {
+        width: auto;
+        float: right;
+        padding: 0;
+    }
+}
+ 

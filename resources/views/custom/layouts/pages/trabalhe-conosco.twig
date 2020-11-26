@@ -1,0 +1,54 @@
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Trabalhe Conosco{% endblock %}
+
+{# {% block content_header_title %}
+                <div class="">{{data.Titulo}}</div>
+{% endblock %} #}
+
+{% block content_header_description %}
+                <div class="hide">Trabalhe Conosco</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-trabalhe-conosco page_form" %}
+
+{% block main_content %}
+    
+    <!-- CONTENT -->
+    <div class="spark-screen">
+
+        <div class="container">
+
+            <div class="row box-trabalhe-conosco">
+                <div class="col-sm-8 col-12">
+                    {% include ['custom.helpers.formulario-trabalhe-conosco','core.helpers.formulario-trabalhe-conosco'] %}
+                </div>
+                <div class="col-sm-4 col-12">
+                    {% include ['custom.helpers.endereco','core.helpers.endereco'] %}
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    {#<script src="{{ asset('/js/controller/trabalhe-conosco.js') }}" type="text/javascript"></script>#}
+
+    {% if data.isMobile %}
+        <script src="{{ asset('/js/controller/busca-avancada.js') }}" type="text/javascript"></script>
+    {% endif %}
+
+{% endblock %}
+
+
+

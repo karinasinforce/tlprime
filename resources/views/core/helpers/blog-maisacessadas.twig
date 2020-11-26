@@ -1,0 +1,33 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{# ainda não existe lógica de mais acessadas #}    
+
+
+<div class="box-mais-acessadas col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Mais Acessadas</h2>
+        <div class="mais-acessadas-lista">
+            <ul>
+                {% for post in content %}
+
+                    <li><a href="/blog/{{ post.Titulo|replace({' ': '-'})|lower }}/{{post.NoticiaID}}">
+                            {#<div class="blog-destaque"><img style="width: 80px; height: auto;" src="/img/placeholders/blog-placeholder.jpg"></div>#}
+                            <div class="blog-data"><i class="fa fa-calendar"></i> {{post.Data|date("d/m/Y")}}</div>
+                            <h3 class="blog-titulo">{{post.Titulo}}</h3>
+                            <p>+ veja mais</p>
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+       
+            
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

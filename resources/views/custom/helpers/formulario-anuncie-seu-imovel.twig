@@ -1,0 +1,181 @@
+
+{# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+{#<div class="contato-estou-interessado box-contato">#}
+
+
+<form class="form-contato">
+    {{ csrf_field() }}
+    <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+    <input type="hidden" name="id" value="{{item.ID}}"/>
+    <input type="hidden" name="Tag" value="contato/venda-seu-imovel">
+    
+    <div class="row mx-0">
+        <div class="col-12">
+            <h2>Preencha o formulário abaixo.</h2>
+            <p class="mb-4">Em breve nossos consultores entrarão em contato!</p>
+        </div>
+
+        <div class="col-12">
+            <h6>Dados do Proprietário</h6>
+        </div>
+        
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control mask-email" type="email" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-12">
+            <div class="form-group ">
+                <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+            </div>
+
+            <div class="form-group ">
+                <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+            </div>                              
+        </div>
+
+        <div class="col-12">
+            <hr>
+            <h6>Dados do Imóvel</h6>
+        </div>
+        
+        <div class="col-sm-4 col-12">
+            <div class="form-group">
+                <select class="form-control" name="Natureza">
+                    <option value="">Selecione</option>
+                    <option value="">Comercial</option>
+                    <option value="">Residencial</option>
+                    <option value="">Rural</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-sm-4 col-12">
+            <div class="form-group">
+                <select class="form-control" name="Tipo">
+                    <option value="">Tipo de Imóvel</option>
+                    {% set keyNat = 1 %}
+                    {% for key, tipos in selectTipos %}
+                        {# data-i é para fazer o optiongroup no plugin nice select #}
+                        <optgroup label="{{key}}" data-i="{{keyNat}}">
+                            {% for tipo in tipos %}
+                                <option value="{{tipo.Nome|lower}}" data-target="Tipo" data-tag="{{tipo.Nome}}" >{{tipo.Nome}}</option>
+                            {% endfor %}
+                            {% set keyNat = keyNat + 1 %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="Quartos" value="" placeholder="Quartos*" required/>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="Endereco" value="" placeholder="Endereço*" required/>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="Bairro" value="" placeholder="Bairro*" required/>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="Cidade" value="" placeholder="Cidade*" required/>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="form-group">
+                <select name="Estado" class="form-control" required>
+                    <option selected="" value="">Estado*</option>
+                    <option value="Acre">Acre</option>
+                    <option value="Alagoas">Alagoas</option>
+                    <option value="Amapá">Amapá</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Bahia">Bahia</option>
+                    <option value="Ceará">Ceará</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Espírito Santo">Espírito Santo</option>
+                    <option value="Goiás">Goiás</option>
+                    <option value="Maranhão">Maranhão</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="Pará">Pará</option>
+                    <option value="Paraíba">Paraíba</option>
+                    <option value="Paraná">Paraná</option>
+                    <option value="Pernambuco">Pernambuco</option>
+                    <option value="Piauí">Piauí</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                    <option value="Rondônia">Rondônia</option>
+                    <option value="Roraima">Roraima</option>
+                    <option value="Santa Catarina">Santa Catarina</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Sergipe">Sergipe</option>
+                    <option value="Tocantins">Tocantins</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="AreaUtil" value="" placeholder="Área Construída*" required/>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="form-group">
+                <input class="form-control" type="text" name="AreaTotal" value="" placeholder="Área Terreno*" required/>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <textarea name="Mensagem" rows="4" class="form-control" placeholder="Mensagem*" required></textarea>
+            </div>
+        </div>   
+
+        {# ------ Botão e mensagens ----- #}
+        
+        <div class="col-12 mb-4 mb-md-0 text-right">
+            {# o botao de submit precisa ter a classe 'form-submit' #}       
+            <button class="btn form-submit" type="submit" value="ok"/>Enviar email</button>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                <h3 class="contato-titulo"></h3>
+                <span class="contato-mss"></span>
+            </div>
+        </div>
+
+    </div>
+      <div class="formResposta text-center">
+                            <i class="far fa-check-circle"></i>
+                            <h2><strong>Mensagem enviada,</strong> breve entraremos em contato.</h2>
+                        </div>
+</form>
+
+
+
+
+
+{#</div>#}
+

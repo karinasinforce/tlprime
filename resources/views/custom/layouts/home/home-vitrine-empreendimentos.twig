@@ -1,0 +1,256 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content is not null %}
+
+
+<div class="vitrine emp_vitrine" id="home-vitrine-empreendimentos">
+    <div class="container">
+        <div class="product_item_sec row mx-0">
+
+            <div class="col-sm-12">
+                <h2>{{content.Titulo|default('Empreendimentos')}}</h2>
+                <p class="subtitulo">{{content.SubTitulo|default('Destaques selecionados para você!')}}</p>
+            </div>
+
+            
+            <div class="col-sm-12 mt-4">
+                <div id="owl-home-vitrine2" class="owl-carousel">
+                {% for entry in content.Itens %}
+
+                    {% if ( loop.index == 1 or loop.index0 is divisibleby(2) ) and entry|length > 5 %}
+                    <div class="item"> <!-- item duplo -->
+                    {% endif %}
+
+                    {% if entry.UrlTrack %}
+                        {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                    {% else %}
+                        {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                    {% endif %}
+                    
+                    {% if siteparam.https == 'true' %}
+                        {% set ImageUrl = entry.ImageUrl|replace({'http://':'https://'}) %}
+                    {% else %}
+                        {% set ImageUrl = entry.ImageUrl %}
+                    {% endif %}
+
+                    <div class="product_itemBx mb-4 item-id-{{entry.ID}}"><!-- item unico -->
+
+                        {% if siteparam.favoritos == 'true' %}
+                            <div class="icon-favoritos">
+                                <div class="btn-favoritos" onclick="addFav({{entry.ID}})">
+                                    <span>Adicionar aos Favoritos</span>
+                                    <i class="fa fa-heart heart-{{entry.ID}}"></i>
+                                    <i class="fa fa-heart animated heart-{{entry.ID}}"></i></div>
+                            </div>
+
+                            <input type="text" class="hide produto-favorito prod-id-{{entry.ID}}" value='{"ID":"{{entry.ID}}", 
+                               "ValorVenda":"{{entry.ValorVenda}}", "ValorLocacao":"{{entry.ValorLocacao}}", 
+                               "BairroNome":"{{entry.BairroNome}}", "ImagemDestaque":"{{ImageUrl}}", 
+                               "BairroNome":"{{entry.BairroNome}}", "TipoNome":"{{entry.TipoNome}}", "AreaUtil":"{{entry.M2Maior}}", 
+                               "QtdSuite":"{{entry.QtdSuite}}", "QtdQuarto":"{{entry.QtdQuarto}}", "QtdWcTotal":"{{entry.QtdWcTotal}}", 
+                               "QtdVaga":"{{entry.QtdVaga}}", "Lancamento": "true", "Nome": "{{entry.Nome}}"}'>
+                        {% endif %}
+
+                        <div class="product_itemBxTop">
+                            <a class="vit_link_foto" href="{{product_url}}">
+                                <div class="pdct_pic">
+                                    <div class="vitrine-venda-img owl-lazy" data-src="{{ImageUrl}}">
+                                        <div class="hover_img"></div>
+
+                                        {% if  entry.StatusNome == "Pronto" %}
+                                            <div class="statustag tag_pronto">
+                                                <span class="text">{{entry.StatusNome}}</span>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if  entry.StatusNome == "Lançamento" %}
+                                            <div class="statustag tag_lanc">
+                                                <span class="text">{{entry.StatusNome}}</span>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if  entry.StatusNome == "Em Obra" %}
+                                            <div class="statustag tag_obra">
+                                                <span class="text">{{entry.StatusNome}}</span>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="product_itemBxBot">
+                            
+                            <div class="tipos text-center">{{entry.Tipos|default(entry.TipoNome)}}</div>
+                            <h3 class="text-center">{{ entry.Nome ? entry.Nome : entry.NaturezaNome }}</h3>
+
+                            <h5 class="text-center">{{entry.BairroNome}} - {{entry.EstadoSigla}}</h5>
+
+                            
+                            {% if entry.M2Menor or entry.M2Maior %}
+                                <div class="product-att d-flex justify-content-center mt-1 mb-1">
+                                    <div class="emp_icon_wrap mr-2 d-none d-md-inline-block">
+                                        <svg x="0px" y="0px" height="20px" viewBox="0 0 21 20.382">
+                                            <g>
+                                                <g>
+                                                    <path fill="#565F73" d="M1.263,20.101c-0.541,0-0.981-0.44-0.981-0.981V4.578c0-0.542,0.44-0.981,0.981-0.981l8.709,0
+                                                    c0.233,0,0.422,0.189,0.422,0.422c0,0.233-0.189,0.422-0.422,0.422l-8.709,0c-0.075,0-0.137,0.061-0.137,0.137v14.542
+                                                    c0,0.075,0.062,0.137,0.137,0.137h14.644c0.076,0,0.137-0.062,0.137-0.137v-7.921c0-0.233,0.189-0.422,0.422-0.422
+                                                    c0.233,0,0.422,0.189,0.422,0.422v7.921c0,0.542-0.44,0.982-0.982,0.982H1.263z" />
+                                                    <path fill="#565F73" d="M1.263,20.382C0.567,20.382,0,19.815,0,19.119V4.578c0-0.697,0.567-1.263,1.263-1.263h8.709
+                                                    c0.388,0,0.704,0.315,0.704,0.704s-0.316,0.704-0.704,0.704H1.408v14.252h14.354v-7.776c0-0.388,0.316-0.704,0.704-0.704
+                                                    s0.704,0.316,0.704,0.704v7.921c0,0.697-0.566,1.263-1.263,1.263L1.263,20.382z M9.973,3.877H1.263c-0.386,0-0.7,0.314-0.7,0.7
+                                                    l0,14.542c0,0.386,0.314,0.7,0.7,0.7h14.644c0.386,0,0.7-0.314,0.7-0.7v-7.921c0-0.078-0.063-0.141-0.141-0.141
+                                                    s-0.141,0.063-0.141,0.141v7.921c0,0.231-0.188,0.418-0.418,0.418H1.263c-0.23,0-0.418-0.188-0.418-0.418V4.578
+                                                    c0-0.231,0.188-0.418,0.418-0.418h8.709c0.078,0,0.141-0.063,0.141-0.141S10.05,3.877,9.973,3.877z" />
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <path fill="#565F73" d="M7.015,11.662H0.797c-0.233,0-0.422-0.189-0.422-0.423c0-0.233,0.189-0.422,0.422-0.422h6.218
+                                                            c0.233,0,0.422,0.189,0.422,0.422C7.438,11.473,7.248,11.662,7.015,11.662z" />
+                                            </g>
+                                            <g>
+                                                <path fill="#565F73" d="M6.875,19.439c-0.233,0-0.422-0.189-0.422-0.422v-3.021c0-0.233,0.189-0.422,0.422-0.422
+                                                            c0.233,0,0.422,0.189,0.422,0.422v3.021C7.297,19.25,7.108,19.439,6.875,19.439z" />
+                                            </g>
+                                            <g>
+                                                <path fill="#565F73" d="M7.015,13.097c-0.233,0-0.422-0.189-0.422-0.422V7.748c0-0.233,0.189-0.422,0.422-0.422
+                                                            c0.233,0,0.422,0.189,0.422,0.422v4.927C7.438,12.908,7.248,13.097,7.015,13.097z" />
+                                            </g>
+                                            <g>
+                                                <path fill="#565F73" d="M15.416,11.169c-3.079,0-5.584-2.505-5.584-5.584C9.831,2.505,12.336,0,15.416,0S21,2.505,21,5.585
+                                                            C21,8.664,18.495,11.169,15.416,11.169z M15.416,0.704c-2.691,0-4.88,2.189-4.88,4.881c0,2.691,2.189,4.88,4.88,4.88
+                                                            s4.88-2.189,4.88-4.88C20.296,2.894,18.106,0.704,15.416,0.704z" />
+                                            </g>
+                                            <g>
+                                                <path fill="#565F73" d="M14.28,7.835l-0.758-2.669h-0.023c0.036,0.455,0.053,0.808,0.053,1.06v1.609h-0.887V4.13h1.333l0.773,2.63
+                                                            h0.02l0.758-2.63h1.335v3.705h-0.92V6.21c0-0.084,0.001-0.178,0.004-0.281s0.014-0.356,0.034-0.758H15.98l-0.748,2.664H14.28z" />
+                                                <path fill="#565F73" d="M19.004,6.106h-1.568V5.722l0.527-0.533c0.151-0.158,0.25-0.265,0.296-0.323
+                                                            c0.046-0.058,0.078-0.107,0.097-0.148c0.018-0.042,0.027-0.085,0.027-0.13c0-0.057-0.019-0.101-0.055-0.133
+                                                            c-0.037-0.032-0.088-0.049-0.154-0.049c-0.068,0-0.137,0.02-0.206,0.059s-0.148,0.096-0.236,0.172l-0.32-0.375
+                                                            c0.111-0.1,0.205-0.171,0.281-0.213c0.076-0.043,0.158-0.076,0.248-0.099c0.089-0.022,0.189-0.034,0.3-0.034
+                                                            c0.14,0,0.265,0.024,0.375,0.074s0.195,0.12,0.256,0.21c0.061,0.091,0.091,0.193,0.091,0.307c0,0.085-0.011,0.163-0.032,0.235
+                                                            c-0.021,0.072-0.054,0.143-0.098,0.212c-0.044,0.07-0.104,0.143-0.177,0.22c-0.073,0.077-0.23,0.223-0.469,0.437v0.015h0.817V6.106
+                                                            z" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="pull-left txt_info">
+                                        {% if entry.M2Menor %}
+                                            de {{ entry.M2Menor }} m<sup>2</sup>
+                                        {% endif %}
+                    
+                                        {% if entry.M2Maior %}
+                                            até {{ entry.M2Maior }} m<sup>2</sup>
+                                        {% endif %}
+                                    </div>
+                                    
+                                </div>
+                            {% endif %}
+                            
+                            {% if entry.ValorMenor %}
+                                <div class="valor">
+                                    <span>A partir de <strong><small>R$</small> {{ entry.ValorMenor|number_format(0, ',', '.') }}</strong></span>
+                                </div>
+                            {% endif %}
+
+                            <div class="text-center wrapper_btn_more">
+                                <a class="bt-saibamais" href="{{product_url}}">Saiba mais</a>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                    {% if loop.index is divisibleby(2) and entry|length > 5 %}
+                    </div> <!-- item duplo -->
+                    {% endif %}
+
+                {% endfor %}
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+                            
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            var owl_home_vitrine = $("#owl-home-vitrine2");
+            
+            owl_home_vitrine.owlCarousel({
+                onInitialize : function(element){
+                    owl_home_vitrine.children().sort(function(){
+                        return Math.round(Math.random()) - 0.5;
+                    }).each(function(){
+                        $(this).appendTo(owl_home_vitrine);
+                    });
+                },            
+                onInitialized : function(element){
+                {% if siteparam.favoritos == 'true' %}   
+                    $.each(gFAVS, function( i, item ) {
+                        if( (item) && (item.ID) ){
+                            $(".item-id-"+item.ID+" .icon-favoritos .btn-favoritos").addClass("favoritado");
+                            flyHeart(item.ID);
+                        }
+                    });                           
+                {% endif %}
+                },            
+                loop: false,
+                margin: 20,
+                nav: true,
+                navText: ['<i class="fas fa-chevron-left"></i>','<i class="fas fa-chevron-right"></i>'],
+                items: 3,
+                lazyLoad: true,
+                responsive: {
+                    300:{
+                        items:1,
+                        nav:true
+                    },
+                    700:{
+                        items:2,
+                        nav:true
+                    },
+                    1000:{
+                        items:3,
+                        nav:true
+                    },
+                    1200:{
+                        items:3,
+                        nav:true
+                    },
+                    1400:{
+                        items:3,
+                        nav:true
+                    },
+                    1600:{
+                        items:3,
+                        nav:true
+                    }
+                }
+                
+            });
+        });
+    });
+</script>
+{% endif %}
+
+{%if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{%endif%}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

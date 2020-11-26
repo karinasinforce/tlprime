@@ -1,0 +1,80 @@
+
+{# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+<div class="contato-estou-interessado box-contato">
+    <h5 class="text-center">Gostou deste imóvel? Ligue para:</h5>
+
+    <h3 class="text-center">
+        {% if siteparam.telefones['Telefone'] %}
+            <a href="tel:0{{siteparam.telefones['Telefone']}}" target="_blank">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    {{siteparam.telefones['Telefone']}}
+            </a>
+        {% endif %}
+    </h3>
+    
+   
+    {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+    <form class="form-contato">
+        {{ csrf_field() }}
+
+        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}" data="false">
+        {% if '/lancamento' in url().current() %}
+            <input type="hidden" name="LancamentoID" value="{{item.ID}}" data="true">
+            <input type="hidden" name="Tag" value="contato/empreendimento-interessado">
+        {% else %}
+            <input type="hidden" name="ImovelID" value="{{item.ID}}" data="true">
+            <input type="hidden" name="Tag" value="contato/imovel-interessado">
+        {% endif %}
+        
+        <input type="hidden" name="Produto" value="contato/fale-conosco">
+        <input type="hidden" name="ProdutoUrlAddress" value="contato/fale-conosco">
+        <input type="hidden" name="SiteUrlAddress" value="contato/fale-conosco">
+        {% if sitecorretor.Apelido %}<input type="hidden" name="corretor" value="{{sitecorretor.Apelido}}"/>{%endif%}
+        
+        <div class="formEnviar">
+             <p class="text-center">Ou preencha o formulario abaixo,
+        que entraremos em contato.</p>
+        
+            <div class="form-group">
+                {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+            </div>
+            <div class="form-group">
+                <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+            </div>
+            <div class="form-group ">
+                <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+            </div>        
+            <div class="form-group ">
+                <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+            </div>        
+            <div class="form-group">
+                <textarea name="Mensagem" class="form-control" rows="2"></textarea>
+            </div>        
+            <div class="form-group mb-0">
+                {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                <div class="row">
+                    {# o botao de submit precisa ter a classe 'form-submit' #}
+                    <div class="col-6">
+                        <label class="d-flex align-items-center FlagNewsletter">
+                            <input type="checkbox" name="FlagNewsletter" value="true" checked>
+                            <span>Desejo receber novidades por e-mail</span>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn form-control form-submit float-right" value="ok"/>Enviar</button>
+                    </div>
+                </div>
+                <span class="contato-mss"></span>
+            </div>
+        </div>
+
+        <div class="formResposta text-center">
+            <i class="far fa-check-circle"></i>
+            <h2><strong>Mensagem enviada,</strong> breve entraremos em contato.</h2>
+        </div>
+
+    </form>
+</div>
+
+

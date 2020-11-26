@@ -1,0 +1,159 @@
+/* CSS com alguns ajustes para o modelo inforce de site */
+
+@import "_variables";
+@import "_mixin";
+
+/* BASE */
+@import "./templates/common";
+
+/* Header */
+@import "./templates/header/headerdefault";
+@import "./templates/header/headercustom";
+
+//@import "./templates/busca/buscadefault";
+//@import "./templates/busca/custom-busca";
+
+@import "./templates/busca/busca-modelo"; 
+
+@import "./templates/banner/bannerdefault";
+@import "./templates/banner/banner-custom";
+
+@import "./templates/lista/listadefault";
+@import "./templates/lista/lista-custom";
+
+@import "./templates/internas/interna-imovel-custom";
+@import "./templates/internas/custom-page";
+
+//@import "./templates/footer/footerdefault";
+//@import "./templates/footer/footer-custom";
+@import "./templates/footer/footer-modelo";
+
+//@import "./templates/vitrines/vitrinedefault";
+@import "./templates/vitrines/vitrine-modelo";
+@import "./templates/vitrines/vitrine-custom";
+
+@import "./templates/diversos/bairros-e-condominios";
+
+@import "./templates/formularios/formulariodefault";
+@import "./templates/diversos/widget-atendimento-pre-chat";
+
+@import "./templates/diversos/nuvem-de-tags";
+
+@import "./templates/diversos/financiamento";
+
+
+@import "./templates/blog/blog";
+@import "./templates/blog/bloco-ultimas-noticias";
+
+
+#newsletter_home {
+    background: #f1f1f1;
+    padding: 30px 0;
+
+    .btn-default {
+        min-height: 38px;
+        border-radius: 4px;
+    }
+}
+
+//internas
+.a-imobiliaria {
+    .section_main_title > .container h1{
+        display: none;
+    }
+    .section_main_title {
+        display: none;
+    }
+}
+
+.altiplano-cabo-branco {
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/Branca.jpg");
+        display: none;
+    }
+}
+    .cabo-branco {
+        .section_main_title {
+            background-color: #0e0d0d73;
+            background-blend-mode: darken;
+            background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/CB5jpeg(1).jpg");
+            display: none;
+        }
+    }
+
+.tambau{
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/Solar%2DTambau%2DAlugar%2Dou%2DHospedar1.jpg");
+        display: none;
+    }
+
+}
+.manaira{
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/Mara%C3%ADra%20ampla.png");
+        display: none;
+    }
+    
+}
+.jardim-oceania{
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/1(1).jpg");
+        display: none;
+    }
+}
+.miramar{
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/Miramar.jpg");
+        display: none;
+    }
+}
+.brisamar{
+    .section_main_title {
+        background-color: #0e0d0d73;
+        background-blend-mode: darken;
+        background-image: url("https://jfranca.inforcedata.com.br/_custom/editor/image/Brisamarjpeg.jpg");
+        display: none;
+    }
+}
+
+//zap
+
+.whatsapp {
+    color: $color-base;
+    border: 1px solid!important;
+    border-radius: 5px!important;
+    font-weight: bold;
+    height: fit-content;
+    .nav-link {
+       
+        &:hover{
+            color: #fff!important;
+        }
+        &:active{
+            color: #fff!important;
+        }
+    }
+  
+    &:hover {
+        background: $color-base!important;
+        color: #fff!important;
+    }
+    i {
+        margin-right: 6px;
+    }
+}
+
+ .vitrine .product_itemBx .product_itemBxBot .valor{
+     font-size: 22px;
+     font-weight: 700;
+ }

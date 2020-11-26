@@ -1,0 +1,158 @@
+
+{% extends ['custom.app_land','core.app_land'] %}
+
+{% set HTMLHeaderTitle = '' %}
+
+
+{% set HTMLHeaderTitle = content.Nome|default('') ~ ' | ' ~ content.BairroNome|default('') ~ ' - ' ~ (titleUF) %}
+{% set HTMLDescription = "Empreendimento" ~ ( content.BairroNome|default('') != '' ? ' situado em ' ~ content.BairroNome ) ~ ( content.Localizacao|default('') != '' ? ' (' ~ content.Localizacao ~ ')' : '') ~ ' - ' ~ content.CidadeNome  ~ " " %}
+
+
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Lancamentos</div>
+{% endblock %}
+
+
+{% set header_facebook_url = url_current() %}
+{% set header_facebook_type = "website" %}
+{% set header_facebook_title =  HTMLHeaderTitle %}
+{% set header_facebook_desc = HTMLDescription %}
+{% set header_facebook_img  = data.IMG_PATH ~ '/' ~ content.ImageCapa ~ '.jpg?wm=5' %}
+{% set html_header_description = HTMLDescription %}
+
+
+{% set actual_page = "land-lancamentos" %}
+
+{% block main_content %}
+                
+                <div class="spark-screen">
+                    <!-- MESSAGES -->
+                    <div class="container">
+                        <div class="row">
+                            {% include ['custom.errors.mesages','core.errors.mesages'] %}
+                        </div>
+                    </div>
+    
+                    <!-- 1ª Dobra -->
+                    <div class="banner_emp" style="background-image: url('{{data.APP_ADMIN}}/api/empreendimento/capa/{{content.ID}}?v=1');">
+                        <div class="container">
+                            <div class="col-md-6 col-sm-12 pull-right">
+                                <div class="banner_info">
+                                    
+                                    <div class="row no-margin">
+                                        {% if content.Rotulo.Nome is defined %}
+                                            <div class="pull-left row_status">
+                                                <span class="status">{{content.Rotulo.Nome}}</span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="pull-right row_valor">
+                                            {% if content.ValorMenor %}
+                                                <div class="pull-left text-right">
+                                                    a partir de <br>
+                                                    <strong>R$</strong>
+                                                </div>
+                                                <div class="preco pull-left">{{content.ValorMenor|default()|number_format(0,',', '.')}}</div>
+                                            {% else %}
+                                                <div class="preco pull-left"><small>Consulte-nos</small></div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="name_bairro">
+                                        <h1>{{content.Nome}}</h1>
+                                        <strong>{{content.BairroNome}} - {{content.CidadeNome}}</strong>
+                                    </div>
+
+                                    <div class="caract text-center">
+                                        <ul>
+                                            <li>
+                                                {# <img src="/img/land/tipo.png" alt="" class="img-responsive"> #}
+                                                <i class="fa fa-home fa-3x"></i>
+                                                <span class="tip"><strong>{{content.NaturezaNome}}</strong></span>
+                                            </li>
+                                            <li>
+                                                {# <img src="/img/land/quartos.png" alt="" class="img-responsive"> #}
+                                                <i class="fa fa-bed fa-3x"></i>
+                                                <span class="tip">
+                                                    <strong>{{content.QtdQuarto|join(', ')}} Quartos</strong><br>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                {# <img src="/img/land/area.png" alt="" class="img-responsive"> #}
+                                                {# <i class="fa fa-area fa-3x"></i> #}
+                                                <i class="fa fa-building fa-3x"></i>
+                                                {% if content.M2Menor and content.M2Maior %}
+                                                    <span class="tip">
+                                                        <strong>
+                                                            de {{content.M2Menor}} <br>
+                                                            até {{content.M2Maior}} m²
+                                                        </strong>
+                                                    </span>
+                                                {% endif %}
+                                                {% if content.M2Menor and not content.M2Maior %}
+                                                    <span>
+                                                        a partir de <strong>{{content.M2Menor}}</strong>
+                                                    </span>
+                                                {% endif %}
+                                                {% if not content.M2Menor and content.M2Maior %}
+                                                    <span>
+                                                        até <strong>{{content.M2Menor}}</strong>
+                                                    </span>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="calls text-center">
+                                        <div class="row">
+                                            <div class="col-md-6 no-padding">
+                                                <button type="button" class="btcontato" onclick="$('#FormInteressado').modal()"><span>QUERO RECEBER <br>CONTATO</span></button>
+                                            </div>
+                                            <div class="col-md-6 no-padding">
+                                                <a href="https://api.whatsapp.com/send?phone=55{{siteparam.telefones.whatsapp|replace({'(':'', ')':'', '-':'', ' ':''})}}&text=ol%C3%A1!" class="at_whatsapp_land btfalar" data-tel="{{siteparam.telefones.whatsapp}}" target="_blank">
+                                                    <span>QUERO Falar <br>Agora</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-12 no-padding">
+                                                <a href="#o_empreendimento" class="anchor-link btconhecer"><span>QUERO CONHECER O EMPREENDIMENTO</span></a>
+                                            </div>
+                                        </div>
+    
+                                        <a href="https://api.whatsapp.com/send?phone=55{{siteparam.telefones.whatsapp|replace({'(':'', ')':'', '-':'', ' ':''})}}&text=ol%C3%A1!" class="call_whatsapp at_whatsapp_land" target="_blank" data-tel="{{siteparam.telefones.whatsapp}}">
+                                            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                        </a>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /1ª Dobra -->
+                        
+                    <!-- MAIN -->
+                    {% include ['custom.layouts.land.interna','core.layouts.land.interna'] with {content: content, data:data} %}
+                    
+                    {% include ['custom.layouts.land.newsletter','core.layouts.land.newsletter'] with { data:data } %}
+                    
+
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+
+    <script>
+
+    $( document ).ready(function() {
+            
+        
+    });
+
+    </script>
+
+{% endblock %}
+

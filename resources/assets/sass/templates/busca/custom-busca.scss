@@ -1,0 +1,295 @@
+
+#select_type {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .switch-toggle {
+        width: 360px;
+        background: rgba(#000, .5);
+        border-radius: 5px;
+
+        label {
+            color: #fff;
+            @include rem('font-size', 14);
+            padding: 10px 10px;
+            transition: all .3s;
+            position: relative;
+            cursor: pointer;
+            transition: all .3s;
+
+            @include mobile {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            &:nth-last-of-type(2) {
+                &::after, &::before {
+                    content: '';
+                    width: 1px;
+                    top: 10px;
+                    bottom: 10px;
+                    display: block;
+                    position: absolute;
+                    background: rgba(#fff, .5);
+                }
+
+                &::after {
+                    right: 0;
+                }
+
+                &::before {
+                    left: 0;
+                }
+            }
+        }
+
+        .switch-selected {
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        input {
+            &:checked {
+                & + label {
+                    font-weight: bold;
+                    color: $color-base;
+                }
+            }
+
+            &:not(:checked) {
+                & + label {
+                    &:hover {
+                        background: rgba(#fff, .8);
+                        border-radius: 5px;
+                        color: $color-base;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.page-home {
+    .container-busca-avancada {
+        top: 360px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+
+        @include mobile {
+            top: 230px;
+            padding: 0 20px;
+        }
+
+        .search_box {
+            background: unset;
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+
+            #main-search {
+                width: 80%;
+            }
+
+            .search_select {
+                display: block;
+                padding-right: 54px;
+            }
+
+            .container_search {
+                position: relative;
+                padding: 5px;
+                border-radius: 5px;
+                background: #e2e2e2;
+                min-height: 58px;
+
+                .bt-buscar {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    height: 48px;
+                    width: 48px;
+                    padding: 0;
+                }
+
+                .container_busca_codigo {
+                    position: absolute;
+                    right: 58px;
+                    top: 5px;
+                    bottom: 5px;
+                    left: 5px;
+                    z-index: 10;
+                    display: flex;
+                    background: #fff;
+                    min-height: 48px;
+                    border-radius: 5px;
+                    visibility: hidden;
+                    overflow-x: hidden;
+
+                    .slide_code {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        position: absolute;
+                        right: -100%;
+                        top: 0;
+                        bottom: 0;
+                        transition: all .3s;
+                        padding: 0 10px;
+
+                        h4 {
+                            color: $color-base;
+                            font-weight: normal;
+                            @include rem('font-size', 13);
+                            line-height: 1;
+                            margin: 0;
+                        }
+
+                        .produto-buscar-codigo {
+                            width: 100%;
+                            max-width: 385px;
+
+                            .select2-selection {
+                                border-color: #f1f1f1;
+                                border-radius: 4px;
+                            }
+
+                            .select2-selection__placeholder {
+                                @include rem('font-size', 13);
+                            }
+                        }
+
+                        #close-busca-codigo {
+                            border: 1px solid #f1f1f1;
+                            background: #fff;
+                            color: $color-base;
+                            padding: 5px 8px;
+                            font-size: 12px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: all .3s;
+
+                            &:hover {
+                                background: #eaeaea;
+                            }
+
+                            span {
+                                margin-right: 5px;
+                            }
+                        
+                        }
+                    }
+
+                    &.show {
+                        visibility: visible;
+
+                        .slide_code {
+                            right: 0;
+                        }
+                    }
+                }
+            }
+
+            .search {
+                padding: 0;
+            }
+        }
+
+        .select2-container {
+            .select2-selection {
+                &.select2-selection--multiple {
+                    min-height: 48px;
+                    // padding-left: 30px;
+                    position: relative;
+
+                    // &::before {
+                    //     content: '\f3c5';
+                    //     font-family: $font-icon-free;
+                    //     font-weight: bold;
+                    //     position: absolute;
+                    //     top: 9px;
+                    //     left: 10px;
+                    //     color: $color-base;
+                    //     font-size: 18px;
+                    // }
+
+                    .select2-selection__rendered {
+                        display: flex;
+                        align-items: center;
+
+                        li.select2-selection__choice {
+                            display: flex;
+                            align-items: center;
+                            max-height: 36px;
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        
+            li.select2-search--inline {
+                padding-top: 4px;
+
+                .select2-search__field {
+                    height: 35px;
+                    margin-top: 0;
+                    font-size: 14px;
+                }
+            }
+        
+        }
+
+        .content_buttons_advanced {
+            a {
+                color: #fff;
+                font-weight: normal;
+                @include rem('font-size', 13);
+                margin: 0;
+                position: relative;
+                padding: 5px 10px;
+                border-radius: 4px;
+                transition: all .3s;
+
+                &:hover {
+                    background: rgba(#000, .5);
+                }
+
+                &:last-child {
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 0px;
+                        bottom: 2px;
+                        top: 2px;
+                        width: 1px;
+                        background: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    .select2-results__option {
+        font-size: 14px;
+        color: #888;
+        padding-left: 10px;
+    }
+}
+
+#busca-avancada-box {
+    position: relative;
+    top: -45px;
+    margin-top: 0;
+    background: rgba(0, 0, 0, 0.85);
+    border: 0;
+}
+
+//new

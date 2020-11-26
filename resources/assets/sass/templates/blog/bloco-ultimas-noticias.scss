@@ -1,0 +1,157 @@
+.box-ultimas-noticias {
+  margin-bottom: 50px;
+  h2 {
+    // text-align: left;
+    // color: $color-base-darker;
+    // font-weight: 700;
+    // font-size: 26px;
+    // margin-bottom: 38px;
+    text-align: left;
+    color: #333;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 30px;
+    margin-right: 15px;
+  }
+  .ultimas-noticias {
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      .img-post {
+        margin: 20px 0px;
+        width: 100%;
+        overflow: hidden;
+        a {
+          img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-position: center center;
+            -webkit-transition: 0.2s ease-in;
+            -moz-transition: 0.2s ease-in;
+            -o-transition: 0.2s ease-in;
+            transition: 0.2s ease-in;
+            &:hover {
+              width: 100%;
+              height: 200px;
+              display: flex;
+              justify-content: center;
+              transform: scale(1.1);
+         
+            }
+            
+            
+          }
+        }
+      }
+      li {
+        .blog-data {
+          top: 2068px;
+          left: 778px;
+          width: 126px;
+          height: 20px;
+          font-weight: initial;
+          text-align: left;
+          font-size: 14px;
+          letter-spacing: 0;
+          color: #3c3a3a;
+          opacity: 0.6;
+        }
+        .conteudo-resumo {
+          text-align: left;
+          font-size: 14px;
+          height: AUTO;
+          color: #00000099;
+          font-weight: initial;
+          line-height: 24px;
+          margin-bottom: 18px;
+        }
+        h3 {
+          font-size: 16px;
+          font-weight: bold;
+          color: #3c3a3a;
+        }
+      }
+    }
+  }
+}
+
+
+ul.owl-dot.noticias {
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
+  margin: 0 auto;
+}
+
+ul.owl-dot.noticias button {
+  border-radius: 100px;
+  width: 20px;
+  height: 20px;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+  
+}
+
+.slick-dots li button:before {
+  content: '•'!important;
+  font-size: 18px!important;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  opacity: .25;
+  color: #ccc!important;
+  &:active,&:hover{
+    color:#0077cf;
+  }
+}
+.slick-active li:before {
+  color:#0077cf!important;
+}
+
+.slick-arrow{
+  color:#666!important;
+  font-size: 28px!important;
+  right: -10px!important;
+}
+.Group-arrows{
+  color:#666!important;
+  font-size: 28px!important;
+  
+}
+.slick-prev, .slick-next{
+  color:#666!important;
+  font-size: 28px!important;
+}
+.slick-prev{
+  left: -45px!important;
+}

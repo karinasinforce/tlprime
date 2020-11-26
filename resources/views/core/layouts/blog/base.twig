@@ -1,0 +1,62 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Blog{% endblock %}
+
+{% block content_header_title %}
+                <div class="">{{HTMLHeaderTitle}}</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <h1>Blog</h1>
+{% endblock %}
+
+{% block content_header_breadcrumb %}    
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-blog" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    <div class="container">
+                        <div class="row">
+                        {% if content.NoticiaID %}
+                            {% include ['custom.layouts.blog.interna','core.layouts.blog.interna'] with { content: content, data: data }%}
+                        {% else %}
+                            {% include ['custom.layouts.blog.lista','core.layouts.blog.lista'] with { content: content, data: data }%}
+                        {% endif %}
+                        </div>
+                            
+                    </div>                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="{{ asset('/js/controller/blog.js') }}" type="text/javascript"></script>
+    
+    
+    <script>
+
+    $( document ).ready(function() {
+        
+    });
+
+    </script>    
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

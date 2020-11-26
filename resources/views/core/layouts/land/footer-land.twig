@@ -1,0 +1,78 @@
+
+
+<footer class="footer-main">
+    
+    
+    <section class="footer-aux">
+        <div class="container">
+            <div class="row">       
+                    
+                    <div class="col-sm-2">
+                        <img src="{{asset('/img/logo_white.png')}}" alt="" class="img-responsive logo_footer">
+                    </div>
+
+                    <div class="col-sm-7">
+                        <p>
+                            <strong>Barra/Recreio:</strong> {{ siteparam.endereco }}
+                        </p>
+                    </div>
+
+                    <div class="redes-sociais col-sm-3">
+                        <a class="facebook-icon" href="{{siteparam.facebook_url|default("http://facebook.com")}}">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        
+                        <a class="instagram-icon" href="{{siteparam.instagram_url|default("http://instagram.com")}}">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a class="twitter-icon" href="{{siteparam.twitter_url|default("")}}">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a class="youtube-icon" href="{{siteparam.youtube_url|default("http://youtube.com")}}">
+                            <i class="fa fa-youtube-play"></i>   
+                        </a>
+
+                        <a class="linkedin-icon" href="{{siteparam.linkedin_url|default("")}}">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        
+                    </div>
+
+            </div>
+        </div>    
+    </section>
+
+    <section class="footer-sub">
+        <div class="container">
+            <div class="row">       
+                <div class="col-md-6 col-sm-12">
+                    <p>&copy; {{"now"|date("Y")}} <strong>{{APP_NAME}}</strong>
+                        {% if(siteparam.creci) %} - <span class="footer-creci">Creci {{siteparam.creci}}</span>{% endif %}
+                        - Todos os direitos Reservados </p>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="rt_foot pull-right">
+                        <p>Desenvolvimento: 
+                            <a href="http://www.inforce.com.br/?{{APP_NAME}}">
+                                {% if data.isMobile %}
+                                    <img alt="{{APP_NAME}}" src="{{ asset('/img/infor_logo_white.png')}}">
+                                {% else %}
+                                    <img alt="{{APP_NAME}}" src="{{ asset('/img/infor_logo_black.png')}}">
+                                {% endif %}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>                    
+</footer>
+
+{% if data.isMobile %}
+    {% include ['custom.helpers.mobile-contatar-land-ana','core.helpers.mobile-contatar-land-ana'] %}
+{% endif %}
+
+
+

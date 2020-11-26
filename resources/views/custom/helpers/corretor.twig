@@ -1,0 +1,237 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% if sitecorretor.Posicao == "Topo"%}
+<section class="section-corretor topo">
+    <div class="corretor-box">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <ul class="contatos pull-left">
+                        <li>Telefone(s):</li>
+                        {% if sitecorretor.TelResidencial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelResidencial}}</li>{% endif %}
+                        {% if sitecorretor.TelCelular %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelCelular}}</li>{% endif %}
+                        {% if sitecorretor.TelComercial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelComercial}}</li>{% endif %}
+                    </ul>                    
+                </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <ul class="contatos text-center">
+                        <li><a class="btn btn-primary btn-fale-comigo" onclick="callCorretor()"><i class="fa fa-envelope"></i> Fale Comigo</a></li>
+                    </ul>
+                </div>
+                        
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <img class="avatar pull-right" src="{{sitecorretor.Avatar}}">
+                    <ul class="info pull-right">
+                        <li class="nome">{{sitecorretor.Apelido}}</li>
+                        <li><a class="btn btn-desvincular" href="/corretor/reset">Desvincular Corretor</a></li>
+                    </ul>
+                </div>
+                        
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}                
+
+
+
+{% if sitecorretor.Posicao == "Fundo"%}
+<section class="section-corretor fundo">
+    <i class="fa fa-chevron-up bt-corretor hide" title="Corretor"></i>
+    <i class="fa fa-chevron-down bt-corretor" title="Corretor"></i>
+    <div class="corretor-box">
+        <h5></h5>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <ul class="contatos pull-left">
+                        <li>Telefone(s):</li>
+                        {% if sitecorretor.TelResidencial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelResidencial}}</li>{% endif %}
+                        {% if sitecorretor.TelCelular %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelCelular}}</li>{% endif %}
+                        {% if sitecorretor.TelComercial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelComercial}}</li>{% endif %}
+                    </ul>                    
+                </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <ul class="contatos text-center">
+                        <li><a class="btn btn-primary btn-fale-comigo" onclick="callCorretor()"><i class="fa fa-envelope"></i> Fale Comigo</a></li>
+                    </ul>
+                </div>
+                        
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <img class="avatar pull-right" src="{{sitecorretor.Avatar}}">
+                    <ul class="info pull-right">
+                        <li class="nome">{{sitecorretor.Apelido}}</li>
+                        <li><a class="btn btn-desvincular" href="/corretor/reset">Desvincular Corretor</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+                
+
+<script>
+    $(document).ready(function(){
+        
+        setQsCorretor();
+        
+    });
+    
+    
+    /**
+     * Funcao que seta o querystring do corretor
+     * @returns {undefined}
+     */
+    function setQsCorretor(){
+        
+        // verifica se existe o parametro corretor setado na url
+        var qsBusca     = getParameterByName("busca");
+        var qsCorretor  = getParameterByName("corretor");
+        var corretor    = "{{sitecorretor.Apelido}}";
+        var url         = "";
+        
+        if(!qsCorretor){            
+            
+            if(qsBusca){
+                url = window.location.href + "&corretor="+corretor;
+            }else{
+                url = window.location.href + "?corretor="+corretor;
+            }
+            
+            window.history.pushState(null, null, url);
+        }
+    }
+    
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_contato_corretor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content col-lg-12 col-md-12 col-sm-12 col-xm-12">
+        <form class="form-contato">
+            <div class="row">
+                <div class="modal-header col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Fale Comigo!</h4>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <ul class="contatos pull-left">
+                        <li>Telefone(s):</li>
+                        {% if sitecorretor.TelResidencial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelResidencial}}</li>{% endif %}
+                        {% if sitecorretor.TelCelular %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelCelular}}</li>{% endif %}
+                        {% if sitecorretor.TelComercial %}<li class="telefone"><i class="fa fa-phone"></i> {{sitecorretor.TelComercial}}</li>{% endif %}
+                    </ul>                    
+                </div>
+                        
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <img class="avatar pull-right" src="{{sitecorretor.Avatar}}">
+                    <ul class="info pull-right">
+                        <li class="nome">{{sitecorretor.Apelido}}</li>
+                        <li><a class="btn btn-desvincular" href="/corretor/reset">Desvincular Corretor</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="modal-body col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                        <input type="hidden" name="token" value="{{data.guestToken}}"/>
+                        <input type="hidden" name="corretor" value="{{sitecorretor.Apelido}}"/>
+                        <input type="hidden" name="Tag" value="contato/fale-conosco"/>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="Nome">Nome Completo*</label>
+                            <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="Email">Email*</label>
+                            <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="TelResidencial">Telefone Fixo</label>
+                            <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="TelCelular">Celular</label>
+                            <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                            <label for="Assunto">Assunto</label>
+                            <input class="form-control" type="text" name="Assunto" value="" placeholder="* Assunto" required/>
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                            <label for="Mensagem">Mensagem</label>
+                            <textarea name="Mensagem" class="form-control" placeholder="* Mensagem" required></textarea>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal-footer col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                        <div class="pull-left newsletter">
+                            <input type="checkbox" name="newsletter" id="newsletter">
+                            <label for="newsletter">Quero receber novidades!</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                        {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                        <span class="contato-mss"></span>                        
+                        <button type="button" class="btn btn-primary form-submit">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+  </div>
+</div>
+
+
+    
+<script>
+    
+$(document).ready(function(){
+    
+    $(".bt-corretor").click(function(){
+        $( ".corretor-box" ).slideToggle( "fast", function() {
+          // Animation complete.
+          $( ".section-corretor .fa" ).toggleClass("hide");
+        });        
+    });
+    
+});
+
+
+function callCorretor(){
+    // chama o modal
+    $("#modal_contato_corretor").modal({backdrop: true});    
+}
+
+    
+</script>
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

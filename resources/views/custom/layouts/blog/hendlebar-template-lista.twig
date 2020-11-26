@@ -1,0 +1,39 @@
+
+{% verbatim %}                        
+<script id="template-list-blog" type="text/x-handlebars-template" class="hide">
+	
+	{{#if posts}}
+
+		{{#if titulo_section}}
+			<div class="col-12">
+				<h3>{{titulo_section}}</h3>
+			</div>
+		{{/if}}
+		
+		{{#each posts}} 
+			<div class="col-12 col-xl-6 item_list">
+				<a href="/blog/{{ slug }}/{{NoticiaID}}">
+																				{{!-- ../path_img = acessa uma variavel fora do escopo do loop  --}}
+					<div class="img_post img_{{AgrImagem}}" style="background-image: url({{../path_img}}/{{AgrImagem}}.jpg?wm=0);"></div>
+				</a>
+				<a href="/blog/{{ slug }}/{{NoticiaID}}">
+					<h4>{{Titulo}}</h4>
+				</a>
+				<p>
+					{{Chamada}}
+				</p>
+				<span class="dt_post">
+					{{ date Data}}
+				</span>
+			</div>
+		{{/each}}
+
+	{{else}}
+		<div>
+			Conteúdo não encontrado
+		</div>
+	{{/if}}
+
+
+</script>
+{% endverbatim %}  

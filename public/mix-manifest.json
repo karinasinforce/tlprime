@@ -1,0 +1,17 @@
+{
+  "/mix.js": "/mix.js",
+  "/css/base.css": "/css/base.css",
+  "/css/theme.css": "/css/theme.css",
+  "/css/land.css": "/css/land.css",
+  "/mix.js.map": "/mix.js.map",
+  "/css/base.css.map": "/css/base.css.map",
+  "/css/theme.css.map": "/css/theme.css.map",
+  "/css/land.css.map": "/css/land.css.map",
+  "/js/controller/busca-avancada.min.js": "/js/controller/busca-avancada.min.js",
+  "/js/controller/lancamentos.min.js": "/js/controller/lancamentos.min.js",
+  "/js/controller/prontos.min.js": "/js/controller/prontos.min.js",
+  "/js/controller/blog.min.js": "/js/controller/blog.min.js",
+  "/js/custom.min.js": "/js/custom.min.js",
+  "/js/smartTracking.min.js": "/js/smartTracking.min.js",
+  "/js/app.min.js": "/js/app.min.js"
+}

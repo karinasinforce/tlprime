@@ -1,0 +1,68 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+<!-- Main Header -->
+        <header>
+            
+            <div class="main-header">
+                <div id="headerBar">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container d-flex justify-content-between">
+                            <a class="navbar-brand" href="/">
+                                <img alt="{{APP_NAME}}" src="/img/logo_black.png">
+                            </a>
+                          
+                            <div class="overlay_menu d-md-none" data-target="#navbarNavDropdown"></div>
+                            <div class="menu_site navbar-collapse" id="navbarNavDropdown">
+                                <button type="button" class="close_mobile d-md-none" data-target="#navbarNavDropdown"><i class="fas fa-arrow-left"></i> <small>fechar</small></button>
+                                <ul class="navbar-nav">
+                                  {% include ['custom.partials.menu-main','core.partials.menu-main'] %}
+                                </ul>
+                            </div>
+                            
+                            <div class="content-links d-flex">
+                                <ul class="nav navbar-nav tel-header flex-column">
+                                    <li>
+                                        <a href="tel:0{{ siteparam.telefones.Telefone }}" target="_blank">
+                                            <span class="icon">
+                                                <i class="fas fa-phone"></i>
+                                            </span>
+                                            <span class="texto">
+                                                <small class="d-none d-md-block">Central de Atendimento</small>
+                                                <span class="d-none d-md-inline">{{ siteparam.telefones.Telefone }}</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <button class="navbar-toggler d-md-none" type="button" data-target="#navbarNavDropdown" aria-label="Toggle navigation">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>        
+                </div>
+            </div>
+
+            {% if actual_page == 'page-home' or actual_page == 'page-prontos' or actual_page == 'page-lancamentos' %}
+                <div class="content_busca_mobile d-lg-none">
+                    <div class="container">
+                        <button class="btn-large busca_avancada_mobile d-lg-none" id="open_busca">Encontre seu imóvel aqui <i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            {% endif %}
+                
+        </header>
+
+
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

@@ -1,0 +1,21 @@
+
+<section id="menu_categoria">
+    <div class="container">
+        <ul>
+            <li>
+                <a class="{{slugCat == null ? 'active' : ''}}" href="/blog/">Inicio</a>
+            </li>
+            {% for key, categoria in categorias %}    
+                <li>
+                    <a href="/blog/{{ categoria.slug }}" 
+                        class="{{categoria.slug == slugCat ? 'active' : ''}}"
+                        data-id="{{categoria.Id}}" 
+                        title="{{categoria.TotalNoticias}} {{ categoria.TotalNoticias > 1 ? 'Notícias' : 'Notícia'}} nesta Categoria"
+                        data-title-bold="{{categoria.Nome}}">
+                        {{categoria.Nome}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

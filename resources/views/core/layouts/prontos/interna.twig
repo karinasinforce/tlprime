@@ -1,0 +1,408 @@
+
+{# PRONTOS #}
+{% set item = content %}
+
+<div id="product-content" class="item-id-{{item.ID}}">
+    <div class="row">
+
+        <div class="col-12 col-lg-8">
+
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="javascript:void(0);" onclick="window.history.back()" class="bt_voltar_back">&laquo; Voltar</a>
+                <div class="subtitle">{{item.Codigo}} - {{item.TipoNome}}</div>
+            </div>
+            <!-- INFORMACOES -->
+        
+            <div class="row-box basic-info">
+                <div class="row align-items-stretch">
+
+                    <div class="col-12">
+                        <h1>
+                            {{item.TipoNome}}
+                            {% if item.QtdQuarto %} com {{item.QtdQuarto}} {{ item.QtdQuarto > 1 ? 'quartos' : 'quarto' }}{% endif %}
+                            {% if item.ValorVenda %} para venda{% endif %}{% if item.AreaTotal %}, {{item.AreaTotal}}m<sup>2</sup>{% endif %}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="regiao">
+                            <i class="fas fa-location-arrow"></i> {{item.Logradouro}} em {{item.BairroNome}}, {{item.CidadeNome}} - {{item.EstadoSigla}}
+                        </div>
+
+
+                        <div class="content_value d-lg-none mt-4 mb-2">
+                            {% if item.ValorVenda %}
+                                {% if item.ValorVenda > 0 %}
+                                    <div class="posvalue-imovel valor_imv">
+                                        <small>Venda:</small>
+                                        <span><small>R$ </small>{{item.ValorVenda|number_format(0,',','.')}}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="posvalue-imovel valor_imv">
+                                        <span>Consulte-nos</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if item.ValorLocacao %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Aluguel:</small>
+                                    <span><small>R$ </small>{{item.ValorLocacao|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorIPTU %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>IPTU:</small>
+                                    <span><small>R$ </small>{{item.ValorIPTU|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorCondominio %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Condomínio:</small>
+                                    <span><small>R$ </small>{{item.ValorCondominio|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorM2 %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Valor do m²:</small>
+                                    <span><small>R$ </small>{{item.ValorM2|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-box gallery">
+                {#{dump(item)}#}
+                {% if siteparam.favoritos == 'true' %}
+                    {# set para fucionar a marcacao do favoritado #}
+                    {% set content = item %}
+                    <!-- FAVORITO -->
+                    <div class="icon-favoritos fav-interna">
+                        <a class="btn-favoritos" onclick="addFav({{item.ID}})">
+                            <span>Adicionar aos Favoritos</span>
+                            <i class="fa fa-heart heart-{{item.ID}}"></i>
+                            <i class="fa fa-heart animated heart-{{item.ID}}"></i>
+                        </a>
+                        <input type="text" class="hide produto-favorito prod-id-{{item.ID}}"
+                            value='{"ID":"{{item.ID}}", "ValorVenda":"{{item.ValorVenda}}", "ValorLocacao":"{{item.ValorLocacao}}",
+                            "ImagemDestaque":"{{IMG_PATH}}/thumb/{{item.Imagens[0]}}.jpg", "BairroNome":"{{item.BairroNome}}",
+                            "TipoNome":"{{item.TipoNome}}", "AreaUtil":"{{item.AreaUtil}}",
+                            "QtdSuite":"{{item.QtdSuite}}", "QtdQuarto":"{{item.QtdQuarto}}",
+                            "QtdWcTotal":"{{item.QtdWcTotal}}", "QtdVaga":"{{item.QtdVaga}}" }'>
+                    </div>
+                    <!-- /FAVORITO -->
+                {% endif %}
+
+                {% include ['custom.helpers.slide-slick','core.helpers.slide-slick'] with {item: item, data:data} %}
+            </div>
+
+            
+            <div class="row-box attributes">
+                {% if item.QtdQuarto %}
+                    <div class="item_info">
+                        <div class="icon_wrap">
+                            <img src="/img/svg/quartos.svg" class="tosvg">
+                        </div>
+                        <div class="text-info">
+                            <span class="quartos">
+                                <strong>{{item.QtdQuarto}} </strong>
+                                <span>{{ item.QtdQuarto > 1 ? 'Quartos' : 'Quarto'}}</span>
+                            </span>
+                            {% if item.QtdSuite %}
+                                <span> sendo <strong>{{item.QtdSuite}}</strong> {{ item.QtdSuite > 1 ? 'Suítes' : 'Suíte'}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if item.QtdBanheiro %}
+                    <div class="item_info">
+                        <div class="icon_wrap">
+                            <img src="/img/svg/banheiros.svg" class="tosvg">
+                        </div>
+                        <strong>{{item.QtdBanheiro}}</strong>
+                        <span class="text-info">{{ item.QtdBanheiro > 1 ? 'Banheiros' : 'Banheiro'}}</span>
+                    </div>
+                {% endif %}
+
+                {% if item.QtdVaga %}
+                    <div class="item_info">
+                        <div class="icon_wrap">
+                            <img src="/img/svg/vagas.svg" class="tosvg">
+                        </div>
+                        <strong>{{item.QtdVaga}}</strong>
+                        <span class="text-info">vaga(s)</span>
+                    </div>
+                {% endif %}
+
+                {% if item.AreaUtil %}
+                    <div class="item_info">
+                        <div class="icon_wrap">
+                            <img src="/img/svg/area.svg" class="tosvg">
+                        </div>
+                        <span class="text-info">Área Útil</span>
+                        <strong>{{item.AreaUtil}} m²</strong>
+                    </div>
+                {% endif %}
+
+                {% if item.AreaTotal %}
+                    <div class="item_info">
+                        <div class="icon_wrap">
+                            <img src="/img/svg/area.svg" class="tosvg">
+                        </div>
+                        <span class="text-info">Área Total</span>
+                        <strong>{{item.AreaTotal}} m²</strong>
+                    </div>
+                {% endif %}
+
+            </div>
+        
+            {% if item.Video %}
+                <!-- VIDEO -->
+                <div class="row-box video">
+                    <div class="conteudo">
+                        <h3>Video</h3>
+                        <iframe width="420" height="315" src="https://www.youtube.com/embed/{{item.Video}}"></iframe>
+                    </div>
+                </div>
+            
+            {% endif %}
+
+
+            {% if item.Descricao %}
+                <!-- DESCRICAO -->
+                <div class="row-box descriptions">
+                    <div class="descript">
+                        <h3>Descrição</h3>
+                        <span>{{item.Descricao}}</span>
+                    </div>
+                </div>
+               
+            {% endif %}
+
+
+            {% if Caracteristicas %}
+                <div class="row-box characteristics-list">
+                    <h3>Comodidades</h3>
+                    <ul>
+                        {% for entry in item.Caracteristicas %}
+                            <li class="col-lg-4 col-md-4 col-sm-4 col-xs-12">{{entry}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+
+            {% if item.Imagens %}
+                <div class="row-box gallery-list">
+                    {% include ['custom.helpers.slide-light-gal','core.helpers.slide-light-gal'] with {item: item, data:data} %}
+                </div>
+            {% endif %}
+
+            <!-- MAPA -->
+            <div class="row-box maps">
+                <h3 class="stack_title">Localização</h3>
+                <div id="map_canvas" class="blur">
+                </div>
+                <div class="container_button_map" id="activate-map">
+                    <button class="btn btn-primary">Exibir Mapa</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-lg-4 content_form">
+            <!-- CONTATAR -->
+                
+                <div class="affix-anchor">
+                    <div class="affix-child contact">
+
+                        <div class="content_value d-none d-lg-block">
+                            {% if item.ValorVenda %}
+                                {% if item.ValorVenda > 0 %}
+                                    <div class="posvalue-imovel valor_imv">
+                                        <small>Venda:</small>
+                                        <span><small>R$ </small>{{item.ValorVenda|number_format(0,',','.')}}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="posvalue-imovel valor_imv">
+                                        <span>Consulte-nos</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if item.ValorLocacao %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Aluguel:</small>
+                                    <span><small>R$ </small>{{item.ValorLocacao|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorIPTU %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>IPTU:</small>
+                                    <span><small>R$ </small>{{item.ValorIPTU|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorCondominio %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Condomínio:</small>
+                                    <span><small>R$ </small>{{item.ValorCondominio|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+                            {% if item.ValorM2 %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <small>Valor do m²:</small>
+                                    <span><small>R$ </small>{{item.ValorM2|number_format(0,',','.')}}</span>
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+
+                        {% include ['custom.helpers.formulario-interessado','core.helpers.formulario-interessado'] %}
+
+                        <div class="chat">
+                            <a onclick="callChat()">
+                                <div><i class="fab fa-whatsapp"></i> Atendimento via Whatsapp</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{#{% include ['custom.layouts.prontos.modal','core.layouts.prontos.modal'] with {data: data} %}#}
+
+
+
+<!-- END CONTENT -->
+
+<style type="text/css">
+
+    .maps {
+        position: relative; 
+    }
+    #map_canvas {
+        width: 100%;
+        height: 350px;
+        margin-top: 5%;
+        background-image: url('/img/maps_base_small_1.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #map_canvas.blur {
+        filter: blur(0.8px);
+        -webkit-filter: blur(0.8px);
+    }
+    #map_canvas .titulo {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+        color: #07406a;
+    }
+    #map_canvas p {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .container_button_map {
+        position: absolute; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        top: 0px;
+        width: 100%; 
+        height: 100%;
+        cursor: pointer; 
+    }
+</style>
+
+
+<script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', function() {
+        (function($) {
+            $(document).ready(function(){
+                var activateMap = (function() {
+                    
+                    try{
+
+                        var geocoder = new google.maps.Geocoder();
+
+                        var address;    
+                        {% if item.produtotag=='lancamentos' %}
+                            {% if item.MapaLatitude|default("") and item.MapaLongitude|default("") %}
+                                address = "{{item.MapaLatitude}}, {{item.MapaLongitude}}";
+                            {% else %}
+                                address = "Brasil, {{item.CidadeNome}}, {{item.BairroNome}} - {{item.Localizacao}}";
+                            {% endif %}
+                        {% else %}
+                            address = "{{item.Logradouro}} - {{item.BairroNome}}, {{item.CidadeNome}} {{item.EstadoSigla}}, Brasil  ";
+                        {% endif %}
+
+
+                        var latitude = "";
+                        var longitude = ""; 
+
+                        geocoder.geocode( {'address':address}, function(results) {
+                            latitude =  latitude + results[0].geometry.location.lat();
+                            longitude = longitude + results[0].geometry.location.lng();
+
+                            var latlng = new google.maps.LatLng(latitude, longitude);
+                            var myOptions = {
+                              zoom: 14,
+                              center: latlng,
+                              scrollwheel: false,
+                              draggable: false,
+                              mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+
+                            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                            new google.maps.Circle({
+                                strokeColor: '#ffc74b',
+                                strokeOpacity: 0.8,
+                                strokeWeight: 2,
+                                fillColor: '#ffc74b',
+                                fillOpacity: 0.35,
+                                map: map,
+                                center: latlng,
+                                radius: 500
+                            });
+                          
+                        });
+                        
+                    }catch(err){
+                        console.log(err.message);
+                    }
+                    
+                });
+
+                $('#activate-map').click(function() {
+                    activateMap();
+                    $('.container_button_map').hide();
+                    $('#map_canvas').removeClass('blur');
+                });
+                    
+            });
+        })(jQuery);
+    });
+</script>
+

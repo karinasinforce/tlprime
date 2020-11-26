@@ -1,0 +1,213 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{# uso do verbatim para as chaves do handlebars #}
+{# with { Finalidade : content.url_local.Finalidade, Tipos : content.url_local.Tipos, Regioes : content.url_local.Regioes, content:content, data:data } #}
+
+{% verbatim %}
+<!-- ========================================================================== -->
+<script id="lista-item-handle" type="text/x-handlebars-template" class="hide">
+	<div class="row">
+		{{#each items}}
+		<div class="content_row_product col-12 col-md-6 col-lg-12">
+			<div class="product-row row mx-0 item-id-{{ID}}">
+				   
+				<!-- SLIDES -->
+				<div class="col-lg-5 group-slides">
+					<div class="row">
+													
+						{{#if Tipo}}
+							<div class="label-codigo {{slug StatusNome}}">
+								<span class="codigo-imovel">{{StatusNome}}</span>
+							</div>
+						{{/if}}
+						
+						<div class="slides {{#if Tipo}}lancamento_slides{{/if}} tagged-box-slides">
+							{{#each Imagens as |value key|}}
+								<img src="/img/placeholders/ph16x9.gif" style="background: url({%endverbatim%}{{ IMG_PATH }}{%verbatim%}/thumb/{{this}}.jpg) no-repeat center center;background-size: cover;">
+							{{/each}}
+						</div>
+					</div>
+				</div>                
+				<!-- /SLIDES -->
+				
+				<!-- INFO -->
+				<div class="col-lg-7 group-info">
+					<div class="row">
+						<div class="col-md-12 sub-info">
+							{{#if Tipo }}
+								<a href="/lancamento/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}" title="" class="tipo_lancamento">
+									<h2>
+										<span class="empnome">{{Codigo}}</span>
+									</h2>
+
+									{{#if CondominioNome}}<h3>{{CondominioNome}}</h3>{{/if}}
+									<h3>{{BairroNome}}, {{CidadeNome}}, {{EstadoSigla}}</h3>
+									<div class="label-tipos">{{#each Tipos}}<label class="tipo">{{this}}</label>{{/each}}</div>                        
+									
+									<ul class="itens">
+										
+										{{#if QtdQuarto}}
+											<li title="{{ qtdquartos QtdQuartoQtdQuarto}}">
+												<div class="icon_wrap">
+													<img src="/img/svg/quartos.svg" class="tosvg">
+												</div>
+												<span>{{ qtdquartos QtdQuarto}}</span>
+											</li>
+										{{/if}}
+
+										{{#if AreaUtilMinimo}}
+											<li title="{{QtdAreaAsFormatted}}" class="area_util">
+												<div class="icon_wrap">
+													<img src="/img/svg/area.svg" class="tosvg">
+												</div>
+												<span>{{QtdAreaAsFormatted}}</span>
+											</li>
+										{{/if}}
+									</ul>
+								</a>
+							{{ else }}
+								<a href="/imovel/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}" title="">
+									<h2>
+										{{#if CondominioNome}}<span class="condominio_nome">{{CondominioNome}}</span> - {{/if}}
+										{{TipoNome}} 
+										{{#if QtdQuarto}}com {{QtdQuartoAsFormatted}}{{/if}}, {{BairroNome}} - Cód.: {{Codigo}}
+									</h2>
+
+									<h3>
+										<i class="fas fa-map-marker-alt"></i> {{EnderecoLogradouro}}, {{EstadoSigla}}
+									</h3>
+									
+									<ul class="itens">
+										{{#if QtdQuarto}}
+											<li title="{{QtdQuarto}} {{qtdquartosname QtdQuarto}}">
+												<div class="icon_wrap">
+													<div class="content_svg">
+														<img src="/img/svg/quartos.svg" class="tosvg">
+													</div>
+												</div>
+												<span>{{QtdQuarto}}</span>
+												 <span class="_label"> {{qtdquartosname QtdQuarto}}</span>
+											</li>
+										{{/if}}
+
+										{{#if QtdSuite}}
+											<li title="{{QtdSuite}} {{qtdsuitesname QtdSuite}}">
+												<div class="icon_wrap">
+													<div class="content_svg">
+														<img src="/img/svg/suites.svg" class="tosvg">
+													</div>
+												</div>
+												<span>{{QtdSuite}}</span>
+												<span class="_label"> {{qtdsuitesname QtdSuite}}</span>
+											</li>
+										{{/if}}
+
+										{{#if QtdWcTotal}}
+											<li title="{{QtdWcTotal}} {{qtdwcname QtdWcTotal}}">
+												<div class="icon_wrap">
+													<div class="content_svg">
+														<img src="/img/svg/banheiros2.svg" class="tosvg">
+													</div>
+												</div>
+												<span>{{QtdWcTotal}}</span>
+												<span class="_label"> {{qtdwcname QtdWcTotal}}</span>
+											</li>
+										{{/if}}
+
+										{{#if QtdVaga}}
+											<li title="{{QtdVaga}} {{ qtdvagasname QtdVaga}}">
+												<div class="icon_wrap">
+													<div class="content_svg">
+														<img src="/img/svg/car-in-garage.svg" class="tosvg">
+													</div>
+												</div>
+												<span>{{ QtdVaga}}</span>
+												<span class="_label"> {{ qtdvagasname QtdVaga}}</span>
+											</li>
+										{{/if}}
+
+										{{#if AreaUtil}}
+											<li title="{{AreaUtil}}m²" class="area_util">
+												<div class="icon_wrap">
+													<div class="content_svg">
+														<img src="/img/svg/area.svg" class="tosvg">
+													</div>
+												</div>
+												<span>{{AreaUtil}}m²</span>
+											</li>
+										{{/if}}
+
+									</ul>
+									<div class="cod_caract">
+										{{#if caracteristicasOn}}
+											Com {{#each caracteristicasOn}}<span class="caract">{{this}}</span>{{/each}}
+										{{/if}}
+									</div>
+								</a>
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="group-actions col-12 col-lg-12 mb-2 mb-lg-0">            
+							<div class="btn_box">
+								{{#if Tipo}}
+									
+									{{#if ValorVendaMinimo}}
+                                         {{#if ValorVendaMaximo}}
+                                             <div>de R$ <span class="currency">{{ValorVendaMinimo}}</span> a R$<span class="currency"> {{ValorVendaMaximo}}</span></div>
+                                         {{else}}
+                                             <div>a partir de R$ <span class="currency">{{ValorVendaMinimo}}</span></div>
+                                         {{/if}}
+                                     {{else}}
+                                         {{#if ValorVendaMaximo}}
+                                             <div>até R$ <span class="currency">{{ValorVendaMaximo}}</span></div>
+                                         {{else}}
+                                             <div>Consulte-nos</div>
+                                         {{/if}}
+                                     {{/if}}
+
+									 <a class="btn btn-detalhes" href="/lancamento/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}" title="">Ver Empreendimento</a>
+								{{else}}
+									
+									{% endverbatim %}{% if '/aluguel' in url().current() %}{% verbatim %}
+										{{#if ValorLocacao}}
+											<div><small>R$ </small><span class="currency">{{ValorLocacao}}</span></div>
+										{{else}}
+											<div>Consulte-nos</div>
+										{{/if}}      
+									{% endverbatim %}{% else %}{% verbatim %}
+										{{#if ValorVenda}}
+											<div><small>R$ </small><span class="currency">{{ValorVenda}}</span></div>
+										{{else}}
+											<div>Consulte-nos</div>
+										{{/if}}
+									{% endverbatim %}{% endif %}{% verbatim %} 
+									<a class="btn btn-detalhes" href="/imovel/{{#if UrlTrack}}{{UrlTrack}}{{else}}oferta{{/if}}/ID-{{ID}}" title="">Ver Imóvel</a>
+								{{/if}}
+							</div>              
+						</div>
+					</div>
+					
+				</div>
+				<!-- /INFO -->
+				
+			</div>
+		</div>
+		{{/each}}
+	</div>
+	
+</script>
+{% endverbatim %}        
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

@@ -1,0 +1,114 @@
+
+
+<footer class="footer-main pt-5">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <img src="/img/logo_footer.png" alt="{{APP_NAME}}" class="logo_footer img-float mx-auto mb-3 mb-md-0 d-block ">
+                    </div>
+
+                    <div class="col-12 col-md-7 text-center text-md-left px-5 px-md-0">
+                        {% include ['custom.helpers.endereco','core.helpers.endereco'] %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-12">
+                <div class="row mb-4 mb-md-0">
+
+                    {% if not data.isMobile %}
+                        <div class="col-sm-4 col-12 mt-4 mt-md-0">
+                            <ul class="ftr_menu">
+                                {% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: "Imóveis" } %}
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-4 col-12 mt-4 mt-md-0">
+                            <ul class="ftr_menu">
+                                {% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: APP_NAME } %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="col-sm-4 col-12 mt-4 mt-md-0 mb-4 mb-md-0">
+                        {% include ['custom.helpers.facebook-likebox', 'core.helpers.facebook-likebox'] with { bloco: 'html' } %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if siteparam.facebook_url or siteparam.twitter_url or siteparam.youtube_url or siteparam.instagram_url %}
+        <section class="footer-aux mt-md-4">
+            <div class="container">
+                <div class="redes-sociais text-center text-md-right pb-4 pb-md-3">
+                    <span class="d-block d-md-inline-block mb-3 mb-md-0">Siga nossas redes sociais: </span>
+                    
+                    {% if siteparam.facebook_url %}
+                        <a class="facebook-icon" href="{{siteparam.facebook_url|default("http://facebook.com")}}">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if siteparam.twitter_url %}
+                        <a class="twitter-icon" href="{{siteparam.twitter_url|default("http://twitter.com")}}">
+                            <i class="fab fa-twitter"></i>        
+                        </a>
+                    {% endif %}
+
+                    {% if siteparam.youtube_url %}
+                        <a class="youtube-icon" href="{{siteparam.youtube_url|default("http://youtube.com")}}">
+                            <i class="fab fa-youtube"></i>   
+                        </a>
+                    {% endif %}
+
+                    {% if siteparam.instagram_url %}
+                        <a class="instagram-icon" href="{{siteparam.instagram_url|default("http://instagram.com")}}">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>    
+        </section>
+    {% endif %}
+
+    <section class="footer-sub">
+        <div class="container">
+            <div class="row text-center text-md-left">       
+                <div class="col-md-6 col-sm-12">
+                    <p>&copy; {{"now"|date("Y")}} <strong>{{APP_NAME}}</strong>
+                        {% if(siteparam.creci) %} - <span class="footer-creci">Creci {{siteparam.creci}}</span>{% endif %}
+                        - Todos os direitos Reservados
+                    </p>
+                </div>
+
+                <div class="col-md-6 col-sm-12 text-md-right">    
+                    <p>Desenvolvimento: 
+                        <a href="http://www.inforce.com.br/?{{APP_NAME}}" class="d-block d-lg-inline-block">
+                            <img alt="{{APP_NAME}}" src="{{ asset('/img/infor_logo_white.png')}}">
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>                    
+</footer>
+
+
+{#{% if data.isMobile %}
+    {% include ['custom.helpers.mobile-contatar','core.helpers.mobile-contatar'] %}
+{% endif %}#}
+
+
+{#{% include ['custom.helpers.form-whatsapp','core.helpers.form-whatsapp'] with {Assunto: 'Atendimento via Whatsapp' }%}
+
+{% include ['custom.helpers.formulario-ligamos-pra-voce-barra-flutuante','core.helpers.formulario-ligamos-pra-voce-barra-flutuante'] with {Assunto: 'Ligamos para você' }%}
+
+{% include ['custom.helpers.formulario-atendimento-email-barra-flutuante','core.helpers.formulario-atendimento-email-barra-flutuante'] with {Assunto: 'Atendimento via E-mail' }%}
+
+{% include ['custom.helpers.formulario-anuncie-barra-flutuante','core.helpers.formulario-anuncie-barra-flutuante'] with {Assunto: 'Anuncie seu imóvel' }%}#}
+
+
+  

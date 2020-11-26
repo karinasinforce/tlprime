@@ -1,0 +1,107 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+<head>
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="API_PATH" id="API_PATH" data-path="{{API_PATH}}"/>
+
+    <title>{{ html_header_title|raw }} {{ actual_page != 'page-home' ? '| ' ~ APP_NAME : '' }}</title>    
+      
+    {# facebook og #}
+        {% if header_facebook_url  %}
+            <meta property="og:url" content="{{header_facebook_url}}" />
+        {% endif %}
+        {% if header_facebook_type %}
+            <meta property="og:type"        content="website" />
+        {% endif %}
+        {% if header_facebook_title %}
+            <meta property="og:title"       content="{{HTMLHeaderTitle}}" />
+        {% endif %}
+        {% if header_facebook_desc  %}
+            <meta property="og:description" content="{{header_facebook_desc}}"/>    
+        {% endif %}
+        {% if header_facebook_img  %}
+            <meta property="og:image" content="{{header_facebook_img}}" />
+        {% endif %}
+    {# facebook og #}
+    
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    
+    <meta name="description" content="{{ html_header_description|raw|default('A Sawala é uma solução completa em serviços imobiliários de qualidade. Está consolidada como a principal imobiliária da Região da Barra da Tijuca e do Recreio dos Bandeirantes, possuindo também forte atuação em Campo Grande e em Jacarepaguá.') }}"/>
+    <meta name="keywords" content="Imóveis, apartamentos, casas, terrenos, compra, venda e aluguel, Barra da Tijuca, Recreio dos Bandeirantes, Campo Grande e Jacarepaguá"/>
+    
+    <!-- Bootstrap 3.3.7 CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+
+    <!-- Font Awesome Icons CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Light Slider -->
+    <link href="/js/plugins/lightSlider/dist/css/lightslider.min.css" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/css/base.min.css" rel="stylesheet" type="text/css" />
+    {#<link href="/css/header.css" rel="stylesheet" type="text/css" />
+    <link href="/css/footer.css" rel="stylesheet" type="text/css" />
+    <link href="/css/busca.css" rel="stylesheet" type="text/css" />
+    <link href="/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="/css/mobile.css" rel="stylesheet" type="text/css" /> #}
+
+    <!-- CUSTOM CSS -->
+    <link href="/css/theme.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/css/fonts-land.css" rel="stylesheet" type="text/css" />
+    <link href="/css/land.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery 2.2.4 JS -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap 3.3.7 JS -->
+    {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+
+    <link href="/js/plugins/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Select2 4.0.3 JS & CSS -->
+    <link href="/css/plugins/select2.min.css" rel="stylesheet" />
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
+    <script src="/js/plugins/select2.min.js"></script>
+    
+    <!-- Nice Select JS & CSS -->
+    <link href="/js/plugins/jquery.nice-select.min.css" rel="stylesheet" />
+    <script src="/js/plugins/jquery.nice-select.min.js"></script>
+
+    <!-- CSS Toggle Switch -->
+    <link href="/js/plugins/toggle-switch.css" rel="stylesheet" />
+    
+    <!-- GMaps JS -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMt-l5-Xc5rfpD-2Wf2jq5EOE3AeHJAGw"></script>
+    
+    
+    {%if siteparam.googleanalytics %}
+    <script>
+        var _gacode = '{{siteparam.googleanalytics}}';
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', _gacode, 'auto');
+        ga('send', 'pageview');
+
+    </script>        
+    {%endif%}    
+</head>
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

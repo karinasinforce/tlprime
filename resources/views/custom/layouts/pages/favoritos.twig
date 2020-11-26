@@ -1,0 +1,262 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Meus Favoritos{% endblock %}
+
+{% block content_header_title %}
+                <div class="">Meus Favoritos</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="">Revise e compare seus imóveis preferidos</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-favoritos" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+                        
+
+                        {% set offset = "" %}
+                        {% set content = data.Favoritos %}
+                        
+                        {#{dump(data)}#}
+
+                        {% if (content|length)==0 %}
+                        <div class="row">
+                            <div class="col-sm-12 coluna">
+                                <h2 class="text-center">Nenhum Imóvel foi marcado como Favorito ainda!</h2>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        
+                        {% if (content|length)==1 %}
+                            {% set offset = "col-sm-offset-4" %}
+                        {% endif %}
+                        {% if (content|length)==2 %}
+                            {% set offset = "col-sm-offset-2" %}
+                        {% endif %}
+                        
+                        {% if data.isMobile %}
+                            {% set offset = "" %}
+                        {% endif %}
+                        
+                        
+                        {% if content is not null %}
+                            <div class="vitrine" id="vitrine-favoritos">
+                                
+                                <div class="product_item_sec" id="product-content">
+
+                                    <div class="row">
+                                        <div class="{{offset}} col-sm-12 coluna">
+                                            <div id="owl-vitrine-favoritos" class="owl-carousel">
+                                            
+                                            {% for entry in content %}
+
+                                                {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg" %}
+                                                
+                                                {% if entry.Lancamento %}
+                                                    {% if entry.UrlTrack %}
+                                                        {% set product_url = "/lancamento/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                                                    {% else %}
+                                                        {% set product_url = "/lancamento/oferta/ID-" ~ entry.ID %}
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if entry.UrlTrack %}
+                                                        {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                                                    {% else %}
+                                                        {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                                                    {% endif %}
+                                                {% endif %}
+
+                                                <div class="product_itemBx favorito-item-{{entry.ID}}"><!-- item unico -->
+                                                    <div class="product_itemBxTop">
+                                                        <a class="vit_link_foto">
+                                                            <div class="pdct_pic">
+                                                                <img src="/img/placeholders/ph16x9.gif" 
+                                                                     class="vitrine-venda-img"
+                                                                     style="background: url({{entry.ImagemDestaque}}) no-repeat center center; 
+                                                                     background-size: cover;">
+                                                                <div class="tag-tipo">{{entry.Tipo|default(entry.TipoNome)}}</div>
+                                                                <i onclick="removeFav({{entry.ID}})" class="fa fa-close remove-fav"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product_itemBxBot">
+                                                        {% if entry.Imovel %}
+                                                            <div class="col-xs-12 col-sm-12 col-md-6 text-center">
+                                                                <label class="valor-label">Valor de Venda</label>
+                                                                <div class="valor-imovel">{% if (entry.ValorVenda) %}R$ <span class="currency">{{entry.ValorVenda}}</span>{% else %} - {% endif %}</div>
+                                                            </div>                                                    
+                                                            <div class="col-xs-12 col-sm-12 col-md-6 text-center">
+                                                                <label class="valor-label">Valor de Locação</label>
+                                                                <div class="valor-imovel">{% if (entry.ValorLocacao) %}R$ <span class="currency">{{entry.ValorLocacao}}</span>{% else %} - {% endif %}</div>
+                                                            </div>      
+                                                        {% else %}
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                                                <h4>{{entry.Nome}}</h4>
+                                                            </div> 
+                                                        {% endif %}                                              
+                                                        
+                                                        {#
+                                                        <div class="col-xs-12 col-sm-12 text-center">
+                                                            <div class="nomeh4">{{entry.Tipo|default(entry.TipoNome)}}</div>
+                                                        </div>
+                                                        #}
+
+                                                        <div class="col-xs-12 col-sm-12 text-center">
+                                                            <h3>{{entry.BairroNome}}</h3>
+                                                        </div>
+
+                                                        {#
+                                                        <div class="col-xs-12 col-sm-12 text-center">
+                                                            <div class="nomeh4">{{entry.CidadeNome}} - {{entry.EstadoSigla}}</div>
+                                                        </div>
+                                                        #}
+                                                        {% if entry.Imovel %}
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                                                <div class="product-att">
+                                                                    <i class="fa fa-bed"></i>
+                                                                    <span class="att">{{ entry.QtdQuarto > 0 ? entry.QtdQuarto~" Qt(s)" : '-'}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                                                <div class="product-att">
+                                                                    <i class="fa fa-shower"></i>
+                                                                    <span class="att">{{ entry.QtdWcTotal > 0 ? entry.QtdWcTotal~" Wc(s)" : '-'}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                                                <div class="product-att">
+                                                                    <i class="fa fa-car"></i>
+                                                                    <span class="att">{{ entry.QtdVagas > 0 ? entry.QtdVagas~" Vaga(s)" : '-'}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                                                <div class="product-att">
+                                                                    <i class="fa fa-map"></i>
+                                                                    <span class="att">{{ entry.AreaUtil > 0 ? entry.AreaUtil~" m2" : '-'}}</span>
+                                                                </div>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                                                <div class="product-att">
+                                                                    <i class="fa fa-map"></i>
+                                                                    <span class="att">{{ entry.AreaUtil  ? entry.AreaUtil : '-'}}</span>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+
+                                                        <div class="col-xs-12 col-sm-12 text-center">
+                                                            <a class="bt-saibamais" href="{{product_url}}">Saiba mais</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            {% endfor %}
+                                            </div>  
+                                        </div>
+                                    </div>             
+                                </div>
+                            </div>
+
+
+                        <script>
+                            
+                            $(document).ready(function() {
+                                owl_vitrine = $("#owl-vitrine-favoritos");
+
+                                owl_vitrine.owlCarousel({
+                                    onInitialize : function(element){
+                                        owl_vitrine.children().sort(function(){
+                                            return Math.round(Math.random()) - 0.5;
+                                        }).each(function(){
+                                            $(this).appendTo(owl_vitrine);
+                                        });
+                                    },            
+                                    loop: false,
+                                    margin: 10,
+                                    nav: true,
+                                    navText: ['<i class="fa fa-caret-left">','<i class="fa fa-caret-right">'],
+                                    items: 3,
+                                    responsive: {
+                                        300:{
+                                            items:1,
+                                            nav:true
+                                        },
+                                        700:{
+                                            items:2,
+                                            nav:true
+                                        },
+                                        1000:{
+                                            items:3,
+                                            nav:true
+                                        },
+                                        1200:{
+                                            items:3,
+                                            nav:true
+                                        },
+                                        1400:{
+                                            items:3,
+                                            nav:true
+                                        },
+                                        1600:{
+                                            items:3,
+                                            nav:true
+                                        }
+                                    }
+
+                                });
+                            });
+                        </script>
+                        {% endif %}
+
+                        {%if content.ExceptionMessage %}
+                            <div class="col-md-12">
+                                <h3>{{content.ExceptionMessage}}</h3>
+                            </div>
+                        {%endif%}
+
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="{{ asset('/js/controller/home.js') }}" type="text/javascript"></script> 
+    <script>
+        $(document).ready(function(){
+            
+            formatCurrency();
+            
+        });
+    </script>
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

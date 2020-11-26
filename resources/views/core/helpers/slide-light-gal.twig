@@ -1,0 +1,57 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if item.Imagens %}
+    
+    <div class="content_secRow galeria mt-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="photos_sec lightGal row mx-0">
+                    {% for key, imagem in item.Imagens %}      
+                        <div class="col-md-3 col-6 mb-3 px-2 {{ key > 3  ? 'hide' : ''}}">
+                            <div class="galeria-idx-{{key|default("0")}} img_thumb photo_col lightGalItem big" data-src="{{ siteparam.https == 'true' ? data.IMG_PATH : data.IMG_PATH }}/{{imagem}}.jpg?wm=5&mh=850">
+                                <div style="background-image:url('{{ siteparam.https == 'true' ? data.IMG_PATH : data.IMG_PATH }}/{{imagem}}.jpg?mh=512&wm=5');"></div>
+                                <img src='{{ siteparam.https == 'true' ? data.IMG_PATH : data.IMG_PATH }}/{{imagem}}.jpg?mh=128&wm=5' class="hide">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-12"> 
+                <div class="view_img text-center">
+                    <a class="btn btn-brand" href="javascript:$('.galeria-idx-4').click();">Ver Galeria Completa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            $(document).ready(function(){
+                            
+                var $lightGall = $('.lightGal');
+
+                $lightGall.lightGallery({
+                  selector: '.lightGalItem ',
+                  //exThumbImage: 'data-exthumbimage'
+                }); 
+
+                // click faz a galeria abrir com background escuro
+                $('.ver-todas').click(function(event) {
+                    $('.lightGal').find('.lightGalItem')[0].click();
+                });            
+
+            });
+        });
+    </script>
+    
+{% endif %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

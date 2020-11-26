@@ -1,0 +1,47 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Página não encontrada{% endblock %}
+
+{% block content_header_title %}
+                <div class="hide">Página não encontrada</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Página não encontrada</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}    
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-404" %}
+
+{% block main_content %}
+            <div class="container">
+                <div class="row">    
+                    <div class="col-lg-4 col-md-4 col-sm-2 hidden-xs"></div>
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                        <div class="not-found">
+                            <h2 class="headline text-yellow"><i class="fa fa-warning text-yellow"></i> 404</h2>
+                            <div class="error-content">
+                                <h3>Oops! Página não encontrada!</h3>
+                                <p>Por favor, volte para a <a href='{{ url('/') }}'>Página Inicial</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-2 hidden-xs"></div>
+                </div>
+            </div>
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

@@ -1,0 +1,81 @@
+
+ /* CSS do FOOTER do site */
+
+.footer-main {
+    padding: 0;
+    background: $footer-bg;
+    color: $footer-color;
+    
+    .ftr_menu {
+        margin: 0;
+        padding: 0;
+
+        h4 {
+            font-size: 18px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(#fff, .15);
+            padding-bottom: 5px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            list-style-type: none;
+
+            &:not(:first-child) {
+                border-bottom: 1px dotted rgba(#fff, .15);
+            }
+
+            a {
+                color: lighten($color-base, 60%);
+            }
+        }
+    }
+
+ }
+
+ .footer-aux {
+     background: darken($color-base, 15%);
+     color: #fff;    
+     border-top: 1px solid #fff;
+     border-bottom: 1px solid #fff;
+     
+     .redes-sociais{
+         padding: 12px 0;
+     }
+     
+    a {
+        margin: 0 0 0 16px;
+        color: #333;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        text-align: center;
+        font-size: 18px;
+        line-height: 34px;
+        border: 2px solid #fff;
+        border-radius: 40px;
+        transition: all .3s;
+        
+        &:hover{
+            color: darken($color-base, 15%);
+            background: #fff;
+        }
+    }    
+ }
+
+ .footer-sub {
+     padding: 16px 0;
+     color: #FFF;
+     
+     .container{
+       
+        .rt_foot {
+            a {
+                 color: #fff;
+                 &:hover{}
+            }
+        }
+     }
+ }
+

@@ -1,0 +1,121 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{#
+
+            [NoticiaID] => 5
+            [Titulo] => Aluguel de imóvel na Zona Sul do Rio está 10% mais baixo, diz sindicato
+            [Data] => 2015-08-18T00:00:00
+            [Conteudo] => 
+            [Chamada] => Oferta de apartamentos para alugar aumentou 59% em 1 ano. Inquilino está com poder de negociar, diz sindicato de empresas do setor
+            [Autor] => 
+            [Fonte] => O Globo
+            [Link] => 
+            [FlagDestaque] => 0
+            [DataCadastro] => 2016-01-08T11:18:07
+            [DataAlteracao] => 2016-06-16T12:28:18
+            [FlagPublico] => -1
+            [GaleriaImagemID] => 44
+            [GaleriaArquivoID] => 
+            [CategoriaID] => 5
+            [CategoriaNome] => Notícias de Mercado
+            [AgrImagem] => 
+            [Imagens] => Array
+                (
+                    [0] => 
+                )
+
+
+#}
+
+{% set class_mobile = '' %}{% if data.isMobile %} {% set class_mobile = 'mobile' %} {% endif %}
+
+{% set content      = content %}
+
+    <div class="blog-list-container {{class_mobile}}">
+           
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 content-list" id="blog-list">
+            
+            {% if content[0] %}
+                {% for post in content %}
+                <a href="/blog/{{ post.Titulo|replace({' ': '-'})|lower|url_encode }}/{{post.NoticiaID}}">
+                <div class="row blog-row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 box-date">
+                        {# problemas para traduzir a data no servidor #}
+                        {% set postData = post.Data %}
+                        {% if post.Data|date("M") == 'Jan' %}{% set postData = 'Jan' %}{% endif %}
+                        {% if post.Data|date("M") == 'Feb' %}{% set postData = 'Fev' %}{% endif %}
+                        {% if post.Data|date("M") == 'Mar' %}{% set postData = 'Mar' %}{% endif %}
+                        {% if post.Data|date("M") == 'Apr' %}{% set postData = 'Abr' %}{% endif %}
+                        {% if post.Data|date("M") == 'May' %}{% set postData = 'Mai' %}{% endif %}
+                        {% if post.Data|date("M") == 'Jun' %}{% set postData = 'Jun' %}{% endif %}
+                        {% if post.Data|date("M") == 'Jul' %}{% set postData = 'Jul' %}{% endif %}
+                        {% if post.Data|date("M") == 'Aug' %}{% set postData = 'Ago' %}{% endif %}
+                        {% if post.Data|date("M") == 'Sep' %}{% set postData = 'Set' %}{% endif %}
+                        {% if post.Data|date("M") == 'Oct' %}{% set postData = 'Out' %}{% endif %}
+                        {% if post.Data|date("M") == 'Nov' %}{% set postData = 'Nov' %}{% endif %}
+                        {% if post.Data|date("M") == 'Dec' %}{% set postData = 'Dez' %}{% endif %}
+                        <div class="data-mes">{{postData}}</div>
+                        <div class="data-dia">{{post.Data|date("d")}}</div>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 box-text">
+                        <h3 class="titulo">{{post.Titulo}}</h3>
+                        <p class="resumo">{{post.Chamada}}</p>
+                    </div>
+                    <div class="col-xs-12">
+                        <button class="btn">Veja mais</button>
+                    </div>
+                </div>            
+                </a>
+                {% endfor %}
+            {%else%}
+                <h3>Ainda não existem publicações.</h3>
+            {%endif%}
+            
+        </div>        
+        
+        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+            <!-- MAIS ACESSADAS -->
+            <div class="mais-acessadas">
+
+                {% include ['custom.helpers.blog-destaque','core.helpers.blog-destaque'] with {content:content} %}
+                
+            </div>        
+
+            <!-- CONTATAR -->
+            <div class="row-box contact">
+                {% include ['custom.helpers.formulario-newsletter','core.helpers.formulario-newsletter'] %}
+            </div>        
+        </div>
+
+        
+        <!-- SEM RESULTADOS -->
+        <div class="">
+            <div class="conteudo-nao-encontrado hide">
+                {% include ['custom.errors.conteudo-nao-encontrado','core.errors.conteudo-nao-encontrado'] %}
+            </div>
+            <div class="acesso-nao-autorizado hide">
+                {% include ['custom.errors.acesso-nao-autorizado','core.errors.acesso-nao-autorizado'] %}
+            </div>
+            <div class="nenhum-encontrado hide">
+                {% include ['custom.errors.nenhum-encontrado','core.errors.nenhum-encontrado'] %}
+            </div>
+            <div class="erro-servidor hide">
+                {% include ['custom.errors.erro-servidor','core.errors.erro-servidor'] %}
+            </div>
+        </div>
+                     
+    </div>
+           
+            
+{#% include 'layouts.blog.modal' with { content:content } %#}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

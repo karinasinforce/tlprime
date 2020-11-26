@@ -1,0 +1,83 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_contato_imovel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content col-lg-12 col-md-12 col-sm-12 col-xm-12">
+        <form class="form-contato">
+            <div class="row">
+                <div class="modal-header col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Estou interessado!</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal-imovel-html  col-lg-12 col-md-12 col-sm-12 col-xm-12"></div>
+            </div>
+
+            <div class="row">
+                <div class="modal-body col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                        <input type="hidden" name="id" class="id" value="">
+                        <input type="hidden" name="token" value="{{data.guestToken}}"/>
+                        <input type="hidden" name="formulario" value="estou-interessado"/>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="nome">Nome Completo*</label>
+                            <input type="text" name="nome" class="form-control" value="{{data.Guest.nome|default("")}}" placeholder="" required>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="email">Email*</label>
+                            <input type="text" name="email" class="form-control" value="{{data.Guest.email|default("")}}" placeholder="" required>
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="telefone">Telefone Fixo</label>
+                            <input type="text" name="telefone" class="form-control mask-tel" value="{{data.Guest.telefone|default("")}}" placeholder="">
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                            <label for="telefone">Celular</label>
+                            <input type="text" name="celular" class="form-control mask-tel" value="{{data.Guest.celular|default("")}}" placeholder="">
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea name="mensagem" class="form-control"></textarea>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal-footer col-lg-12 col-md-12 col-sm-12 col-xm-12">
+                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                        <div class="pull-left newsletter">
+                            <input type="checkbox" name="newsletter" id="newsletter">
+                            <label for="newsletter">Quero receber novidades!</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xm-12">
+                        {# o span contato-mss recebe as mensagens de retorno para o usuario #}
+                        <span class="contato-mss"></span>                        
+                        <button type="button" class="btn btn-primary form-submit">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+  </div>
+</div>
+                        
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

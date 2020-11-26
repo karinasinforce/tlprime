@@ -1,0 +1,122 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+<div class="form-nao-encontrei">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 desk">
+                <div class="mid_frm_inner">
+                    <h3>Qual o imóvel que você procura?</h3>
+                    <p>Está procurando o seu imóvel ? Temos uma equipe especializada para encontrar o imóvel que você sonha.</p>
+
+                    <form id="form-nao-encontrei">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+                        <input type="hidden" name="Tag" value="contato/nao-encontrei">
+                        {% if sitecorretor.Apelido %}<input type="hidden" name="corretor" value="{{sitecorretor.Apelido}}"/>{%endif%}
+
+                        
+                        <!-- OBRIGATORIO --> 
+                        <div class="mid_frm_Box mid_frm_Box_top_form">
+                            <ul>
+                                <li data-finalidade="Prontos" class="li-prontos"><a class="slct btn_finalidade" data-value="Prontos">Prontos</a></li>
+                                <li data-finalidade="Lançamentos" class="li-empreendimentos"><a class="btn_finalidade" data-value="Lancamentos">Lançamentos</a></li>
+                            </ul>
+                            <input type="hidden" name="finalidade" id="finalidade" value="Prontos">
+                        </div>
+                        <div>
+                            <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                        </div>
+                        <div>
+                            <input class="form-control mask-email" type="email" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>
+                        </div>
+                        <div>
+                            <input class="form-control mask-tel" type="text" name="TelResidencial" value="{{data.Guest.TelResidencial|default("")}}" placeholder="DDD + Telefone"/>
+                            <input class="form-control mask-tel" type="text" name="TelCelular" value="{{data.Guest.TelCelular|default("")}}" placeholder="DDD + Celular"/>
+                        </div>	
+                        <div>
+                            <div class="top_select">
+                                <div>
+                                    <select name="tipo" class="form-control">
+                                    {% for entry in selectProntos %}
+                                        <option value="{{entry.nome}}">{{entry.nome}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="top_select2 ">
+                                <div>
+                                    <select name="quartos" class="form-control">
+                                        <option value="">Qtde Quartos</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5+">5+</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="top_select2">
+                                <!-- <div class="top_select_drop"> -->
+                                <div>
+                                    <select name="vagas" class="form-control">
+                                        <option value="">Qtde de Vagas</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5+">5+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control input-lg" placeholder="Em qual região você gostaria? Pode ser mais de uma." name="regiao"/>
+                        </div>
+                        <div class="mid_frm_Box">
+                            <input type="submit" class="btn_submit" value="Enviar" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mid_frm_rt">
+                    <img src="{{Config.base_url}}theme/images/home_form_rt_pic.jpg" alt="" />
+                    <div class="mid_frm_rt_txt">
+                        <a href="{{Config.base}}contato/espaco-permuta/" class="mid_form_red_btn">Espaço Permuta</a>
+                        <div class="mid_frm_rt_txt_mid">
+                            <h4>Tem um imóvel e quer<br> trocar ou dar como parte<br>  de pagamento?</h4>
+                            <p>Você aceitando permutar, você está ganhando velocidade<br> de venda, fazendo negócio e ganhando dinheiro</p>
+                            <a href="{{Config.base}}contato/espaco-permuta/" class="mid_form_yell_btn">Estou interessado</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        
+        $(".btn_finalidade").click(function(){
+           
+           var ele = $(this);
+           var value = ele.data("value");
+           
+           console.log(value);
+        
+        });
+        
+    });
+</script>
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

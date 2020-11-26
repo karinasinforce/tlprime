@@ -1,0 +1,40 @@
+
+{% if item.Imagens %}
+    <div class="slider-case">
+        {% for key,  entry in item.Imagens %}
+            {% set wm = entry > 5865 ? '5' : '0'%}
+            {% set image_url = data.IMG_PATH ~ "/" ~ entry ~ ".jpg?wm=" ~ wm %}
+            <div class="img_capa_galeria" style="background-image: url({{image_url}});" data-position="{{ key }}"></div>
+        {% endfor %}                
+    </div>
+    
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            $(document).ready(function(){
+                            
+                // click faz a galeria abrir com background escuro
+                $(".slider-case .img_capa_galeria").click(function(){
+                    var posicao = $(this).attr('data-position');
+                    $('.lightGal').find('.lightGalItem')[posicao].click();
+                });
+
+                // incia o slide da galeria
+                $('#product-content .slider-case').slick({
+                    // asNavFor: '#product-content .slides',
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    autoplay: true,
+                    fade: true,
+                    speed: 400,
+                    nextArrow: '<i class="fa fa-chevron-right next"></i>',
+                    prevArrow: '<i class="fa fa-chevron-left prev"></i>',
+                    dots: false
+                });
+
+            });
+        });
+    </script>
+    
+{% endif %}

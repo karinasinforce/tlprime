@@ -1,0 +1,90 @@
+
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+<script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+
+<div class="container box-ultimas-noticias">
+	<h2>Últimas Notícias</h2>
+
+	<div class="ultimas-noticias col-12 m-auto">
+
+		<ul class="row slider">
+			{% for post in content %}
+				
+				<div class="col-md-3 col-lg-4 col-sm-12 single-item">
+					<div class="img-post">
+						{# <a href="/blog/{{post.Titulo|replace({' ': '-'})|lower }}/{{post.NoticiaID}}"> #}
+						<a href="/blog/{{post.UrlAmigavel}}/{{post.ConteudoID}}">	
+
+							{% set img = post.ImagemCapaId == null ? : post.ImagemCapaId %} 
+
+							{# {% set img = post.ImagemCapaId %} #}
+
+							<img style="background-image: url('{{data.IMG_PATH}}/{{img}}.jpg?wm=0')"/>
+						</div>
+						<li>
+
+							<h3 class="blog-titulo">{{post.Titulo}}</h3>
+						</li>
+					</a>
+					<div class="conteudo-resumo">
+						<p>{{post.Sumario|raw}}</p>
+					</div>
+					{# <div class="blog-data">
+						{{post.Data|date("d/m/Y")}}
+					</div> #}
+				</li>
+			</div>
+
+		{% endfor %}
+	</ul>
+</div></div></div>
+
+
+
+
+
+
+<script>$(".slider").slick({
+
+// normal options...
+infinite: true,
+nav: true,
+arrows: true,
+dots: true,
+draggable: true,
+focusOnSelect: true,
+slidesToShow: 3,
+lidesToScroll: 3,
+prevArrow: '<div class="Group-Arrows"><button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button></div>',
+// the magic
+responsive: [
+{
+
+breakpoint: 1024,
+settings: {
+slidesToShow: 4,
+infinite: true
+}
+
+}, {
+
+breakpoint: 600,
+settings: {
+slidesToShow: 1,
+slidesToScroll: 1,
+dots: true
+}
+
+}
+]
+});</script>

@@ -1,0 +1,131 @@
+.pag_interna, .page_form {
+    .spark-screen {
+        padding-top: 40px;
+
+        h2 {
+            @include rem('font-size', 28);
+            text-transform: none;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                height: 3px;
+                width: 110px;
+                background: $ouro;
+                margin-top: 15px;
+            }
+        }
+
+        
+        .box-page-custom {
+            margin-bottom: 60px;
+        }
+        
+        .corpo {
+            @include rem('font-size', 16);
+            
+            p {
+                font-weight: 300;
+            }
+            
+        }
+
+        .title_4 {
+            @include rem('font-size', 16);
+            text-transform: uppercase;
+            border: 0;
+        }
+        
+        .form-contato {
+            
+            p {
+                @include rem('font-size', 14);
+                font-weight: 300;
+            }
+
+            input, textarea {
+                border: 1px solid #999;
+                border-radius: 5px;
+                background: #fff;
+            }
+
+            .form-submit {
+                background: $ouro;
+                padding: 10px 35px;
+                color: #fff;
+                border-radius: 5px;
+                transition: all .3s;
+                @include rem('font-size', 16);
+                font-weight: 600;
+                min-width: 180px;
+
+                &:hover, &:focus, &:active {
+                    background: darken($ouro, 8);
+                }
+            }
+        }
+
+    }
+
+}
+
+#sedes_mapa {
+    #map_canvas {
+        width: 100%;
+        min-height: 440px;
+        background: url('/img/maps_base_big.png') no-repeat center;
+        background-size: cover;
+    }
+
+    .box-endereco {
+        h4 {
+            border: 0;
+            color: $color-base;
+            @include rem('font-size', 18);
+            margin-top: 10px;
+        }
+
+        p {
+            color: #999;
+            @include rem('font-size', 14);
+            min-height: 45px;
+        }
+
+        ul {
+            margin: 10px 0 0 0;
+            padding: 0;
+
+            li {
+                list-style: none;
+                color: #000;
+                margin-bottom: 10px;
+                @include rem('font-size', 16);
+
+                i {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .content_map {
+            position: relative;
+                padding-bottom: 66%;
+                padding-top: 30px; 
+                height: 0; 
+                overflow: hidden;
+                margin-bottom: 20px;
+
+                iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: 0;
+                }
+        }
+    }
+}

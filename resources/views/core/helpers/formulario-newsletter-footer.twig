@@ -1,0 +1,52 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+                {# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+                <div class="contato-newsletter box-contato">
+                    {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+                    
+
+                    <div class="col-sm-12">
+                        <h4>Ofertas Exclusivas</h4>
+                    </div>
+                    <form class="form-contato">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+                        <input type="hidden" name="FormularioID" value="2">
+                        <input type="hidden" name="Tag" value="contato/newsletter">
+                        <input type="hidden" name="FlagNewsletter" value="true">
+                        
+                        
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                            <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="* Nome" required/>
+                        </div>
+                            
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="* E-mail" required/>                            
+                        </div>
+                        
+                        <span class="contato-mss" style="display: block;"></span>
+                            
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                {# o botao de submit precisa ter a classe 'form-submit' #}
+                                <div class="col-sm-4 pull-right">
+                                    <button class="btn form-control form-submit" value="ok"/>Enviar</button>
+                                </div>
+                            </div>                            
+                        </div>
+                            
+                            
+                    </form>
+                </div>
+                                
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+

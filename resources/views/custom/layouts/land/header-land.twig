@@ -1,0 +1,77 @@
+
+<!-- Main Header -->
+        <header>
+            
+            <div class="pre-header hidden-xs hidden-sm hide">
+                <div class="container">
+                    
+
+                </div>
+            </div>            
+            
+            <div class="main-header">
+                <div class="container">
+                    
+                    {% if data.isMobile %}
+                        {# MENU #}
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-2">
+                                <button type="button" class="navbar-toggle btn-menu" data-toggle="collapse" data-target="#main-menu-navbar"><i class="fa fa-bars"></i></button>
+                            </div>
+
+                            <div class="col-sm-8 col-xs-8 text-center">
+                                <a href="/" class="logo">
+                                    <img alt="{{APP_NAME}}" src="{{ asset('/img/logo_white.png')}}">
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2 col-xs-2">
+                                <button type="button" class="navbar-toggle btn-search" onclick="$('#contatenos').modal()"><i class="fa fa-commenting-o"></i></button>
+                            </div>
+                        </div>
+                        {# MENU #}
+
+                        {# COLLAPSE #}
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <nav class="navbar" role="navigation">
+                                        <div class="navbar-custom-menu collapse navbar-collapse ancor-menu" id="main-menu-navbar">
+                                            <ul class="nav navbar-nav">
+                                                {% include ['custom.layouts.land.menu-land','core.layouts.land.menu-land'] %}
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        {# COLLAPSE #}
+
+                            
+                    {% else %}
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <a href="/" class="logo pull-left">
+                                    <img alt="{{APP_NAME}}" src="{{ asset('/img/logo_white.png')}}">
+                                </a>
+                            </div>
+
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                <nav class="navbar navbar-static-top pull-right" role="navigation">
+                                    <div class="navbar-custom-menu ancor-menu">
+                                        <ul class="nav navbar-nav">
+                                            {% include ['custom.layouts.land.menu-land','core.layouts.land.menu-land'] %}
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+                
+        </header>
+<div id="top"></div>

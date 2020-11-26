@@ -1,0 +1,220 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content is not null %}
+
+
+
+<div class="vitrine home-vitrine-imoveis lancamentos">
+    <div class="container">
+        <div class="row">
+            <div class="product_item_sec">
+
+            <div class="col-sm-12">         
+                <h2>{{content.Titulo|default('Imóveis')}}</h2>
+                <p class="subtitulo">{{content.SubTitulo|default('Destaques selecionados para você!')}}</p>
+                <p>&nbsp;</p>
+            </div>
+
+            
+            <div class="col-sm-12">
+                <div id="owl-home-vitrine-lancamento" class="owl-carousel">
+                {% for entry in content.Itens %}
+                    
+                    {#
+                    {% if loop.index == 1 or loop.index0 is divisibleby(2) %}
+                    <div class="item"> <!-- item duplo -->
+                    {% endif %}
+                    #}
+
+                    {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg" %}
+                    {% if entry.UrlTrack %}
+                        {% set product_url = "/lancamento/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                    {% else %}
+                        {% set product_url = "/lancamento/oferta/ID-" ~ entry.ID %}
+                    {% endif %}
+
+                    <div class="product_itemBx item-id-{{entry.ID}}"><!-- item unico -->
+                        {% if siteparam.userfavoritos == 1 %}
+                        <div class="icon-favoritos">
+                            <div class="btn-favoritos" onclick="addFav({{entry.ID}})">
+                                <span>Adicionar aos Favoritos</span>
+                                <i class="fa fa-heart heart-{{entry.ID}}"></i>
+                                <i class="fa fa-heart animated heart-{{entry.ID}}"></i></div>
+                        </div>
+                        <input type="text" class="hide produto-favorito prod-id-{{entry.ID}}" value='{"ID":"{{entry.ID}}", 
+                               "M2Menor":"{{entry.M2Menor}}", "M2Maior":"{{entry.M2Maior}}", "Nome":"{{entry.Nome}}", 
+                               "Tipos":"{{entry.Tipos}}", "BairroNome":"{{entry.BairroNome}}", 
+                               "ImagemDestaque":"{{entry.ImageUrl}}", "Lancamento": "true" }'>
+                        {% endif %}
+
+                        <div class="product_itemBxTop">
+                            <a class="vit_link_foto" href="{{product_url}}">
+                                <div class="pdct_pic">                                    
+                                    <div class="vitrine-venda-img" style="
+                                        width: 100%;
+                                        height: 220px;
+                                        background: url('{{entry.ImageUrl}}?wm=0') no-repeat center center;
+                                        background-size: cover;">
+                                            <div class="hover_img">
+                                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                            </div>
+                                    </div>
+                                </div>
+                               {#  {% if entry.EmpreendimentoNome %}
+                                    <h6 class="EmpreendimentoNome"><small>Empreendimento:</small> {{ entry.EmpreendimentoNome }}</h6>
+                                {% endif %} #}
+                            </a>                                        
+                        </div>
+                                        
+                        <div class="product_itemBxBot">
+
+                            <div class="itens_info">
+                                <div class="col-sm-12">
+                                    <p class="text-center">{{ entry.NaturezaNome }} - <strong>{{ entry.StatusNome }}</strong></p>
+                                    <hr class="row">
+                                </div>
+
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-12 text-center">
+                                <div class="row">
+                                    <h3>{{ entry.Nome ? entry.Nome : entry.BairroNome }}</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-12 text-center">
+                                <div class="nomeh4">
+                                    {{ entry.Nome ? entry.BairroNome : entry.CidadeNome }} <br/>
+                                    {{ entry.Nome ? entry.CidadeNome : '' }} - {{entry.EstadoSigla}}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                {% if entry.M2Menor or entry.M2Maior %}
+                                    <h4>
+
+                                        {% if entry.M2Menor %}
+                                            de <strong>{{ entry.M2Menor }}</strong><small>m²</small>
+                                        {% endif %}
+
+                                        {% if entry.M2Maior %}
+                                            até <strong>{{ entry.M2Maior }}</strong><small>m²</small>
+                                        {% endif %}
+                                    </h4>
+                                {% endif %}
+
+                                <div class="row">
+                                    <hr class="divisor">
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                {% if entry.ValorMenor %}
+                                    <small style="margin-top: 15px; display: block;">A partir de:</small>
+                                    <h5 class="price"><small>R$</small> {{ entry.ValorMenor|number_format(0, ',', '.') }}</h5>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="content_btn_more text-center">
+                                    <a class="bt-saibamais" href="{{product_url}}">Ver Imóvel</a>
+                                </div>
+                            </div>
+
+                            {% include ['custom.helpers.botoes-share-vitrine','core.helpers.botoes-share-vitrine'] %}
+
+                        </div>
+
+                    </div>
+
+                    {#
+                    {% if loop.index is divisibleby(2) %}
+                    </div> <!-- item duplo -->
+                    {% endif %}
+                    #}
+
+                {% endfor %}
+                </div>  
+            </div>
+            </div>
+    </div>
+        </div>
+    </div>
+</div>
+                            
+
+<script>
+    $(document).ready(function() {
+        var owl_home_vitrine = $("#owl-home-vitrine-lancamento");
+        
+        owl_home_vitrine.owlCarousel({
+            onInitialize : function(element){
+                owl_home_vitrine.children().sort(function(){
+                    return Math.round(Math.random()) - 0.5;
+                }).each(function(){
+                    $(this).appendTo(owl_home_vitrine);
+                });
+            },            
+            onInitialized : function(element){
+            {% if siteparam.userfavoritos == 1 %}   
+                $.each(gFAVS, function( i, item ) {
+                    if( (item) && (item.ID) ){
+                        $(".item-id-"+item.ID+" .icon-favoritos .btn-favoritos").addClass("favoritado");
+                        flyHeart(item.ID);
+                    }
+                });                           
+            {% endif %}
+            },            
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: ['<i class="fa fa-angle-left">','<i class="fa fa-angle-right">'],
+            items: 3,
+            responsive: {
+                300:{
+                    items:1,
+                    nav:true
+                },
+                700:{
+                    items:2,
+                    nav:true
+                },
+                1000:{
+                    items:3,
+                    nav:true
+                },
+                1200:{
+                    items:3,
+                    nav:true
+                },
+                1400:{
+                    items:3,
+                    nav:true
+                },
+                1600:{
+                    items:3,
+                    nav:true
+                }
+            }
+            
+        });
+    });
+</script>
+{% endif %}
+
+{%if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{%endif%}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

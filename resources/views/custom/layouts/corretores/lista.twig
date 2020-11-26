@@ -1,0 +1,123 @@
+{% extends ['custom.layouts.corretores.base','core.layouts.corretores.base'] %}
+
+{% set HTMLHeaderTitle = 'Corretores' %}
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+
+{% set header_facebook_url = url_current() %}
+{% set header_facebook_type = "website" %}
+{% set header_facebook_title =  HTMLHeaderTitle %}
+{% set header_facebook_desc = HTMLHeaderTitle %}
+
+
+{% block content_header_breadcrumb %}
+    {{data.breadcrumb|raw}} <li>Corretores</li>
+{% endblock %}
+
+
+{% block main_content %}
+    <style>
+        #corretores-list {
+            margin-top: 3%;
+        }
+
+        #corretores-list h1 {
+            text-align: center;
+            border-bottom: 3px solid #83bf10;
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        #corretores-list .CorretoresWrapper {
+            margin: 3% auto;
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #corretores-list .CorretoresWrapper .CorretorBox {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            justify-content: center;
+            align-items: center;
+            margin: 3% 0 3% 0%;
+        }
+
+        #corretores-list .CorretoresWrapper .CorretorBox .CorretorBox__Foto {
+            width: 60%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        #corretores-list .CorretoresWrapper .CorretorBox .CorretorBox__Nome {
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        #corretores-list .CorretoresWrapper .CorretorBox .CorretorBox__Button {
+            background: #042c6c;
+            border: none;
+            padding: 10px 30px;
+            color: #FFF;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #corretores-list .CorretoresWrapper .CorretorBox .CorretorBox__Button:hover {
+            background: #83bf10;
+        }
+
+        @media screen and (max-width: 438px) {
+            #corretores-list .CorretoresWrapper .CorretorBox {
+                width: 100%;
+                border-bottom: 1px dotted;
+                padding-bottom: 30px;
+            }
+        }
+
+        @media screen and (min-width: 438px) and (max-width: 798px) {
+            #corretores-list .CorretoresWrapper .CorretorBox {
+                width: 50%;
+            }
+        }
+
+        @media screen and (min-width: 798px) and (max-width: 1214px) {
+            #corretores-list .CorretoresWrapper .CorretorBox {
+                width: 33%;
+            }
+        }
+
+       
+    </style>
+    <div class="spark-screen" id="corretores-list">
+        <!-- MESSAGES -->
+        <div class="container">
+            <div class="row">
+                {% include ['custom.errors.mesages','core.errors.mesages'] %}
+            </div>
+        </div>
+            
+        <!-- MAIN -->
+        <div class="container">
+            <h1 class="">Corretores</h1>
+            <div class="CorretoresWrapper">
+                {% for corretor in content %}
+                    <div class="CorretorBox">
+                        <div class="CorretorBox__Foto" style="background-image: url('{{corretor.Avatar}}')"></div>
+                        <div class="CorretorBox__Nome">{{corretor.Nome}}</div>
+                        <a href="/corretores/{{corretor.Slug}}" class="CorretorBox__Button">Ver Perfil</a>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

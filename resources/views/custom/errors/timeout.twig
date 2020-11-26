@@ -1,0 +1,57 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Página de Erro{% endblock %}
+
+{% block content_header_title %}
+                <div class="hide">Página de Erro</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Página de Erro</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-error" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+                        
+                        {% if not data.isMobile %}                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                                
+                                <h1>Ops! <strong>Tempo de requisção esgotado.</strong></h1>
+                                <p>Devido ao tráfego no site, ocasionamente podem ocorrer demoras no acesso ao conteúdo. Por favor, tente novamente.<br><br>
+                                    Você também pode enviar um <a href="/contato/fale-conosco/">e-mail</a> para nossa equipe informando o problema. Obrigado!
+                                </p>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    {#<script src="{{ asset('/js/controller/newsletter.js') }}" type="text/javascript"></script>#}
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

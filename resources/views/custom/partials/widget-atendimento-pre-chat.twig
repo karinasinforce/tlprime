@@ -1,0 +1,106 @@
+<a href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, estou no site {{url_current()|url_encode}} e gostaria de mais informações..." class="callToActionChat" target="_blank" tooltip="Atendimento Online">
+	<i class="fab fa-whatsapp"></i>
+</a>
+
+<div id="prechat">
+	
+	<div class="content_chat">
+		<div class="window_chat">
+			<header class="header_chat">
+				<span>Atendimento Online</span>
+				<i class="fas fa-times" onclick="callChat()"></i>
+			</header>
+			<div class="form_chat">
+				<form class="form_prechat">
+					<input type="hidden" value="pre-chat" name="Tag">
+
+					<h4>Insira seus dados e inicie uma conversa</h4>
+					<div class="form-group">
+					    <input type="text" class="form-control" id="nomeChat" name="Nome" aria-describedby="emailHelp" placeholder="Seu nome" required="required">
+					</div>
+
+					<div class="form-group">
+					    <input type="email" class="form-control" id="emailChat" name="Email" placeholder="E-mail" required="required">
+					</div>
+
+					<div class="form-group">
+					    <input type="text" class="form-control mask-tel" id="telefoneChat" name="TelResidencial" placeholder="Telefone">
+					</div>
+					<div class="text-right">
+					  	<button type="submit" class="btn btn-primary">Iniciar conversa</button>
+					  </div>
+				</form>
+			</div>
+			<footer class="footer_chat">
+				<small></small>
+			</footer>
+
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	
+	window.addEventListener('DOMContentLoaded', function() {
+
+		// Função que abre e fecha o chat
+		var callChat = function callChat() {
+			$('#prechat').toggleClass('chat_oppened');
+		}
+
+		// exportando função para usar no onclick
+		window.callChat = callChat;
+
+		$('.form_prechat').submit(function(e) {
+			e.preventDefault();
+	        
+            var url                 = "{{ API_PATH}}/{{API_KEY}}/Formulario/Generico";
+            var form                = $(this);
+
+            var unindexed_array     = form.serializeArray();
+            var indexed_array       = IndexDataForm(unindexed_array);
+
+            var url_whatsapp = "https://api.whatsapp.com/send?phone=55{{siteparam.telefones.whatsapp|replace({'(':'',')':'','-':'',' ':''})}}&text=Olá!"
+
+            form.css("opacity","0.5");
+            form.find('button[type=submit]').attr("disabled","disabled");       
+            
+            // prepara os valores
+            var data = {
+			    Tag: indexed_array.Tag,  // tag ou id do formulátio (crm_formulario)
+			    Email: indexed_array.Email,  // Obrigatório!
+			    Nome: indexed_array.Nome, // Obrigatório!
+			    Assunto: 'Pré Chat - Atendimento Online',  // Obrigatório!
+			    Mensagem: 'Novo Contato no Pré-Chat do Atendimento Online',  // Obrigatório!
+			    TelResidencial: indexed_array.TelResidencial,
+			    values: JSON.stringify({}) // Obrigatório!
+			};
+
+            // envia para a API
+            $.ajax({
+                method: "POST",
+                url:    url,
+                data:   data
+            })
+            .done(function( resp ) {
+                console.log(resp);
+                
+                form.css("opacity","1");
+            	form.find('button[type=submit]').prop('disabled', false);
+            	document.querySelector('.form_prechat').reset();
+            	window.open(url_whatsapp,'_blank');
+
+            })
+            .fail(function(resp){
+                console.log("erro de consumo da api");
+                console.log(resp);
+                $('.footer_chat small').html('Serviço indisponivel, tente novamente em alguns instantes.');
+            });
+        });  
+
+		
+	});
+
+</script>

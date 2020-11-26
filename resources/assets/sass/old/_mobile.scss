@@ -1,0 +1,1064 @@
+/* CSS Mobile */
+
+@import "_variables";
+
+/* MOBILE */
+.mobile {
+
+       
+    /* BASE */
+    .corpo {
+        margin:0;
+    }
+    .spark-screen {
+        padding-top: 0px !important;
+    }    
+    .full-loader{
+        opacity: 0.9;
+        .loading{
+            top: 25%;
+            position: relative;
+            font-size: 30px;
+            font-weight: bold;
+            img{
+                height: 120px;
+            }
+        }
+    }
+
+    .content {
+        padding-top: 0;
+    }
+    
+    /* CABECALHO / HEADER */
+    header{
+        .pre-header{
+            padding: 10px 0;
+            .label-filial{
+                label{
+                    padding: 3px 0 0px;
+                }
+            }
+        }
+        .main-header {
+            .logo {
+                img, object {
+                    margin-top: 0;
+                    height: 30px;
+                }
+            }            
+            .navbar{
+                border: 0;
+            }
+            
+            .navbar-collapse{
+                border: 0;
+                display: none !important;
+                box-shadow: none;
+                &.collapsing{
+                    display: block !important;                    
+                }
+                &.in{
+                    display: block !important;
+                }
+            }
+            
+            .navbar-toggle{
+                display: block;
+                &.btn-menu{
+                    float: left;
+                }
+                &.btn-search{
+                    float: right;
+                }
+            }
+            
+        }        
+    }     
+
+    
+
+    /* RODAPE / FOOTER */
+    .footer-main {
+        margin-top: 15px;
+        .container{
+            padding: 15px;
+        }
+
+        .f_logo img{
+            width: 100%;
+        }
+
+    }
+
+    .footer-sub{
+        padding: 15px 0; 
+        text-align: center;
+        background: #262930;
+        color: #FFF;
+
+        .container{
+            opacity: 0.5;
+            a, a:hover{
+                color: #fff;
+            }
+        }
+    }
+
+    
+    /* CORPO / CONTENT / BODY */
+    .content-wrapper{
+        .content-header{
+            breadcrumb{
+                .social-share {
+                    position: relative;
+                    right: 0;
+                    top: 0;
+                    text-align: right;
+                    margin-top: 7px;
+                    z-index: 99;
+                    margin-right: 15px;
+                }    
+            }
+        }        
+    }
+    
+    
+    /* BUSCA / SEARCH */
+    header {
+        .main-header {
+            .navbar-search-box{
+                padding: 10px 0 0;
+                border: 0;
+                overflow: hidden;
+                /*max-height: 330px;*/
+                &.overflow-search{
+                    overflow: scroll;
+                    max-height: initial;
+                }
+                
+                .search_box {
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    padding-top: 0;
+                }
+                .search_box .search {
+                    .search-top{
+                        .produto-tipo{
+                            margin-top: 15px;
+                        }
+                        .search_select{
+                            margin-top: 15px;
+                            .select2-search{
+                                width: 100%;
+                                .select2-search__field{
+                                    width: 100% !important;
+                                    font-size: 12px;
+                                    margin-top: 8px;
+                                }
+                            }
+                        }
+                    }
+                    .search_Box1{
+                        margin-bottom: 10px;
+                    }    
+                    .search_bottm{
+                        padding: 15px 0;
+                        .bt-buscar{
+                            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75)                        
+                        }                        
+                    } 
+                }
+                
+                #toggle-busca-avancada{
+                    background: none;
+                    font-size: 12px;
+                }
+            }
+            
+            #busca-avancada-box{
+                display: block;
+                .expand_top{
+                    .form-group{
+                        margin-top: 15px;
+                        margin-bottom: 0;
+                        input{
+                        }       
+                        label {
+                        }             
+                    }
+                    .select-to-check{
+                    }
+
+                    .valor, .area{
+                        text-align: left;        
+                        label{
+                        }
+                    }                
+                }
+            }
+            
+            .container-busca-avancada {
+                .bt-buscar{
+                }
+            }             
+        }        
+    }     
+
+    
+    /* HOME */    
+    &.page-home {
+
+        .banner {
+
+            .image-box{
+                height: 300px;
+
+                .text-box {
+                    bottom: 30px;
+                    max-width: 290px;
+                    padding: 15px 20px;
+
+                    h1 {
+                        font-size: 18px;
+                        line-height: 22px;
+                    }
+
+                    .subtitulo {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .carousel{
+                .image-box{
+                    height: 200px;
+                    .text-box{
+                        h1{
+                            font-size: 25px;
+                            line-height: 25px;
+                            margin-top: 15px;
+                        }
+                        .subtitulo{
+                           width: 100% 
+                        }
+                    }    
+                }            
+            
+                .carousel-indicators {
+                    li{
+                        width: 16px;
+                        height: 16px;
+                        margin: 0 5px;
+                    }                
+                }                
+            }
+        }
+        .banner_Box{
+            background-size: cover !important;
+            height: 340px;
+
+            .banner_txt {
+                h1 {
+                    font-size: 8vw;
+                    margin: 64px 0 0 0;
+                }
+                .subtitulo {
+                    width: 60%;
+                }
+            }
+        }        
+        
+        .corpo {
+            .vitrine{
+                padding: 10px 0;
+            }
+        }
+        
+        #home-mosaico-imoveis {
+            padding: 10px 0;
+            .lancamentos_pic_colm {
+                height: 300px;
+                padding-top: 25px;
+                .lancamentos_pic_txt {
+                    p.tipo{
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-top: 15px;
+                    }
+                    .nomeh5{
+                        font-size: 20px;
+                        font-weight: normal;
+                        margin: 10px 0;
+                    }
+                    .valor{
+                        font-size: 18px;
+                    }
+                    .preco{
+                        height: 40px;
+                        margin-top: 5px;
+                        color: $text-color;
+                        .moeda{
+                            font-size: 18px;
+                        }
+                        .valor{
+                            font-size: 24px;
+                        }
+                        .milhar{
+                            font-size: 18px;
+                        }
+                    }
+                    .apartir{
+                    }
+                }
+            }
+        }
+        
+        .home-vitrine-imoveis {
+            margin: 0;
+
+            .owl-nav {
+                top: inherit;
+                bottom: 0;
+
+                .owl-prev {
+                    margin-left: 0;
+                }
+
+                .owl-next {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+
+    #a_imobiliaria_home {
+        padding-bottom: 15px;
+
+        h3 {
+            font-size: 40px;
+        }
+
+        .btn-default {
+            margin-bottom: 30px;
+        }
+    }
+
+    /* LISTA DE PRODUTOS/IMOVEIS */
+    .product-list-container{
+        /*background: #f9f9f9;*/
+        .product-row {
+            background: #fff;
+            .slides {
+                /*margin-top: 15px;*/
+                img {
+                    height: 144px;
+                }
+                .slick-arrow {
+                    top: 33%;
+                }
+            }
+            .label-condominio{
+                left: 0px;
+                bottom: 0;
+                width: 100%;
+                text-align: center;                
+            }
+            .group-info{
+                height: 280px;
+                a{
+                    h2{
+                        font-size: 16px;
+                    }                    
+                } 
+                .sub-info {
+                    min-height: 150px;
+                    .label-tipos{
+                        width: 50%;
+                    }
+                }    
+                .valor-imovel{
+                    width: 100%;
+                    position: static;
+                    margin: 0;
+                    padding: 0 15px;
+                    text-align: center;
+                }
+                .valor-lancamento{
+                    top: -28px;
+                    width: 100%;
+                    height: 28px;   
+                    left: 0;
+                }
+                .group-actions{
+                    width: 100%;
+                    position: static;
+                    margin: 5px 0 0;
+                }
+            }            
+        }
+        .btn-mobile-veja-mais {
+            background: $color-base;
+            border: 0;
+            color: #FFF;
+            width: 100%;
+            border-radius: 4px;
+            padding: 15px 0;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+            &:active{
+                box-shadow: none;
+                transform: translate3d(1px, 1px, 0px);
+            }
+        }    
+                
+        .btn_box{
+            position: absolute;
+            bottom: 0;
+            padding: 15px;   
+        }
+        .btn_box-veja-mais{
+            margin-top: 15px;
+        }
+    }    
+    
+
+    /* INTERNA DE VENDA/LOCACAO */
+    &.page-prontos {   
+        .social-share{
+            width: 100%;
+            margin: 15px 0 0 0;            
+            ul{
+                text-align: center;
+                padding: 0;
+               li{
+                    display: inline-block;
+                    &.social-label{
+                        display: none;
+                    }
+                    &.social-icon{
+                        font-size: 32px;
+                        padding: 0 15px;
+                    }                    
+                }
+            }
+        }        
+        
+        #product-content {
+            .row-box {
+                &.basic-info {                
+                    h1 {
+                        margin-bottom: 0;
+                        .logradouro {
+                            font-size: 24px;
+                        }
+                    }
+                    .regiao {
+                        line-height: 22px;
+                        border-top: 1px solid #ccc;
+                        padding-top: 10px;
+                    }
+                }
+                &.video{
+                    iframe{
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                .item_info_mobile {
+                    min-height: 45px;
+                    width: 33%;
+                    float: left;
+                    padding: 5px 10px;
+                    text-align: center;
+                    line-height: 1.4;
+                    border-right: 1px dotted #ccc;
+
+                    i {
+                        display: block;
+                        padding: 10px;
+                        font-size: 18px;
+                        color: $color-base;
+                    }
+
+                    &:nth-child(3), &:nth-child(6) {
+                        border-right: none;
+                    }
+
+                    &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+                        border-bottom: 1px dotted #ccc;
+                    }
+                }                
+            }
+        }
+    }
+    
+
+    /* INTERNA DE LANCAMENTOS/EMPREENDIMENTOS */
+    &.page-lancamentos{
+        .bg-lancamento{
+            height: 545px;
+        }
+
+        .social-share{
+            width: 100%;
+            margin: 15px 0 0 0;            
+            ul{
+                text-align: center;
+                padding: 0;
+               li{
+                    display: inline-block;
+                    &.social-label{
+                        display: none;
+                    }
+                    &.social-icon{
+                        font-size: 32px;
+                        padding: 0 15px;
+                    }                    
+                }
+            }
+        }            
+        
+        #product-content {
+            .row-box{
+                &.destaque {
+                    height: 200px;
+                }
+                &.video, &.topics{
+                    iframe{
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+
+                .item_info_mobile {
+                    min-height: 45px;
+                    width: 50%;
+                    float: left;
+                    padding: 5px 10px;
+                    text-align: center;
+                    line-height: 1.4;
+                    border-right: 1px dotted #ccc;
+
+                    i {
+                        display: block;
+                        padding: 10px;
+                        font-size: 18px;
+                        color: $color-base;
+                    }
+
+                    &:nth-child(3), &:nth-child(6) {
+                        border-right: none;
+                    }
+
+                    &:nth-child(4), &:nth-child(5), &:nth-child(6) {
+                        border-top: 1px dotted #ccc;
+                    }
+                }
+            }
+        }
+    }   
+    
+
+    /* BLOG */
+    &.page-blog {
+
+        .content-header {
+            .main_title {
+                padding: 30px 0;
+
+                h1 {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .blog-list-container{
+            #blog-list {
+                padding-top: 50px;
+
+                &.content-list {
+
+                    .blog-row {
+
+                        button {
+                            position: relative;
+                            right: inherit;
+                            bottom: inherit;
+                            float: right;
+                            margin-right: 15px;
+                        }
+
+                        .box-date {
+
+                            .data-dia {
+                                font-size: 40px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }    
+    
+    
+    /* CONTATO / FALE CONOSCO */    
+
+
+    /* FAVORITOS */
+    &.page-favoritos{
+        #vitrine-favoritos{
+            padding: 0 15px;
+            .product_itemBxBot {
+                height: 305px;
+                h3{
+                    font-size: 15px;
+                    height: 32px;
+                    padding: 0;
+                }
+                .valor-label{
+                    float: left;
+                    display: inline;
+                    font-size: 10px;
+                }
+                .valor-imovel{
+                    float: right;
+                    display: inline;
+                    height: 26px;
+                }
+                .product-att {
+                    height: 75px;
+                    i.fa{
+                        font-size: 15px;
+                    }
+                }
+            }
+            .owl-nav{
+                .owl-prev{
+                    margin-left: -15px;
+                }
+                .owl-next{
+                    margin-right: -15px;
+                }
+            }
+        }
+    }
+
+    // Nova busca avançada Mobile
+    .busca_avancada_mobile {
+        width: 90%;
+        margin: 15px auto;
+        display: block;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-weight: 600;
+        color: #666;
+        padding: 8px 15px;
+        text-align: left;
+        position: relative;
+        font-size: 13px;
+        overflow: hidden;
+
+        i {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 10px 15px;
+            color: #fff;
+            background: $color-base;
+        }
+    }
+
+    &.no_scroll {
+        overflow-y: hidden;
+    }
+    
+    // Nova busca avançada Mobile
+    #busca_fixa_mobile {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        right: -101%;
+        top: 0;
+        z-index: 999;
+        transition: all .3s;
+        overflow-y: scroll;
+
+        &.opened {
+            right:0;
+        }
+
+        h4 {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .search_select {
+            width: 100%;
+        }
+
+        .search_box {
+            border-radius: 0;
+            position: relative;
+            color: #333;
+
+            .search {
+                padding-top: 0;
+
+                .search-top {
+
+                    .control_back {
+                        background: #fff;
+                        padding: 20px 15px;
+                        margin-bottom: 15px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,.25);
+                        
+                        a {
+                            display: inline-block;
+                            vertical-align: top;
+
+                            i {
+                                margin-right: 15px;
+                            }    
+                        }
+                        
+                    }
+                }
+                
+                .search_Box1 {
+                    margin-bottom: 15px;
+                }
+
+                #busca-avancada-box {
+                    display: block;
+
+                    .expand_top {
+                        
+                        .area, .valor {
+                            margin: 15px auto;
+                        }
+
+                        .noUi-target {
+                            margin-bottom: 15px;
+                        }
+
+                        .input-sm {
+                            width: 40%;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        #bt-busca-avancada {
+            float: none;
+            width: 90%;
+            margin: 5px auto 15px;
+            display: block;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+    }
+
+}
+
+
+
+@media (min-width: 310px) and (max-width: 650px) {
+    
+    .mobile {
+
+        header{
+            height: 62px;
+
+            .pre-header{
+                position: absolute;
+                top: 0;
+                z-index: 100;
+                width: 100%;
+            }
+
+            .main-header{
+                position: absolute;
+                top: 0;
+                z-index: 101;
+                width: 100%;
+                padding: 10px 0;
+
+                nav.navbar {
+                    margin-top: 0;
+                    padding-top: 10px;
+                }
+
+                .navbar-custom-menu{
+                    margin-left: -5px;
+                    margin-right: -5px;     
+                    padding: 0;
+                    margin-top: 15px;
+                    border-top: 1px dashed lighten($color-base-darker, 15%);
+
+                    .navbar-nav{
+                        width: 100%;
+                        margin: 0;
+
+                        >li {
+                            width: 100%;
+
+                            a, a:link, a:visited{
+                                padding: 10px 15px 10px 30px;
+                            }
+                        }
+                    }                    
+                }
+            }            
+        }
+
+        #newsletter_home {
+            h2 {
+                margin-bottom: 10px;
+            }
+        }
+    
+
+
+        .footer-main {
+
+            .menu_header, .social_area h4 {
+                font-size: 16px;
+                text-align: center;
+                margin-top: 15px;
+            }
+
+            .ftr_menu {
+                a{
+                    padding: 8px;
+                    display: block;
+                    text-align: center;
+                    background: $btn-default-color;
+                    color: $text-color;
+                    text-decoration: none;
+                    border: 2px solid $text-color;
+
+                    &:link, &:hover, &:active {
+                        background: $btn-hover-color;
+                    }
+                }
+            }
+
+            .desk {
+                margin-top: 15px;
+            }
+
+            .logo_footer {
+                margin: 0 auto;
+                display: block;
+            }
+
+            .box-endereco {
+                text-align: center;
+                margin: 15px 0;
+            }
+        }
+
+    }
+    
+    #home-mosaico-imoveis {
+        h2{
+            font-size: 20px;
+        }
+        .owl-nav{
+            position: absolute;
+            top: -62px; 
+            width: 100%;
+        }
+        .owl-prev{
+            float: left;
+        }
+        .owl-next{
+            float: right;
+        }        
+    }
+    
+    #home-vitrine-imoveis, 
+    #vitrine-ultimosacessados {
+        .owl-nav{
+            display: none;
+        }
+    }
+
+}
+
+@media (min-width: 640px) and (max-width: 780px) {
+    .mobile {
+        header{
+            height: 53px;
+
+            .pre-header {
+                position: absolute;
+                top: 0;
+                z-index: 100;
+                width: 100%;
+            }
+            .main-header {
+                position: absolute;
+                top: 0;
+                z-index: 101;
+                width: 100%;
+                padding: 10px 0;
+
+                nav.navbar {
+                    margin-top: 0;
+
+                }
+
+                .navbar-custom-menu {
+                    margin-left: -20px;
+                    margin-right: -20px;
+
+                    .navbar-nav{
+                        width: 100%;
+                        padding-top: 15px;
+                        border-top: 1px dashed lighten($color-base-darker, 15%);
+
+                        >li{
+                            width: 100%;
+
+                            a, a:link, a:visited{
+                                padding: 10px 15px 10px 30px;
+                            }
+                        }
+                    }                    
+                }
+            }            
+        } 
+        &.page-home{
+            .banner{
+                .carousel{
+                    .image-box{
+                        height: 360px;
+                        .text-box{
+                            h1{
+                                font-size: 35px;
+                                margin-top: 75px;
+                                line-height: 40px;
+                            }
+                        }
+                    }                                    
+                } 
+            } 
+        }  
+        
+        &.page-prontos{
+            .product-list-container{
+                margin-left: -15px;
+                margin-right: -15px;
+                padding-top: 10px;
+                .product-row{
+                    max-width: 345px;
+                    margin: 15px;
+                    .slides {
+                        img {
+                            height: 240px;
+                        }
+                    }
+                }            
+                .btn-mobile-veja-mais{
+                    font-size: 20px;
+                    width: 96%;
+                    margin: 0 15px;
+                }
+            }            
+        }
+        
+        &.page-lancamentos{
+            #product-content {
+                .row-box{
+                    &.destaque{
+                        height: 400px;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    #home-mosaico-imoveis {
+        background: transparent;
+
+        h2{
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+        .lancamentos_pic_colm{
+            .nomeh5{
+                height: 98px;
+            }
+            .consulte{
+                margin-bottom: 65px;
+                margin-top: 56px;
+            }
+        }
+        .owl-nav{
+            position: absolute;
+            top: -62px; 
+            width: 100%;
+        }
+        .owl-prev{
+            float: left;
+        }
+        .owl-next{
+            float: right;
+        }
+    }     
+    
+    #home-vitrine-imoveis, 
+    #vitrine-ultimosacessados{
+        margin-top: 40px;    
+
+        .product_itemBxBot{
+            background: none;
+            height: initial;
+            padding-bottom: 28px;        
+        }
+        h2{
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+        .owl-nav{
+            display: none;
+        }    
+    }
+   
+    footer {
+        .btn-brand {
+            margin-left: 25%;
+            width: 50%;            
+        }
+
+    }
+
+
+}     
+
+@media (max-width: 780px) {
+    .mobile {
+        .vitrine_interna  {
+            padding: 10px;
+            
+            .product_itemBxTop {
+
+                .vitrine-venda-img {
+                    height: 200px;
+                }
+            }
+        }
+    }
+
+}

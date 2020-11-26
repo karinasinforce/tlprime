@@ -1,0 +1,23 @@
+/*@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,900');
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400i');*/
+
+.main-header .navbar-collapse {
+  -ms-flex-positive: unset;
+      flex-grow: unset;
+}
+
+.main-header nav.navbar {
+  background: #31373c;
+}
+
+.main-header nav.navbar .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.main-header nav.navbar .navbar-toggler {
+  color: #fff;
+}
+
+.overlay_menu {
+  position: absolute;
+}

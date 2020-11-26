@@ -1,0 +1,142 @@
+{% set items = relacionados.content %}
+
+<div class="col-sm-12 px-0 vitrine">
+    <div id="owl-home-vitrine" class="owl-carousel">
+        {% for item in items %} 
+            <div class="product_itemBx mb-4 item-id-{{item.ImovelID}}">
+                <div class="product_itemBxTop">
+                    <a class="vit_link_foto" href="/imovel/{{item.UrlTrack|default('relacionados')}}/ID-{{item.ImovelID}}">
+                        <div class="pdct_pic">                                    
+                            
+                            <div class="vitrine-venda-img owl-lazy" data-src="{{IMG_PATH}}/{{item.ImagemCapaId}}.jpg?wm=0">
+                                <div class="hover_img"></div>
+                                <div class="statustag tag_obra">
+                                    <span class="text">
+                                        <i class="fas fa-map-marker-alt"></i> {{item.Bairro}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>                                        
+                </div>
+               <div class="product_itemBxBot">
+
+                    <div class="tipos"><span>{{item.Tipos|default(item.TipoNome)}}</span></div>
+                    <h3>
+                        {% if item.TipoNome or item.Quartos %}
+                            {% if item.TipoNome %}
+                                {{ item.TipoNome }}
+                            {% endif %}
+                    
+                            {% if item.TipoNome and item.ValorVenda or item.TipoNome and item.ValorLocacao %}
+                                para
+                            {% endif %}
+                    
+                            {% if item.ValorLocacao %}
+                                locação
+                            {% elseif item.ValorVenda %}
+                                venda
+                            {% endif %}
+                    
+                            {% if item.Quartos %}
+                                com {{ item.Quartos }}
+                                {{ item.Quartos > 1 ? 'Quartos' : 'Quarto' }}
+                            {% endif %}
+                    
+                            {% if item.Suites %}sendo {{ item.Suites }} {{ item.Suites > 1 ? 'Suites' : 'Suíte' }}{% endif %}
+                        {% endif %}
+                    </h3>
+                        <div class="content_imv_caract mx-0">
+                        {% if item.Quartos %}
+                            <div class="item wt-50" data-toggle="tooltip" title="Quartos">
+                                <i class="fas fa-bed"></i>
+                                <div class="qtd">{{item.Quartos}}</div>
+                            </div>
+                        {% endif %}
+                        
+                        {% if item.Suites %}
+                            <div class="item wt-50" data-toggle="tooltip" title="Suítes">
+                                <i class="fas fa-bath"></i>
+                                <div class="qtd">{{item.Suites}}</div>
+                            </div>
+                        {% endif %}
+                        
+                        {% if item.Vagas %}
+                            <div class="item wt-50" data-toggle="tooltip" title="Vagas">
+                                <i class="fas fa-car"></i>
+                                <div class="qtd">{{item.Vagas}}</div>
+                            </div>
+                        {% endif %}
+                        
+                        {% if item.AreaTerreno %}
+                            <div class="item wt-50" data-toggle="tooltip" title="Área">
+                                    <i class="fas fa-road"></i>
+                                <div class="qtd">{{item.AreaTerreno}} m²</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if item.ValorVenda %}
+                        <div class="valor px-1 d-flex text-left">
+                            <span>A partir de <strong>
+                            <div>
+                            <small>R$ </small>{{ item.ValorVenda|number_format(0, ',', '.') }}</strong></span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            var owl_home_vitrine = $("#owl-home-vitrine");
+            
+            owl_home_vitrine.owlCarousel({
+                onInitialized : function(element){
+                    setTimeout(function(){
+                        imageToSvgData();
+                    }, 3000);
+                },     
+                loop: false,
+                margin: 20,
+                // nav: true,
+                lazyLoad: true,
+                navText: ['<i class="fas fa-chevron-left"></i>','<i class="fas fa-chevron-right"></i>'],
+                items: 4,
+                responsive: {
+                    300:{
+                        items:1,
+                        // nav:true
+                        margin: 5
+                    },
+                    700:{
+                        items:2,
+                        // nav:true
+                    },
+                    1000:{
+                        items:3,
+                        // nav:true
+                    },
+                    1200:{
+                        items:4,
+                        // nav:true
+                    },
+                    1400:{
+                        items:4,
+                        // nav:true
+                    },
+                    1600:{
+                        items:4,
+                        // nav:true
+                    }
+                }
+                
+            });
+        });
+    });
+</script>

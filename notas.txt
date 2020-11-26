@@ -1,0 +1,42 @@
+Olá Karina!
+
+ 
+
+Desenvolver o Site Express para a Casa Rio. 
+
+Cliente trabalha com: Prontos, Locação e Empreendimento
+
+O domínio oficial é >> casario.com.br
+
+URL alternativa >> casario.inforsite.com.br
+
+GAPO: https://casario.inforcedata.com.br/
+
+_____________________________________________________
+
+Estrutura do menu superior (cabeçalho):
+
+Home
+Imóveis, com submenu >> Prontos, Locação, Lançamentos
+Anuncie seu imóvel >> Direcionando para o formulário;
+Quem Somos
+Fale Conosco
+Número de WhatsApp com ícone de WhatsApp
+Blog
+Área do Proprietário >> Direcionar para o link >> https://adm05283702.superlogica.net/clients/areadofornecedor
+Área do Locatário >> Direcionar para o link >> https://adm05283702.superlogica.net/clients/areadocliente
+Estrutura de Busca: Prontos, Locação, Lançamentos
+
+Estrutura Home: Banner com filtro de busca, Vitrine de Venda, Vitrine de Locação, Vitrine de Laçamentos e recurso de  imóveis mais buscados;
+
+Obs.: Vou cadastrar as vitrines no GAPO, ajuste para pegar título e subtítulo das vitrines direto no GAPO. 
+
+Abaixo das Vitrines crie um campo "Financiamento" com as logos de cada Banco, ao clicar na logo vai direcionar para o respectivo link:
+
+Caixa >> http://www8.caixa.gov.br/siopiinternet-web/simulaOperacaoInternet.do?method=inicializarCasoUso
+Itaú >> https://www.itau.com.br/creditos-financiamentos/imoveis/simulador/
+Santander >> https://www.negociosimobiliarios.santander.com.br/negociosimobiliarios/?headerandfooter/#/home
+Bradesco >> https://banco.bradesco/html/classic/produtos-servicos/emprestimo-e-financiamento/encontre-seu-credito/simuladores-imoveis.shtm#box1-comprar
+Banco do Brasil >> https://www42.bb.com.br/portalbb/imobiliario/creditoimobiliario/simular,802,2250,2250.bbx?eni_gclid=EAIaIQobChMIwOL31vCp6gIVi4eRCh1JoA7xEAAYASAAEgIonfD_BwE&pk_vid=eba308cce2543d901593531841c78024
+
+Abaixo segue exemplo de como era no site antigo:

@@ -1,0 +1,50 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}
+    Blog
+{% endblock %}
+
+
+
+{% set actual_page = "page-blog" %}
+
+{% block main_content %}
+
+    <!-- CONTENT -->                                            
+    <div class="spark-screen">
+            
+        {% if content.NoticiaID %}
+            {% include ['custom.layouts.blog.interna','core.layouts.blog.interna'] with { content: content, data: data }%}
+        {% else %}
+            {% include ['custom.layouts.blog.lista','core.layouts.blog.lista'] with { content: content, data: data }%}
+        {% endif %}
+    
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="/js/controller/blog.min.js" defer type="text/javascript"></script>
+    
+    <script>
+
+        window.addEventListener('DOMContentLoaded', function() {
+          
+        });
+
+    </script>    
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

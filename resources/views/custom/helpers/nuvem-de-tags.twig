@@ -1,0 +1,12 @@
+<section id="nuvem_de_tags">
+	<div class="container">
+		<h3 class="text-center">Mais Buscados</h3>
+
+		<div class="tags">
+			{% for key, tag in siteparam.nuvem_de_tags %}
+			    <a href="{{tag}}">{{key}}</a>
+			{% endfor %}
+		</div>
+
+	</div>
+</section>

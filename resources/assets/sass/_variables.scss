@@ -1,0 +1,84 @@
+//************ VARIAVEIS ************/
+
+// Body
+$body-bg: #ededed;
+
+// Color Base
+$color-base: #b3953d;
+$color-base-darker: #3a3131;
+$color-base-lighter: lighten($color-base, 15%);
+$dark-color: #31373c;
+
+$menu-links:#fff;
+
+
+$footer-color: $color-base;
+$ouro: #b3953d;
+$footer-bg: $color-base-darker;
+
+// Borders
+$laravel-border-color: darken($body-bg, 10%);
+$list-group-border: $laravel-border-color;
+$navbar-default-border: $laravel-border-color;
+$panel-default-border: $laravel-border-color;
+$panel-inner-border: $laravel-border-color;
+$border-default: 1px solid $color-base;
+
+// Typographys
+
+$font-size-base: 14px;
+$line-height-base: 14px;
+$line-weight-base: 200;
+
+$font-icon-brand: 'Font Awesome 5 Brands';
+$font-icon-free: 'Font Awesome 5 Free';
+
+
+$font-family-sans-serif-1: "Montserrat", Helvetica, sans-serif;
+$font-family-2: "Open Sans", sans-serif;
+$font-1: "Montserrat";
+$font-2: "Open Sans";
+
+$font-default: $line-weight-base $font-size-base $font-family-sans-serif-1;
+$font-color: #A0A1A0;
+$font-color-darker: #A0A1A0;
+
+$font-text: $line-weight-base $font-size-base $font-family-2;
+$text-color: #FFF;
+$text-color-darker: #555;
+
+$anchor: $font-default;
+$anchor-color : $color-base;
+$anchor-color-hover: darken($anchor-color, 15%);
+
+// Navbar
+$navbar-default-bg: #000;
+$navbar-text-color: #fff;
+$navbar-text-invert-color: #223344;
+$navbar-text-shadow: 2px 2px 2px rgba(0,0,0,1);
+$navbar-top-gradcolor: #556677;
+$navbar-bot-gradcolor: #223344;
+$navbar-item-radius: 6px;
+
+// Buttons
+$btn-default-color: $color-base;
+$btn-secondary-color: lighten($color-base, 10%);
+$btn-hover-color: $btn-secondary-color;
+$btn-detalhe-lista: $color-base;
+$btn-default-border: 0 none;
+$btn-box-shadow: 1px 1px 1px rgba(0,0,0,0.75);
+
+$default-border-radius: 3px;
+$default-box-shadow: none;
+
+// Inputs
+$input-border-color: #ccc;
+$input-border: 1px solid $input-border-color;
+$input-border-focus: lighten($input-border-color, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
+$input-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.2);
+
+// Panels
+$panel-default-heading-bg: #fff;
+$bg-container: #fff;
+$bg-container-darker: darken($bg-container, 8%);

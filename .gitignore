@@ -1,0 +1,11 @@
+/node_modules
+/public/storage
+/vendor
+/nbproject
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+sftp-config.json
+npm-debug.log
+package-lock.json

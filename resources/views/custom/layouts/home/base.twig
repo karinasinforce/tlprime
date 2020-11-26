@@ -1,0 +1,145 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app', 'core.app'] %}
+
+{% block html_header_title %}Imóveis para venda e locação no Rio de Janeiro{% endblock %}
+
+{% set html_header_description = "Os melhores imóveis na Zona Sul, Zona Norte e Zona Oeste no Rio de Janeiro" %}
+
+{% block content_header_title %}{% endblock %}
+
+{% block content_header_description %}{% endblock %}
+
+{% block content_header_breadcrumb %}{% endblock %}
+
+{% set actual_page = "page-home" %}
+
+{% block main_content %}
+
+    
+    <!-- CONTENT -->                                            
+    <div class="spark-screen">
+
+        {% include ['custom.layouts.home.slider','core.layouts.home.slider'] with { content: bannerVitrine.content, data: data } %}
+
+
+        <div class="corpo">
+            {# {% include ['custom.layouts.home.home-vitrine-regioes','core.layouts.home.home-vitrine-regioes'] %} #}
+
+            {# {% include ['custom.layouts.home.vitrines.home-vitrine-empreendimentos-modelo','core.layouts.home.vitrines.home-vitrine-empreendimentos-modelo'] with { content: vitrineLancamentos.content, data: data } %}  #}
+            
+            {% include ['custom.layouts.home.vitrines.home-vitrine-imoveis-modelo','core.layouts.home.vitrines.home-vitrine-imoveis-modelo'] 
+                with { content: vitrineProntos.content, data: data } %}
+                
+            {% include ['custom.layouts.home.vitrines.home-vitrine-locacao-modelo','core.layouts.home.vitrines.home-vitrine-locacao-modelo'] 
+                with { content: vitrineLocacao.content, data: data } %}
+
+                
+            {# {% include ['custom.layouts.home.financiamento'] %} #}
+
+
+            {% include ['custom.layouts.home.bairros-e-condominios','core.layouts.home.bairros-e-condominios'] %}
+
+            {% include ['custom.layouts.blog.blog-ultimas-noticias','core.layouts.blog.blog-ultimas-noticias'] with { content: posts, data: data } %}
+                
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="/js/controller/busca-avancada.min.js?2" defer type="text/javascript"></script>
+    {#<script src="/js/controller/home.js" defer type="text/javascript"></script>#}
+    
+    <script src="/js/plugins/nouislider.min.js" defer></script>
+    <link  href="/js/plugins/nouislider.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/plugins/wNumb.js" defer></script>
+    
+    <script src="/js/plugins/jquery.simplePagination.js" defer></script>
+    <link  href="/js/plugins/jquery.simplePagination.css" rel="stylesheet" type="text/css" />    
+    
+    <script>
+    /* PRONTOS */ 
+    window.addEventListener('DOMContentLoaded', function() {
+        /* {# conteúdo do home.js - foi colocado aqui para otimizar a note no pagespeed #}*/
+        function callPage(){
+            gAJAX = "abort";
+            setLoading("remove");
+            window.location.reload();
+        }
+
+        $( document ).ready(function() {
+
+            // seta as variaves globais
+            gAPI    = '{{ siteparam.https == "true" ? content.url_api|raw|default("")|replace({"http":"https"}) : content.url_api|raw|default("") }}';
+            gAPIKEY = '{{content.url_apikey|raw|default("")}}';        
+            gQS     = '{{content.query_string|raw|default("")}}';
+            gDATA   = null;
+            compileHandlebar = false;
+            gELEM   = $("#product-list");
+            console.log(gAPIKEY);
+            // inicializa a lista de prontos
+            // initProdutosLista(gAPI+gQS, gDATA, gELEM);
+
+            // inicializa o slider de valor
+            initSliderValor();
+
+            // inicializa o slider de area util
+            initSliderAreaUtil();        
+                
+            //setLoading('off');
+            
+            //$('.container-busca-avancada').affix({
+            //    offset: {
+            //        top: $('header').height() + $('.banner_txt_main').height() + 50
+            //    }
+            //});	
+            // Slider de regioes no mobile - home
+            function initRegSlider(__width) {
+                var $wrapper = $(".wrapper_regioes");
+                
+                if ( __width <= 768) {
+                    $wrapper.owlCarousel({
+                        items: 1
+                    });
+                    $wrapper.addClass('owl-carousel owl-theme');
+                    $wrapper.removeClass('row');
+                } else {
+                    $wrapper.owlCarousel('destroy');
+                    $wrapper.removeClass('owl-carousel owl-theme');
+                    $wrapper.addClass('row');
+                }
+            };
+
+            // roda no inicio, quando o site é carregado
+            initRegSlider(window.innerWidth);
+
+            // roda quando dá um resize na página
+            $(window).resize(function(event) {
+                var _width = window.innerWidth;
+                initRegSlider(_width);
+            });
+            
+            
+            $('.select-filtro-lateral').niceSelect();
+            
+            
+        });
+    });
+
+    </script>    
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

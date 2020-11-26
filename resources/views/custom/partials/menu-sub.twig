@@ -1,0 +1,158 @@
+{# SUB MENU
+
+    Arquivo de template para editar o menu secundario. Pode ser usado
+para duplicar o menu no rodape.
+
+#}
+{% if menu == "Imóveis" %}
+
+	<li>
+		<h4>{{menu}}</h4>
+	</li>
+	<li class="menu_item_1">
+		<a href="/venda">Comprar</a>
+	</li>
+	{# <li class="menu_item_1">
+		<a href="/lancamentos">Lançamentos</a>
+	</li> #}
+	<li class="menu_item_1">
+		<a href="/Alguel">Alugar</a>
+	</li>
+
+
+{% endif %}
+
+
+{% if menu == "Explore" %}
+<li>
+		<h4>{{menu}}</h4>
+	</li>
+	<li class="menu_item_1">
+		<a href="/blog">Blog</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="/servicos">Nossos Serviços</a>
+	</li>
+		<li class="menu_item_1">
+		<a href="/contato/anuncie-seu-imovel">Anuncie seu Imóvel</a>
+	</li>
+
+
+	
+	
+{% endif %}
+
+
+{% if menu == "Institucional" %}
+
+	<li>
+		<h4>{{menu}}</h4>
+	</li>
+
+	<li class="menu_item_1">
+		<a href="/a-imobiliaria">Quem Somos</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="/contato/fale-conosco">Fale Conosco</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="/contato/trabalhe-conosco">Trabalhe conosco</a>
+	</li>
+
+
+
+{% endif %}
+
+
+
+{% if menu == "Central de Atendimento" %}
+
+	<li>
+		<h4>{{menu}}</h4>
+	</li>
+	{# <li class="menu_item_1">
+		<a href="telto:{{siteparam.telefones.celular1}}">
+			<span>
+				<i class="fa fa-phone-volume"></i>
+				{{siteparam.telefones.celular1}}</span>
+		</a>
+	</li> #}
+	<li class="menu_item_1">
+		<a href="telto:{{siteparam.telefones.celular2}}">
+			<span>
+				<i class="fa fa-phone-volume"></i>
+				{{siteparam.telefones.celular2}}</span>
+		</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="https://wa.me/{{siteparam.telefones.whatsappnumber}}">
+			<i class="fab fa-whatsapp"></i>
+			<span>{{siteparam.telefones.whatsapp}}</span>
+		</a>
+	</li>
+	<div class="d-flex flex-row Social_footer">
+		{% if siteparam.facebook_url %}
+			<li class="menu_item_1">
+				<a href="{{siteparam.facebook_url}}" target="_blank">
+					<i class="fab fa-facebook-square"></i>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if siteparam.instagram_url %}
+			<li class="menu_item_1">
+				<a href="{{siteparam.instagram_url}}" target="_blank">
+					<i class="fab fa-instagram"></i>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if siteparam.youtube_url %}
+			<li class="menu_item_1">
+				<a href="{{siteparam.youtube_url}}" target="_blank">
+					<i class="fab fa-youtube"></i>
+				</a>
+			</li>
+		{% endif %}
+
+		{% if siteparam.linkedin_url %}
+			<li class="menu_item_1">
+				<a href="{{siteparam.linkedin_url}}" target="_blank">
+					<i class="fab fa-linkedin"></i>
+				</a>
+			</li>
+		{% endif %}
+
+		
+	</div>
+	{# <li class="menu_item_1 d-flex flex-column Horario_funcionamento">
+			<span>
+				<i class="fas fa-clock"></i>
+				<b>Horário de Funcionamento:</b>
+			</span>
+			<span>Segunda à Sexta-feira de 9:00 às 18 horas</span>
+			<span>Sábado de 9:00 às 13:00 horas</span>
+		</li> #}
+
+{% endif %}
+
+
+{% if menu == "Fale Conosco" %}
+
+	<li>
+		<h4>{{menu}}</h4>
+	</li>
+	<li class="menu_item_1">
+		<a href="javascript:void(0)" onclick="$('#AtendimentoEmail').modal()">Atendimento por e-mail</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="javascript:void(0)" onclick="$('#FaleWhatsapp').modal()">Atendimento via Whatsapp</a>
+	</li>
+	<li class="menu_item_1">
+		<a href="javascript:void(0)" onclick="$('#LigamosForYou').modal()">Ligamos para você</a>
+	</li>
+
+
+{% endif %}
+
+

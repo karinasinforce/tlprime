@@ -1,0 +1,192 @@
+{# MENU PRINCIPAL
+
+    Arquivo de template para editar o menu principal. Pode ser usado
+para duplicar o menu no rodape.
+
+#}
+
+
+{# <li class="nav-item">
+	<a class="nav-link" href='/'>Home</a>
+</li> #}
+
+<li class="nav-item dropdown {{'/imoveis' in url().current() ? 'active' : ''}}">
+	<a class="nav-link " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Imóveis
+		<i class="fas fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu">
+		<li>
+			<a href="/venda">
+				<i class="fas fa-home"></i>
+				Comprar</a>
+		</li>
+		<li>
+			<a href="/lancamentos">
+				<i class="fas fa-home"></i>
+				Empreendimento</a>
+		</li>
+
+		<li>
+			<a href="/aluguel">
+				<i class="fas fa-home"></i>
+				Alugar</a>
+		</li>
+
+		
+	</ul>
+</li>
+
+<li class="nav-item ">
+	<a class="nav-link" href='/contato/anuncie-seu-imovel'>Anuncie seu Imóvel</a>
+</li>
+
+<li class="nav-item ">
+	<a class="nav-link" href='ttp://www.sigemonline21.com.br/assinante/login?designer=tlprime' target="blank">2° via de Boleto</a>
+</li>
+
+{# <li class="nav-item dropdown {{'/areadocliente' in url().current() ? 'active' : ''}}">
+	<a class="nav-link " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		<i class="fas fa-user mr-2"></i>Área do Cliente
+		<i class="fas fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu">
+		<li>
+			<a class="nav-link" href='https://adm05283702.superlogica.net/clients/areadofornecedor' target='blank'>Área do Proprietário</a>
+		</li>
+		<li>
+			<a class="nav-link" href='https://adm05283702.superlogica.net/clients/areadocliente' target='blank'>Área do Locatário</a>
+		</li>
+
+	</ul>
+</li> #}
+
+	{% if 	siteparam.telefones.whatsapp %}
+			<li class="nav-item d-none d-md-block">
+				<a class="nav-link" href='https://wa.me/{{siteparam.telefones.whatsappnumber}}'>
+					<i class='fab fa-whatsapp'></i>
+					{{siteparam.telefones.whatsapp}}</a>
+			</li>
+			
+		{% endif %}
+
+{# <li class="nav-item whatsapp dropdown {{'/areadocliente' in url().current() ? 'active' : ''}}">
+	<a class="nav-link " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Central de atendimento
+		<i class="fas fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu">
+		{% if 	(siteparam.telefones.whatsapp) %}
+			<li class="nav-item d-none d-md-block">
+				<a class="nav-link" href='https://wa.me/{{siteparam.telefones.whatsappnumber}}'>
+					<i class='fab fa-whatsapp'></i>
+					{{siteparam.telefones.whatsapp}}</a>
+			</li>
+			{# <pre>
+				{{ dump(siteparam.telefones) }}
+			</pre> #}
+		{# {% endif %}
+		{% if (siteparam.telefones.celular) %}
+			<li class="nav-item">
+				<a class="nav-link" href='telto:{{siteparam.telefones.celular}}'>
+					<i class='fa fa-phone-volume'></i>
+					{{siteparam.telefones.celular}}</a>
+			</li>
+		{% endif %}
+			{% if (siteparam.telefones.celular2) %}
+			<li class="nav-item">
+				<a class="nav-link" href='telto:{{siteparam.telefones.celular2}}'>
+					<i class='fa fa-phone-volume'></i>
+					{{siteparam.telefones.celular2}}</a>
+			</li>
+		{% endif %}
+		{# <li class="nav-item">
+					<a class="nav-link" href='telto:{{siteparam.telefones.fixo2}}'>
+						<i class='fa fa-phone-volume'></i>
+						{{siteparam.telefones.fixo2}}</a>
+				</li> #}
+	{# </ul>
+</li>  #}
+
+
+<li class="nav-item dropdown menu-options">
+	<a class="nav-link " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		<i class="fas fa-th fa-2x"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-menu-right dropdown-custom-menu">
+		<li>
+			<a href="/a-imobiliaria">
+				<i class="fas fa-home fa-2x"></i>
+				Quem somos
+			</a>
+		</li>
+		<li>
+			<a href="/contato/trabalhe-conosco">
+				<i class="fas fa-users fa-2x"></i>
+				Seja Nosso Parceiro
+			</a>
+		</li>
+		<li>
+			<a href="/contato/fale-conosco/">
+				<i class="fas fa-phone fa-2x"></i>
+				Fale conosco
+			</a>
+		</li>
+
+		<li>
+			<a href="/blog">
+				<i class="fas fa-star fa-2x"></i>
+				Blog
+			</a>
+		</li>
+		{#  #}
+	{# <li>
+						<a href="/servicos">
+							<i class="fas fa-wrench fa-2x"></i>
+							Serviços
+						</a>
+					</li> #}
+		{# <li>
+									<a href="https://oferta.jfrancacorretor.com.br/indicacao" target="_blank">
+										<i class="far fa-file fa-2x"></i>
+										Indique um comprador
+									</a>
+								</li> #}
+	</ul>
+</li>
+
+<li class="nav-item dropdown menu-options-mobile">
+	<a class="nav-link " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Outras
+		<i class="fas fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu">
+		<li>
+			<a href="/a-imobiliaria">
+
+				Quem somos
+			</a>
+		</li>
+		<li>
+			<a href="/contato/trabalhe-conosco">
+
+				Seja Nosso Parceiro
+			</a>
+		</li>
+		<li>
+			<a href="/contato/fale-conosco/">
+				Fale conosco
+			</a>
+		</li>
+
+		<li>
+			<a href="/blog">
+
+				Blog
+			</a>
+		</li>
+
+	</ul>
+</li>
+
+

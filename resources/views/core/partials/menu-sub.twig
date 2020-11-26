@@ -1,0 +1,38 @@
+
+{# SUB MENU
+
+    Arquivo de template para editar o menu secundario. Pode ser usado
+para duplicar o menu no rodape.
+
+#}
+
+{% if menu == "Imóveis" %}
+    
+    <li><h4>{{menu}}</h4></li>
+    <li class="menu_item_1"><a href="/aluguel">Aluguel</a></li>
+    <li class="menu_item_1"><a href="/venda">Prontos</a></li>
+    <li class="menu_item_1"><a href="/lancamentos">Lançamentos</a></li>
+    <li class="menu_item_1"><a href="/contato/anuncie-seu-imovel">Avalie seu imóvel</a></li>
+
+    
+{% endif %}
+
+{% if menu == "Fale Conosco" %}
+    
+    <li><h4>{{menu}}</h4></li>
+    <li class="menu_item_1"><a href="javascript:void(0)" onclick="$('#AtendimentoEmail').modal()">Atendimento por e-mail</a></li>
+    <li class="menu_item_1"><a href="javascript:void(0)" onclick="$('#FaleWhatsapp').modal()">Atendimento via Whatsapp</a></li>
+    <li class="menu_item_1"><a href="javascript:void(0)" onclick="$('#LigamosForYou').modal()">Ligamos para você</a></li>
+
+    
+{% endif %}
+
+{% if menu == APP_NAME %}
+
+    <li><h4>{{menu}}</h4></li>
+    <li class="menu_item_1"><a href="/a-empresa">A Imobiliária</a></li>
+    <li class="menu_item_3"><a href="/contato/trabalhe-conosco">Trabalhe Conosco</a></li>
+
+{% endif %}
+
+

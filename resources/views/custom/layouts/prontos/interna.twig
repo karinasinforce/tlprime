@@ -1,0 +1,274 @@
+
+{# PRONTOS #}
+{% set item = content %}
+
+<div id="product-content" class="item-id-{{item.ID}}">
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            {# galeria #}
+            <div class="row-box gallery">
+                {#{dump(item)}#}
+                {% if siteparam.favoritos == 'true' %}
+                    {# set para fucionar a marcacao do favoritado #}
+                    {% set content = item %}
+                    <!-- FAVORITO -->
+                    <div class="icon-favoritos fav-interna">
+                        {# <a class="btn-favoritos" onclick="addFav({{item.ID}})">
+                            {# <span>Adicionar aos Favoritos</span>
+                            <i class="fa fa-heart heart-{{item.ID}}"></i>
+                            <i class="fa fa-heart animated heart-{{item.ID}}"></i> 
+                        </a> #}
+                        <input type="text" class="hide produto-favorito prod-id-{{item.ID}}"
+                            value='{"ID":"{{item.ID}}", "ValorVenda":"{{item.ValorVenda}}", "ValorLocacao":"{{item.ValorLocacao}}",
+                            "ImagemDestaque":"{{IMG_PATH}}/thumb/{{item.Imagens[0]}}.jpg", "BairroNome":"{{item.BairroNome}}",
+                            "TipoNome":"{{item.TipoNome}}", "AreaUtil":"{{item.AreaUtil}}",
+                            "QtdSuite":"{{item.QtdSuite}}", "QtdQuarto":"{{item.QtdQuarto}}",
+                            "QtdWcTotal":"{{item.QtdWcTotal}}", "QtdVaga":"{{item.QtdVaga}}" }'>
+                    </div>
+                    <!-- /FAVORITO -->
+                {% endif %}
+
+                {% include ['custom.helpers.slide-slick','core.helpers.slide-slick'] with {item: item, data:data} %}
+            </div>
+
+            {# nome e preço #}
+            <div class="row-box basic-info">
+                <div class="row align-items-stretch">
+
+                    <div class="col-12">
+                        <h1>
+                            {{item.TipoNome}}
+                            {% if item.QtdQuarto %} com {{item.QtdQuarto}} {{ item.QtdQuarto > 1 ? 'quartos' : 'quarto' }}{% endif %}
+                            {% if item.ValorVenda %} para venda{% endif %}{% if item.AreaTotal %}, {{item.AreaTotal}}m<sup>2</sup>{% endif %}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                
+                <div class="row mx-0">
+                    {# Localizacao #}
+                    <div class="regiao col-12 col-xl-6 order-1 order-xl-1 pl-1">
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span>{{item.Logradouro}} em {{item.BairroNome}}, {{item.CidadeNome}} - {{item.EstadoSigla}}</span>
+                    </div>
+
+                    {# Valor do imovel #}
+                    <div class="content_value col-12 col-xl-6 order-2 order-xl-1">
+                        
+                        {% if item.ValorVenda %}
+                            {% if item.ValorVenda > 0 %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <span><i class="fas fa-dollar-sign"></i> <span class="sufix"> Valor de</span> Venda: </span>
+                                    <span class="val destak">R$ {{item.ValorVenda|number_format(0,',','.')}}</span>
+                                </div>
+                            {% else %}
+                                <div class="posvalue-imovel valor_imv">
+                                    <span>Consulte-nos</span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if item.ValorLocacao %}
+                            <div class="posvalue-imovel valor_imv">
+                                <span><i class="fas fa-dollar-sign"></i> <span class="sufix"> Valor de</span> Locação: </span>
+                                <span class="val destak">R$ {{item.ValorLocacao|number_format(0,',','.')}}</span>
+                            </div>
+                        {% endif %}
+                        
+                        {% if item.ValorCondominio %}
+                            <div class="posvalue-imovel valor_imv">
+                                <span>Condomínio: </span>
+                                <span class="val">R$ {{item.ValorCondominio|number_format(0,',','.')}}</span>
+                            </div>
+                        {% endif %}
+
+                        {% if item.ValorIPTU %}
+                            <div class="posvalue-imovel valor_imv">
+                                <span>IPTU: </span>
+                                <span class="val">R$ {{item.ValorIPTU|number_format(0,',','.')}}</span>
+                            </div>
+                        {% endif %}
+                        <div class="posvalue-imovel valor_imv">
+                            <span>Código: </span>
+                            <span class="val">{{item.Codigo}}</span>
+                        </div>
+
+
+                    </div>
+
+                    {# quartos e etc #}
+                    <div class="content_infos_qtd col-12 order-1 order-xl-1">
+                        {% if item.QtdQuarto %}
+                            <div class="item_info">
+                                <div class="icon_wrap">
+                                    <img src="/img/svg/quartos.svg" class="tosvg">
+                                </div>
+                                <div class="text-info">
+                                    <span class="quartos">
+                                        <span>{{item.QtdQuarto}} </span>
+                                        <span>{{ item.QtdQuarto > 1 ? 'Quartos' : 'Quarto'}}</span>
+                                    </span>
+                                    {% if item.QtdSuite %}
+                                        <span> sendo {{item.QtdSuite}} {{ item.QtdSuite > 1 ? 'Suítes' : 'Suíte'}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if item.QtdBanheiro %}
+                            <div class="item_info">
+                                <div class="icon_wrap">
+                                    <img src="/img/svg/shower_2.svg" class="tosvg">
+                                </div>
+                                <span>{{item.QtdBanheiro}}</span>
+                                <span class="text-info">{{ item.QtdBanheiro > 1 ? 'Banheiros' : 'Banheiro'}}</span>
+                            </div>
+                        {% endif %}
+
+                        {% if item.QtdVaga %}
+                            <div class="item_info">
+                                <div class="icon_wrap">
+                                    <img src="/img/svg/car-in-garage.svg" class="tosvg">
+                                </div>
+                                <span>{{item.QtdVaga}}</span>
+                                <span class="text-info">vaga(s)</span>
+                            </div>
+                        {% endif %}
+
+                        {% if item.AreaUtil %}
+                            <div class="item_info">
+                                <div class="icon_wrap">
+                                    <img src="/img/svg/area.svg" class="tosvg">
+                                </div>
+                                <span>{{item.AreaUtil}} m²</span>
+                                <span class="text-info">Área Útil</span>
+                            </div>
+                        {% endif %}
+
+                        {% if item.AreaTotal %}
+                            <div class="item_info">
+                                <div class="icon_wrap">
+                                    <img src="/img/svg/area.svg" class="tosvg">
+                                </div>
+                                <span>{{item.AreaTotal}} m²</span>
+                                <span class="text-info">Área Total</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            
+            </div>
+           
+            
+            {% if item.Video %}
+                <!-- VIDEO -->
+                <div class="row-box video">
+                    <div class="conteudo">
+                        <h3>Video</h3>
+                        <div class="video-container">
+                            <iframe width="420" height="315" src="{{item.Video}}"></iframe>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if item.Descricao %}
+                <!-- DESCRICAO -->
+                <div class="row-box descriptions">
+                    <div class="descript">
+                        <h3>Descrição</h3>
+                        <span>{{item.Descricao}}</span>
+                    </div>
+                </div>
+               
+            {% endif %}
+
+             {% if item.Tour360 is defined and item.Tour360 != null %}
+                <!-- VIDEO -->
+                <div class="row-box">
+                    <div class="conteudo">
+                        <h3>Tour Virtual</h3>
+                        <div class="video-container">
+                            <iframe width="100%" height="400" src="{{item.Tour360}}"></iframe>
+                        </div>
+                    </div>
+                </div>
+            
+            {% endif %}
+
+
+            {% if item.Caracteristicas %}
+                <div class="row-box characteristics-list">
+                    <h3>Comodidades</h3>
+                    <ul>
+                        {% for entry in item.Caracteristicas %}
+                            <li>{{entry}}</li>
+                            {# <pre>
+                                {{ dump(item) }}
+                            </pre> #}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+
+            {% if item.Imagens %}
+                <div class="row-box gallery-list">
+                    {% include ['custom.helpers.slide-light-gal','core.helpers.slide-light-gal'] with {item: item, data:data} %}
+                </div>
+            {% endif %}
+
+            {% if item.MapaLatitude and item.MapaLongitude %}
+                <!-- MAPA -->
+                <div class="row-box maps">
+                    <h3 class="stack_title">Localização</h3>
+                    <div id="map_canvas" class="blur">
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+       
+        <div class="col-12 col-lg-4 content_form">
+            <!-- CONTATAR -->
+                <div class="affix-anchor">
+                    <div class="affix-child contact">
+                        {% include ['custom.helpers.formulario-interessado','core.helpers.formulario-interessado'] %}
+                    </div>
+
+                   
+                </div>
+        </div>
+    </div>
+
+    {% if relacionados.content %}
+        <div class="row">
+            <div class="row-box">
+                <h3>Você também pode gostar:</h3>
+            </div>
+            {% include ['custom.helpers.relacionados', 'core.helpers.relacionados'] with { relacionados : relacionados} %}
+            
+        </div>
+    {% endif %}
+</div>
+
+{% if siteparam.googlemapskey %}
+    {% set endereco = item.Logradouro ~ ' - ' ~ item.BairroNome ~ ', ' ~ item.CidadeNome ~ ', ' ~ item.EstadoSigla ~ ', Brasil' %}
+    {% include ['custom.helpers.google-maps', 'core.helpers.google-maps'] with {
+        latitude: item.MapaLatitude,
+        longitude: item.MapaLongitude,
+        endereco: endereco,
+        cor: '#15335c'
+    } %}
+{% else %}
+     
+    {% include ['custom.helpers.opensource-maps', 'core.helpers.opensource-maps'] with { 
+        latitude: item.MapaLatitude,
+        longitude: item.MapaLongitude,
+        cor: '#15335c'
+    } only %}
+{% endif %}
+

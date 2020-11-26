@@ -1,0 +1,384 @@
+{% spaceless %}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+<!DOCTYPE html>
+{# CONFIGURACAO DOS PARAMETROS <- SESSION #}
+{% if session_get('parametros') %}{% set siteparam = session_get('parametros') %}{% else %}{% set siteparam = '' %}{% endif %}
+{% if session_get('corretor') %}{% set sitecorretor = session_get('corretor') %}{% else %}{% set sitecorretor = '' %}{% endif %}
+
+
+<html lang="en">
+    {% include ['custom.partials.html-header','core.partials.html-header'] with { html_header_title: block('html_header_title'), siteparam:siteparam } %}
+
+    {# MODULO # FAVORITOS #}
+    {% if siteparam.favoritos == 'true' %}
+        {% include ['custom.helpers.side-favoritos','core.helpers.side-favoritos'] with {content: content} %}
+    {% endif %}
+    {# MODULO # FAVORITOS #}
+
+    <body class="page {{actual_page|default("")}}  {%if data.isMobile %}mobile{%endif%}">
+        
+        {% include ['custom.helpers.facebook-likebox', 'core.helpers.facebook-likebox'] with { bloco: 'script' } %}
+
+        <div class="wrapper">
+            
+
+            {% include ['custom.partials.header','core.partials.header'] %}
+
+            <div class="content-wrapper">
+
+                {% include ['custom.partials.content-header','core.partials.content-header'] with {
+                        content_header_title: block('content_header_title'),
+                        content_header_description: block('content_header_description'),
+                        content_header_breadcrumb: block('content_header_breadcrumb'),
+                        content_share_bread: block('content_share_bread')
+                } %}
+
+                <section class="content">
+                {% if content.ExceptionMessage %}
+                        <div class="container">
+                            <!-- CONTENT DETAIL -->
+                            <div class="row">
+                                {% include ['custom.errors.erro-identificado','core.errors.erro-identificado'] with {content: content, data:data} %}
+                            </div>
+                        </div>
+                {% else %}                    
+                    {{ block('main_content') }}
+                {% endif %}
+                </section>
+
+            </div>
+
+            {# MODULO # PORTAL DO CORRETOR # TIPO 2 #}
+            {% if sitecorretor.Posicao == "Fundo" %}
+                {% include ['custom.helpers.corretor','core.helpers.corretor'] with {sitecorretor:sitecorretor, data:data} %}
+            {% endif %}
+            {# MODULO # PORTAL DO CORRETOR # TIPO 2 #}
+                
+            {% include ['custom.partials.footer','core.partials.footer'] %}
+
+            
+        </div>
+            
+        <div class="full-loader">
+            <div class="loading">
+                <img alt="loading..." src="/img/loader.svg"/>
+                </br>carregando
+            </div>
+        </div>
+            
+        <div class="topper">
+            <i class="fa fa-chevron-up"></i>
+        </div>
+
+        
+        {% include ['custom.partials.widget-atendimento-pre-chat','core.partials.widget-atendimento-pre-chat'] %}
+        
+
+        {% include ['custom.partials.scripts','core.partials.scripts'] %}
+
+        {% if not content.ExceptionMessage %}
+        {{ block('extra_scripts') }}
+                
+        <script>
+        {# script para carregar a lista de itens da busca #}
+        {% if data.isMobile %}
+            /* preciso filtrar para ignorar quando estiver nas paginas de listagens*/
+            function callPage(){
+                setLoading("remove");
+                window.location.reload();
+            }            
+        {% endif %}
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            $(document).ready(function(){
+
+                {% if data.isMobile %}
+                {% else %}
+                $('.select-filial').niceSelect();                
+                {% endif %}
+                
+                $('[data-toggle="tooltip"]').tooltip();
+                    
+                // GUEST
+                // verifica se existe um track ativo
+                verifyGuest();
+                
+                    
+                // ULTIMOS ACESSADOS
+                // verifica se e uma pagina interna de produto
+                var ContentID = "";
+                var Finalidade = "";
+                {% if content.ID %}
+                    ContentID = "{{content.ID}}";
+
+                    // LANCAMENTOS
+                    {% if (content.Nome) %}
+                    Finalidade = "Lancamento";
+                    {% endif %}
+
+                    // IMOVEIS - VENDA
+                    {% if (content.ValorVenda)%}
+                    Finalidade = "Venda";
+                    {% endif %}
+
+                    // IMOVEIS - LOCACAO
+                    {% if (content.ValorLocacao)%}
+                    Finalidade = "Locacao";
+                    {% endif %}
+                    
+                    userLastAccess(ContentID, Finalidade);
+                {% endif %}
+                // ULTIMOS ACESSADOS
+                    
+
+                /* Funcao que trata os dados do form de contato para envio para a API */
+                $(".form-contato .form-submit").click(function(){
+                    
+                    var url                 = "{{ siteparam.https ? API_PATH : API_PATH}}/{{API_KEY}}/Formulario/Generico";
+
+                    var error               = null;
+                    var form                = $(this).parents(".form-contato");
+
+                    var message             = "";
+                    var unindexed_array     = form.serializeArray();
+                    var indexed_array       = IndexDataForm(unindexed_array);
+                    var values_array        = indexed_array;
+                    var values              = "";
+                    
+                    
+                    // prepara os inputs com os data=values
+                    values_array            = IndexDataForm( form.find(":input[data='values']").serializeArray() );
+                    indexed_array.values    = JSON.stringify(values_array);
+                    
+                    // valida os campos obrigatorios
+                    form.find(".form-control").each(function(idx){
+                        var el          = $(this);
+                        var required    = el.attr("required");
+                        var value       = el.val();
+
+                        if ((required) && (value==="")){
+                            el.addClass("alert-danger");
+                            form.find('.contato-mss').html("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>Preencha os campos obrigatórios!</h6></div>");
+                            error = 1;
+                        }else{
+                            el.removeClass("alert-danger");
+                            if(!error){
+                                form.find('.contato-mss').html("");
+                            }
+                        }                    
+                    });
+                                    
+                    if(validateEmail(indexed_array["Email"])){
+                        // email ok
+                    }else{
+                        // email fora do formato
+                        $("input[name='Email']").addClass("alert-danger");
+                        form.find('.contato-mss').append("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>O Email está em um formato inválido!</h6></div>");
+                        error = 1;
+                        console.log(indexed_array);
+                    }                     
+                    
+                    if(error){
+                        return false;
+                    }
+                                   
+                    userTrack(indexed_array);
+                    
+                    form.parent('.box-contato').css("opacity","0.5");
+                    form.find('.btn.form-submit').attr("disabled","disabled");       
+
+                    //return false;
+
+                    // envia para a API
+                    $.ajax({
+                        method: "POST",
+                        url:    url,
+                        data:   indexed_array
+                    })
+                    .done(function( resp ) {
+                        console.log(resp);
+                        // form.find('.contato-titulo').html( resp.Title );
+                        // form.find('.contato-mss').html( '<p>' + resp.Message + '</p>' );
+                        // form.parent('.box-contato').css("opacity","1");
+                        // form.find('.btn.form-submit').prop("disabled", false);
+
+                        form.find('.formEnviar').hide();
+                        form.parent('.box-contato').css("opacity","1");
+                        form.find('.formResposta').show();
+
+                    })
+                    .fail(function(resp){
+                        console.log("erro de consumo da api");
+                        console.log(resp);
+                        form.find('.contato-titulo').html( "Erro de comunicação:" );
+                        form.find('.contato-mss').html( "Por favor, tente novamente." );
+                        form.parent('.box-contato').css("opacity","1");
+                        form.find('.btn.form-submit').prop("disabled", false);
+                    });
+                });      
+
+                $(".form-contato-modal .form-submit").click(function(){
+
+                    var url                 = "{{ siteparam.https ? API_PATH : API_PATH}}/{{API_KEY}}/Formulario/Generico";
+                    // console.log(url);
+
+                    var error               = null;
+                    var form                = $(this).parents(".form-contato-modal");
+
+                    var message             = "";
+                    var unindexed_array     = form.serializeArray();
+                    var indexed_array       = IndexDataForm(unindexed_array);
+                    var values_array        = indexed_array;
+                    var values              = "";
+
+                    console.log(indexed_array);
+
+                    // prepara os inputs com os data=values
+                    values_array            = IndexDataForm( form.find(":input[data='values']").serializeArray() );
+                    indexed_array.values    = JSON.stringify(values_array);
+
+                    // valida os campos obrigatorios
+                    form.find(".form-control").each(function(idx){
+                        var el          = $(this);
+                        var required    = el.attr("required");
+                        var value       = el.val();
+
+                        if ((required) && (value==="")){
+                            el.addClass("alert-danger");
+                            form.find('.contato-mss').html("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>Preencha os campos obrigatórios!</h6></div>");
+                            error = 1;
+                        }else{
+                            el.removeClass("alert-danger");
+                            if(!error){
+                                form.find('.contato-mss').html("");
+                            }
+                        }
+                    });
+
+                    if(validateEmail(indexed_array["Email"])){
+                        // email ok
+                    }else{
+                        // email fora do formato
+                        $("input[name='Email']").addClass("alert-danger");
+                        form.find('.contato-mss').append("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>O Email está em um formato inválido!</h6></div>");
+                        error = 1;
+                        console.log(indexed_array);
+                    }
+
+                    if(error){
+                        return false;
+                    }
+
+                    userTrack(indexed_array);
+
+                    form.parent('.box-contato').css("opacity","0.5");
+                    form.find('.btn.form-submit').attr("disabled","disabled");
+
+                    //return false;
+
+                    // envia para a API
+                    $.ajax({
+                        method: "POST",
+                        url:    url,
+                        data:   indexed_array
+                    })
+                        .done(function( resp ) {
+                            console.log(resp);
+                            form.find('.formEnviar').hide();
+                            form.parent('.box-contato').css("opacity","1");
+                            form.find('.formResposta').show();
+                        })
+                        .fail(function(resp){
+                            console.log("erro de consumo da api");
+                            console.log(resp);
+                            form.find('.contato-titulo').html( "Erro de comunicação:" );
+                            form.find('.contato-mss').html( "Por favor, tente novamente." );
+                            form.parent('.box-contato').css("opacity","1");
+                            form.find('.btn.form-submit').prop("disabled", false);
+                        });
+                });  
+                
+                
+            });
+
+            // Script para retardar carregamento das imagens #}
+            var bLazy = new Blazy({
+                selector: '.lazyload',
+                src: 'data-blazy',
+                success: function(element){
+                    imageToSvg();
+                }
+            });
+            //Script para retardar carregamento das imagens #}
+
+            function addCss(fileName) {
+               var link = $("<link />",{
+                 rel: "stylesheet",
+                 type: "text/css",
+                 href: fileName
+               })
+               $('head').append(link);
+            }
+
+            var arrCSS = [
+                '/css/select2.min.css', 
+                '/css/fontawesome-all.min.css',
+                '/js/plugins/owl.carousel.min.css',
+                'https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700|Open+Sans:400,400i,600,700,800'
+                ]
+
+            arrCSS.forEach(function(css){
+                addCss(css);
+            });
+
+            // funcao para verificar e carregar o cookie do visitante
+            function verifyGuest(){
+                // carrega o cookie do visitante
+                var cookieGuest     = getCookie('guest');
+                if(cookieGuest){ 
+                    cookieGuest     = JSON.parse(cookieGuest); 
+                }else{
+                    var strGuest  = '{{data.Guest|default("")|raw}}';
+                    if(strGuest != ''){                        
+                        cookieGuest = JSON.parse(strGuest);
+                    }
+                }
+
+                if(cookieGuest){
+                   userTrack(cookieGuest);
+                }
+            }
+
+
+        });
+
+            
+        </script>
+        
+        {% endif %}
+
+
+        {% if siteparam.facebookpixel %}
+            <script type="text/javascript">
+            </script>   
+        {% endif %}        
+        
+        {#<!-- Custom JS - removido por não ser usado -->
+        <script src="{{ asset('/js/custom.js') }}"></script>#}
+
+    </body>
+</html>
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{% endspaceless %}

@@ -1,0 +1,72 @@
+
+{% set opcionista = content.Opcionistas[0] %}
+
+{# o box geral precisa ter class 'box-contato' para dar retorno visual ao usuario do processamento do form #}
+<div class="contato-estou-interessado box-contato">
+    <h5 class="text-center">Gostou deste imóvel?</h5>
+
+    {% if opcionista %}
+    
+        {# <div class="opcionista">
+            <div class="foto">
+                <div class="img" style="background-image: url('{{opcionista.Avatar}}');"></div>
+            </div>
+            <h6>
+                <span>{{opcionista.Nome}}</span>
+                {% if opcionista.Creci %}
+                    <small>Creci: {{opcionista.Creci}}</small>
+                {% endif %}
+            </h6>
+        </div> #}
+    {% endif %}
+    <ul>
+        <li>
+            <a href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de saber mais sobre esse {{content.Nome ? 'lançamento' : 'imóvel'}}{{content.Codigo|default('')}} {{url_current()}}" target="_blank">
+                <i class="fab fa-whatsapp"></i>    
+                <div>
+                    <span>Entre em contato</span>
+                    <strong>via whatsapp</strong>
+                </div>
+            </a>
+        </li>
+
+        {% if siteparam.telefones.fixo1 %}
+            <li>
+                <a href="tel:0{{siteparam.telefones.fixo1}}" target="_blank">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <span>Telefone</span>
+                        <strong>{{siteparam.telefones.fixo1}}</strong>
+                    </div>
+                </a>
+            </li>
+             <li>
+                <a href="tel:0{{siteparam.telefones.fixo2}}" target="_blank">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <span>Telefone</span>
+                        <strong>{{siteparam.telefones.fixo2}}</strong>
+                    </div>
+                </a>
+            </li>
+        {% endif %}
+
+        <li>
+            <a href="javascript: return;" target="_blank" data-toggle="modal" data-target="#formContatoImovel">
+                <i class="far fa-envelope-open"></i>
+                <div>
+                    <span>Nos envie</span>
+                    <strong>uma mensagem</strong>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+    
+    {# {{ dump(item) }} #}
+    {# o form precisa ter class 'form-contato' para ser processado pelo sistema #}
+    
+</div>
+
+
+

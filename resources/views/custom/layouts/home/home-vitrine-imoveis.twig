@@ -1,0 +1,225 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content is not null %}
+
+
+<div class="vitrine home-vitrine-imoveis">
+    <div class="container">
+        
+            <div class="product_item_sec row mx-0">
+                <div class="col-sm-12">
+                    <h2>{{content.Titulo|default('Imóveis')}}</h2>
+                    <p class="subtitulo">{{content.SubTitulo|default('Destaques selecionados para você!')}}</p>
+                </div>
+    
+                <div class="col-sm-12 mt-4">
+                    <div id="owl-home-vitrine" class="owl-carousel">
+                        {% for entry in content.Itens %}
+                            
+                            {#
+                            {% if loop.index == 1 or loop.index0 is divisibleby(2) %}
+                            <div class="item"> <!-- item duplo -->
+                            {% endif %}
+                            #}
+                            
+                            {% if entry.UrlTrack %}
+                                {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                            {% else %}
+                                {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                            {% endif %}
+
+                            {% if siteparam.https == 'true' %}
+                                {% set ImageUrl = entry.ImageUrl|replace({'http://':'https://'}) %}
+                            {% else %}
+                                {% set ImageUrl = entry.ImageUrl %}
+                            {% endif %}
+                    
+                            <div class="product_itemBx mb-4 item-id-{{entry.ID}}"><!-- item unico -->
+                                {% if siteparam.favoritos == 'true' %}
+                                    <div class="icon-favoritos">
+                                        <div class="btn-favoritos" onclick="addFav({{entry.ID}})">
+                                            <span>Adicionar aos Favoritos</span>
+                                            <i class="fa fa-heart heart-{{entry.ID}}"></i>
+                                            <i class="fa fa-heart animated heart-{{entry.ID}}"></i></div>
+                                    </div>
+                                    <input type="text" class="hide produto-favorito prod-id-{{entry.ID}}" 
+                                        value='{"ID":"{{entry.ID}}", 
+                                        "ValorVenda":"{{entry.ValorVenda}}", "ValorLocacao":"{{entry.ValorLocacao}}", 
+                                        "BairroNome":"{{entry.BairroNome}}", "ImagemDestaque":"{{ImageUrl}}", 
+                                        "BairroNome":"{{entry.BairroNome}}", "TipoNome":"{{entry.TipoNome}}", 
+                                        "AreaUtil":"{{entry.AreaUtil}}", "QtdSuite":"{{entry.QtdSuite}}", 
+                                        "QtdQuarto":"{{entry.QtdQuarto}}", "QtdWcTotal":"{{entry.QtdWcTotal}}", 
+                                        "QtdVaga":"{{entry.QtdVaga}}", "Imovel": "true" }'>
+                                {% endif %}
+                    
+                                <div class="product_itemBxTop">
+                                    <a class="vit_link_foto" href="{{product_url}}">
+                                        <div class="pdct_pic">                                    
+                                            <div class="vitrine-venda-img owl-lazy" data-src="{{ImageUrl}}">
+                                                <div class="hover_img"></div>
+                                            </div>
+                                        </div>
+                                        <span class="cod_imv statustag"><small>Cód.: </small>{{ entry.Nome }}</span>
+                                    </a>                                        
+                                </div>
+                                                
+                                <div class="product_itemBxBot">
+                                    <div class="tipos text-center">{{entry.TipoNome}}</div>
+                                    <hr class="mb-2 mt-0">
+                                    <h3 class="text-center px-2">{{ entry.EmpreendimentoNome ? entry.EmpreendimentoNome : entry.BairroNome }}</h3>
+                                    <h5 class="text-center px-4">{{ entry.EmpreendimentoNome ? entry.BairroNome : entry.CidadeNome }} - {{entry.EstadoSigla}}</h5>
+
+                                    {% if entry.TipoNome or entry.QtdQuarto %}
+                                        <p class="text-center px-4">
+                                    
+                                            {% if entry.TipoNome %}
+                                                {{ entry.TipoNome }}
+                                            {% endif %}
+                                    
+                                            {% if entry.TipoNome and entry.ValorVenda or entry.TipoNome and entry.ValorLocacao %}
+                                                para
+                                            {% endif %}
+                                    
+                                            {% if entry.ValorVenda %}
+                                                Venda
+                                            {% endif %}
+                                    
+                                            {% if entry.ValorLocacao %}
+                                                Aluguel
+                                            {% endif %}
+                                    
+                                            {% if entry.QtdQuarto %}
+                                                com {{ entry.QtdQuarto }}
+                                                {{ entry.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                            {% endif %}
+                                    
+                                            {% if entry.QtdSuite %}sendo {{ entry.QtdSuite }} {{ entry.QtdSuite > 1 ? 'Suites' : 'Suíte' }}{% endif %}{% if entry.QtdVaga %}, 
+                                                {{ entry.QtdVaga }}
+                                                {{ entry.QtdVaga > 1 ? 'Vagas' : 'Vaga' }}
+                                            {% endif %}
+                                    
+                                            {% if entry.AreaUtil %}
+                                                e {{ entry.AreaUtil }}m²
+                                            {% endif %}
+                                    
+                                        </p>
+                                    {% endif %}
+                                    
+                                    
+                                    
+                                    {% set Preco = entry.Valor %}
+                
+                                    {% if entry.ValorLocacao %}
+                                        {% set Preco = entry.ValorLocacao %}
+                                    {% elseif entry.ValorVenda %}
+                                        {% set Preco = entry.ValorVenda %}
+                                    {% endif %}
+                
+                                    {% if Preco %}
+                                        <div class="valor">
+                                            <span><small>R$</small> <strong>{{ Preco|number_format(0, ',', '.') }}</strong></span>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="text-center wrapper_btn_more">
+                                        <a class="bt-saibamais" href="{{product_url}}">Saiba mais</a>
+                                    </div>
+                                    
+                                    
+                                </div>
+                    
+                            </div>
+                    
+                            {#
+                            {% if loop.index is divisibleby(2) %}
+                            </div> <!-- item duplo -->
+                            {% endif %}
+                            #}
+                    
+                        {% endfor %}
+                    </div> 
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+                            
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            var owl_home_vitrine = $("#owl-home-vitrine");
+            
+            owl_home_vitrine.owlCarousel({
+                onInitialize : function(element){
+                    owl_home_vitrine.children().sort(function(){
+                        return Math.round(Math.random()) - 0.5;
+                    }).each(function(){
+                        $(this).appendTo(owl_home_vitrine);
+                    });
+                },            
+                onInitialized : function(element){
+                {% if siteparam.favoritos == 'true' %}   
+                    $.each(gFAVS, function( i, item ) {
+                        if( (item) && (item.ID) ){
+                            $(".item-id-"+item.ID+" .icon-favoritos .btn-favoritos").addClass("favoritado");
+                            flyHeart(item.ID);
+                        }
+                    });                           
+                {% endif %}
+                },            
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left">','<i class="fa fa-angle-right">'],
+                items: 3,
+                lazyLoad: true,
+                responsive: {
+                    300:{
+                        items:1,
+                        nav:true
+                    },
+                    700:{
+                        items:2,
+                        nav:true
+                    },
+                    1000:{
+                        items:3,
+                        nav:true
+                    },
+                    1200:{
+                        items:3,
+                        nav:true
+                    },
+                    1400:{
+                        items:3,
+                        nav:true
+                    },
+                    1600:{
+                        items:3,
+                        nav:true
+                    }
+                }
+                
+            });
+        });
+    });
+</script>
+{% endif %}
+
+{%if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{%endif%}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

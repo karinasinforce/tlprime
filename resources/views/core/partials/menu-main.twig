@@ -1,0 +1,35 @@
+
+{# MENU PRINCIPAL
+
+    Arquivo de template para editar o menu principal. Pode ser usado
+para duplicar o menu no rodape.
+
+#}
+
+<li class="nav-item {{ actual_page == 'page-home' ? 'active' : ''}}">
+	<a class="nav-link" href='/'>Home</a>
+</li>
+
+<li class="nav-item {{'/venda' in url().current() ? 'active' : ''}}">
+	<a class="nav-link" href='/venda/imoveis'>Prontos</a>
+</li>
+
+<li class="nav-item {{'/aluguel/' in url().current() ? 'active' : ''}}">
+	<a class="nav-link" href='/aluguel/imoveis'>Aluguel</a>
+</li>
+
+<li class="nav-item {{'/lancamentos/' in url().current() ? 'active' : ''}}">
+	<a class="nav-link" href='/lancamentos/imoveis'>Lançamentos</a>
+</li>
+
+<li class="nav-item {{'/a-empresa' in url().current() ? 'active' : ''}}">
+	<a class="nav-link" href='/a-empresa'>A empresa</a>
+</li>
+
+<li class="nav-item {{'/contato/fale-conosco' in url().current() ? 'active' : ''}}">
+	<a class="nav-link" href='/contato/fale-conosco'>Fale Conosco</a>
+</li>
+
+
+
+

@@ -1,0 +1,55 @@
+.banner {
+
+    .image-box {
+        min-height: 580px;
+
+        @include mobile {
+            min-height: 260px;
+            height: 210px;
+        }
+
+        .text_banner {
+            position: absolute;
+            top: 200px;
+            left: 0;
+            text-align: left;
+            width: 100%;
+
+            @include mobile {
+                top: 80px;
+            }
+
+            h1 {
+                //font-size: 48px;
+                font-size: 32px;
+                font-weight: normal;
+                color: #fff;
+                line-height: 1;
+                font-weight: bold;
+                letter-spacing: -1.91px;
+
+                @include mobile {
+                    text-align: center;
+                    letter-spacing: -1px;
+                    @include rem('font-size', 28);
+                }
+            }
+
+            h2 {
+                color: #fff;
+                margin-top: 10px;
+                font-size: 42px;
+                font-weight: normal;
+                letter-spacing: -1.62px;
+
+
+                @include mobile {
+                    @include rem('font-size', 16);
+                    font-weight: 300;
+                    text-align: center;
+                    letter-spacing: -1px;
+                }
+            }
+        }
+    }
+}

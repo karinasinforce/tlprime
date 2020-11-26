@@ -1,0 +1,331 @@
+{% extends ['custom.layouts.corretores.base','core.layouts.corretores.base'] %}
+
+{% set HTMLHeaderTitle = content.Nome %}
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+
+{% set header_facebook_url = url_current() %}
+{% set header_facebook_type = "website" %}
+{% set header_facebook_title =  HTMLHeaderTitle %}
+{% set header_facebook_desc = HTMLHeaderTitle %}
+
+
+{% block content_header_breadcrumb %}
+    {{data.breadcrumb|raw}} <li><a href="/corretores">Corretores</a></li> <li>{{content.Nome}}</li>
+{% endblock %}
+
+
+{% block main_content %}
+    <style>
+      
+
+        #corretores-list .vitrine .product_itemBx .product_itemBxBot a h3 {
+            min-height: 60px;
+        }
+
+        .vitrine .product_itemBx .product_itemBxBot .valorimv a {
+            font-size: 20px;
+        }
+
+        #corretores-list .vitrine .product_itemBx {
+            width: 23%;
+            margin: 0 1%;
+        }
+
+        .CorretorInternaApresentacao {
+            height: 200px;
+            margin: 2% auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 7px -4px #c0c0c0;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+ 
+        .CorretorInternaApresentacao__Foto {
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #000;
+            margin: 0 2%;
+        }
+
+        
+        .CorretorInternaApresentacao__Dados p {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .CorretorInternaApresentacao__Dados p span {
+            font-weight: 400;
+        }
+
+        .CorretorInternaImoveis__Imoveis .vitrine_venda, .CorretorInternaImoveis__Imoveis .vitrine_locacao{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .CorretorInternaImoveis__Abas {
+            display: flex;
+        }
+
+        .CorretorInternaImoveis__Contador {
+            font-weight: 400;
+            font-size: 25px;
+            color: green;
+            margin-right: 5%;
+        }
+
+        .CorretorInternaImoveis__Aba {
+            background: #fff;
+            border: none;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .CorretorInternaImoveis__Aba.active {
+            border-bottom: 2px solid #20120d; 
+        }
+
+
+        @media screen and (max-width: 798px) {
+             #corretores-list .vitrine .product_itemBx {
+                 width: 90%;
+             }
+        }
+
+        @media screen and (min-width: 798px) and (max-width: 1214px) {
+             #corretores-list .vitrine .product_itemBx {
+                 width: 45%;
+             }
+        }
+
+       
+    </style>
+    <div class="spark-screen" id="corretores-list">
+        <!-- MESSAGES -->
+        <div class="container">
+            <div class="row">
+                {% include ['custom.errors.mesages','core.errors.mesages'] %}
+            </div>
+        </div>
+        <!-- MAIN -->
+        <div class="container">
+            <div class="CorretorInternaWrapper">
+                <div class="CorretorInternaApresentacao">
+                    <div class="CorretorInternaApresentacao__Foto" style="background-image: url('{{content.Avatar}}')"></div>
+                    <div class="CorretorInternaApresentacao__Dados">
+                        <p>
+                            {{content.Nome}} <br>
+                            <span>{{content.Imoveis.total}} Imóveis</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="CorretorInternaImoveis">
+                    <div class="CorretorInternaImoveis__Abas">
+                        <h3 class="CorretorInternaImoveis__Contador">{{content.Imoveis.total}}  Imóveis</h3>
+                        {% if content.Imoveis.venda|length > 0 %} 
+                            <button data-fin="venda" class="CorretorInternaImoveis__Aba active">Venda ({{content.Imoveis.totalVenda}})</button>
+                        {% endif %}
+                        
+                        {% if content.Imoveis.locacao|length > 0 %} 
+                            <button data-fin="locacao" class="CorretorInternaImoveis__Aba">Locação ({{content.Imoveis.totalLocacao}})</button>
+                        {% endif %}
+                    </div>
+
+                    <div class="CorretorInternaImoveis__Imoveis vitrine">
+                        {% set imoveisVenda = content.Imoveis.venda %}
+                        {% set imoveisLocacao = content.Imoveis.locacao %}
+                        
+
+                        {% if content.Imoveis.totalVenda > 0 %}
+                            <div data-fin-show="venda" class="vitrine_venda">
+                                {% for imovel in imoveisVenda %}
+                                    <div class="product_itemBx mb-4">
+                                        <div class="product_itemBxTop">
+                                            <a class="vit_link_foto" href="/imovel/{{imovel.UrlTrack}}/ID-{{imovel.ImovelId}}">
+                                                <div class="pdct_pic">
+                                                    <div class="vitrine-venda-img owl-lazy" data-src="{{ADMIN_PATH}}api/image/vitrine/imovel/{{imovel.ImovelId}}?wm=5" style="background-image: url('{{ADMIN_PATH}}/api/image/vitrine/imovel/{{imovel.ImovelId}}?wm=5'); opacity: 1;">
+                                                        <div class="hover_img"></div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="product_itemBxBot">
+                                            <a href="/imovel/apartamento-tijuca/ID-{{imovel.ImovelId}}">
+                                                <h3>
+                                                    {% if imovel.TipoNome %}
+                                                        {{ imovel.TipoNome }}
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.TipoNome and imovel.ValorVenda or imovel.TipoNome and imovel.ValorLocacao %}
+                                                        para
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.ValorLocacao %}
+                                                        locação
+                                                    {% elseif imovel.ValorVenda %}
+                                                        venda
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.QtdQuarto %}
+                                                        com {{ imovel.QtdQuarto }}
+                                                        {{ imovel.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.QtdSuite %}sendo {{ imovel.QtdSuite }} {{ imovel.QtdSuite > 1 ? 'Suites' : 'Suíte' }}{% endif %}
+                                                </h3>
+                                            </a>
+                                            <div class="localidade"><i class="fas fa-map-marker-alt"></i> {{imovel.BairroNome}}, {{imovel.CidadeNome}} - {{imovel.EstadoSigla}}
+                                            </div>
+                                            <ul class="icons">
+                                                {% if imovel.QtdQuarto %}
+                                                    <li>
+                                                        <img src="/img/svg/quartos.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdQuarto}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.QtdWcTotal %}
+                                                    <li>
+                                                        <img src="/img/svg/shower.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdWcTotal}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.QtdVaga %}
+                                                    <li>
+                                                        <img src="/img/svg/car-in-garage.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdVaga}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.AreaUtil %}
+                                                    <li class="area">
+                                                        <img src="/img/svg/area.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.AreaUtil}}m<sup>2</sup></span>
+                                                    </li>
+                                                {% endif %}
+
+                                            </ul>
+                                            <div class="valorimv">
+                                                
+                                                {% if imovel.ValorVenda %}
+                                                    <a href="/imovel/{{imovel.UrlTrack}}/ID-{{imovel.ImovelId}}"><small>R$ </small><span>{{imovel.ValorVenda|number_format(0, ',', '.')}}</span></a>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if content.Imoveis.totalLocacao > 0 %}
+                            <div data-fin-show="locacao" class="vitrine_locacao d-none">
+                                {% for imovel in imoveisLocacao %}
+                                    <div class="product_itemBx mb-4">
+                                        <div class="product_itemBxTop">
+                                            <a class="vit_link_foto" href="/imovel/{{imovel.UrlTrack}}/ID-{{imovel.ImovelId}}">
+                                                <div class="pdct_pic">
+                                                    <div class="vitrine-venda-img owl-lazy" data-src="{{ADMIN_PATH}}api/image/vitrine/imovel/{{imovel.ImovelId}}?wm=5" style="background-image: url('{{ADMIN_PATH}}/api/image/vitrine/imovel/{{imovel.ImovelId}}?wm=5'); opacity: 1;">
+                                                        <div class="hover_img"></div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="product_itemBxBot">
+                                            <a href="/imovel/apartamento-tijuca/ID-{{imovel.ImovelId}}">
+                                                <h3>
+                                                    {% if imovel.TipoNome %}
+                                                        {{ imovel.TipoNome }}
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.TipoNome and imovel.ValorVenda or imovel.TipoNome and imovel.ValorLocacao %}
+                                                        para
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.ValorLocacao %}
+                                                        locação
+                                                    {% elseif imovel.ValorVenda %}
+                                                        venda
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.QtdQuarto %}
+                                                        com {{ imovel.QtdQuarto }}
+                                                        {{ imovel.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                                    {% endif %}
+                                            
+                                                    {% if imovel.QtdSuite %}sendo {{ imovel.QtdSuite }} {{ imovel.QtdSuite > 1 ? 'Suites' : 'Suíte' }}{% endif %}
+                                                </h3>
+                                            </a>
+                                            <div class="localidade"><i class="fas fa-map-marker-alt"></i> {{imovel.BairroNome}}, {{imovel.CidadeNome}} - {{imovel.EstadoSigla}}
+                                            </div>
+                                            <ul class="icons">
+                                                {% if imovel.QtdQuarto %}
+                                                    <li>
+                                                        <img src="/img/svg/quartos.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdQuarto}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.QtdWcTotal %}
+                                                    <li>
+                                                        <img src="/img/svg/shower.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdWcTotal}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.QtdVaga %}
+                                                    <li>
+                                                        <img src="/img/svg/car-in-garage.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.QtdVaga}}</span>
+                                                    </li>
+                                                {% endif %}
+                                                {% if imovel.AreaUtil %}
+                                                    <li class="area">
+                                                        <img src="/img/svg/area.svg" alt="" class="tosvg" height="17">
+                                                        <span>{{imovel.AreaUtil}}m<sup>2</sup></span>
+                                                    </li>
+                                                {% endif %}
+
+                                            </ul>
+                                            <div class="valorimv">
+                                                
+                                                {% if imovel.ValorLocacao %}
+                                                    <a href="/imovel/{{imovel.UrlTrack}}/ID-{{imovel.ImovelId}}"><small>R$ </small><span>{{imovel.ValorLocacao|number_format(0, ',', '.')}}</span></a>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}               
+
+{% block extra_scripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            $( document ).ready(function() {
+                $('[data-fin]').click(function() {
+                    var fin = $(this).attr('data-fin'); 
+
+                    $('.CorretorInternaImoveis__Aba').removeClass('active'); 
+                    $('[data-fin='+fin+']').addClass('active'); 
+                    
+                    $('[data-fin-show]').addClass('d-none'); 
+                    $('[data-fin-show='+fin+']').removeClass('d-none');
+                })
+            });
+        });
+    </script>
+{% endblock %}

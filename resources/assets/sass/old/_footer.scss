@@ -1,0 +1,75 @@
+/* CSS do FOOTER do site */
+
+@import "_variables";
+
+.footer-main{
+    padding: 0;
+    margin-top: 60px;
+    background: #3FB8AF;
+    color: #FFF;
+    .desk{
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+    .nomeh5,
+    .menu_header{
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }    
+    
+    ul {
+        padding: 0;
+        
+        li{
+            list-style: none;
+            
+            a{
+                line-height: 27px;
+                color: #FFF;
+            }            
+        }        
+    }
+}
+
+.footer-aux{
+    background: #005249;
+    color: #fff;    
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    
+    .redes-sociais{
+        padding: 12px 0;
+    }
+    
+    a{
+        margin: 0 0 0 16px;
+        color: #fff;
+        font-size: 18px;
+        border: 2px solid #fff;
+        border-radius: 32px;
+        padding: 6px 0px;
+        width: 41px;
+        display: inline-block;
+        text-align: center;
+        
+        &:hover{}
+    }    
+}
+
+.footer-sub{
+    padding: 16px 0;
+    background: #3FB8AF;
+    color: #FFF;
+    
+    .container{
+      
+       .rt_foot {
+           a {
+                color: #fff;
+                &:hover{}
+           }
+       }
+    }
+}
+    

@@ -1,0 +1,56 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Seja Nosso Associado{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% block content_header_title %}
+                <span>{{data.Titulo|raw}}</span>
+{% endblock %}
+
+{#{% block content_header_description %}
+                <span class="hide">Seja Nosso Associado</span>
+{% endblock %}#}
+
+
+
+{% set actual_page = "page-associado page_form" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+                        <div class="box-page-custom">
+                            {% include ['custom.helpers.formulario-associado','core.helpers.formulario-associado'] with {data:data} %}
+                            
+                            {# {% include ['custom.helpers.sedes-no-mapa','core.helpers.sedes-no-mapa'] with {data:data} %} #}
+                            {% include ['custom.helpers.sedes-no-mapa-2','core.helpers.sedes-no-mapa-2'] with {data:data} %}
+
+                        </div>
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

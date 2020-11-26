@@ -1,0 +1,76 @@
+<footer class="footer-main pt-5">
+
+
+	<div class="container menu-footer">
+		<div class="row">
+			<div class="col-12 col-md-3">
+				<div class="row">
+					<div class="col-12">
+						<img src="/img/Logo_Horizontal.png" width="255" alt="{{APP_NAME}}" class="logo_footer img-float mx-auto mb-3 mb-md-0 d-block ">
+						{# <h2 class="intermed">Intermediação de Compra e Venda</h2> #}
+					</div>
+
+					<div class="col-12 col-md-12 text-center text-md-left px-5 px-md-0">
+
+						{% include ['custom.helpers.endereco','core.helpers.endereco'] %}
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-9">
+				<div class="row mb-4 mb-md-0">
+
+					{% if not data.isMobile %}
+
+						<div class="col-sm-2 col-12 mt-2 mt-md-0">
+							<ul class="ftr_menu">
+								{% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: "Institucional" } %}
+							</ul>
+						</div>
+						<div class="col-sm-2 col-12 mt-3 mt-md-0">
+							<ul class="ftr_menu Servicos">
+								{% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: "Explore" } %}
+							</ul>
+						</div>
+						<div class="col-sm-2 col-12 mt-3 mt-md-0">
+							<ul class="ftr_menu">
+								{% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: "Imóveis" } %}
+							</ul>
+						</div>
+
+                        <div class="col-sm-4 col-12 mt-3 mt-md-0">
+							<ul class="ftr_menu">
+								{% include ['custom.partials.menu-sub','core.partials.menu-sub'] with { menu: "Central de Atendimento" } %}
+							</ul>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<section class="footer-sub">
+		<div class="container">
+			<div class="row text-center text-md-left">
+				<div class="col-md-6 col-sm-12">
+					<p>&copy;
+						{{"now"|date("Y")}}
+						<strong>{{APP_NAME}}</strong>
+						{% if(siteparam.creci) %}
+							-
+							<span class="footer-creci">Creci
+								{{siteparam.creci}}</span>
+						{% endif %}
+						- Todos os direitos Reservados
+					</p>
+				</div>
+				<div class="col-md-6 col-sm-12 text-md-right">
+					<p>Desenvolvimento:
+						<a href="http://www.inforce.com.br/?{{APP_NAME}}" class="d-block d-lg-inline-block">
+							<img alt="{{APP_NAME}}" src="{{ asset('/img/infor_logo_black.png')}}" width="97">
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</footer>
+

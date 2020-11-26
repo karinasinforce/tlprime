@@ -1,0 +1,77 @@
+@mixin mobile {
+    @media screen and ( max-width: 1024px ) {
+      @content;
+  }
+} 
+
+@mixin mobileSmall {
+    @media screen and ( max-width: 375px ) {
+      @content;
+  }
+} 
+
+@mixin mediaNotfull {
+  @media screen and ( max-width: 1199px ) {
+      @content;
+  }
+} 
+
+@mixin mediaSmall {
+    @media screen and ( min-width: 576px ) and ( max-width: 769px ) {
+      @content;
+  }
+} 
+
+@mixin mobileLarge {
+    @media screen and ( min-width: 576px )  {
+      @content;
+  }
+} 
+
+@mixin mediaMedium {
+    @media screen and ( min-width: 769px) {
+      @content;
+  }
+}
+
+@mixin mediaLarge {
+    @media screen and ( min-width: 992px) {
+      @content;
+  }
+}
+
+@mixin mediaLargeOnly {
+    @media screen and ( min-width: 992px) and ( max-width: 1199px ) {
+      @content;
+  }
+}
+
+@mixin mediaXL {
+    @media screen and ( min-width: 1200px) {
+      @content;
+  }
+}
+
+
+// Function REM
+$basefontsize: 16 !default;
+
+// Mixins
+
+// input pixel value unitless: 8 vs 8px
+// ex. @include rem(padding, 8 12 16 24)
+
+@mixin rem($property, $px: $basefontsize) {
+
+    $pxvalues: null;
+    $remvalues: null;
+
+    @each $pxvalue in $px {
+        $pxvalues: append($pxvalues, ($pxvalue)+px);
+	      $remvalues: append($remvalues, ($pxvalue/$basefontsize)+rem);
+    }
+
+	#{$property}: $pxvalues;
+	#{$property}: $remvalues;
+
+}

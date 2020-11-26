@@ -1,0 +1,51 @@
+
+<div class="box-endereco col-12">
+    <h4>Endereço</h4>
+    <p>
+        {{siteparam.endereco|default("endereço")|raw}} <br>
+        <strong>Tel: {{siteparam.telefones['Telefone']}}</strong>
+    </p>
+</div>
+
+
+{#{% if sitecorretor %}
+
+    <input type="hidden" name="corretor" value="{{sitecorretor.Apelido}}"/>
+    <ul class="telefones">
+        {% if sitecorretor.Telefone %}
+        <li>
+            <div class="nomeh6">
+                <i class="fa fa-phone"></i> - <span>{{sitecorretor.Telefone}}</span>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if sitecorretor.Celular %}
+        <li>
+            <div class="nomeh6">
+                <i class="fa fa-phone"></i> - <span>{{sitecorretor.Celular}}</span>
+            </div>
+        </li>
+        {% endif %}
+    </ul>
+
+{% else %}
+
+    <ul class="telefones">
+        {% for key, tipo in siteparam.telefones|keys %}
+        <li>
+            <div class="nomeh6">
+                {% if tipo|lower == 'whatsapp' %}
+                    <i class="fa fa-whatsapp"></i>
+                {% else %}
+                    <i class="fa fa-phone"></i>
+                {% endif %}
+                {{tipo|lower|capitalize}} - <span>{{siteparam.telefones[tipo]|default('<span class="ddd">(99)</span> 99999-9999')|raw}}</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endif %}#}
+
+

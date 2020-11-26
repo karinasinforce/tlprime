@@ -1,0 +1,588 @@
+/* BUSCA AVANCADA */
+
+@import "_variables";
+
+.page{
+    .nice-select {
+        color: $font-color;
+        line-height: 2;
+        width: 100%;
+        border: $input-border !important;
+        border-radius: 0;
+        box-shadow: none;
+        height: 40px;
+        border: 0;
+        padding-top: 5px;
+        &:active, &.open, &:focus{
+            border: 0;
+        }
+
+        .optgroup {
+
+            span {
+                &.title {
+                    color: $color-base;
+                    background: #ececec;
+                    display: block;
+                    text-align: left;
+                    padding-left: 18px;
+                    line-height: 30px;
+                    min-height: 30px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        &.open{
+            .list{
+                overflow-y: scroll;
+                height: 200px;                
+            }
+        }
+        
+        .list{
+            width: 100%;
+            z-index: 1005;
+        }
+
+        .current {
+            &:before {
+                content: '\f00c';
+                font-family: 'Fontawesome';
+                color: $color-base;
+                margin-right: 7px;
+                width: 15px;
+                height: 15px;
+                display: inline-block;
+            }
+        }
+
+        .option {
+            display: block;
+
+            &:before {
+                content: '\f054';
+                font-family: 'Fontawesome';
+                color: $color-base;
+                margin-right: 7px;
+                width: 15px;
+                height: 15px;
+                display: inline-block;
+            }
+
+            &.selected {
+                content: '\f00c';
+            }
+            &:hover {
+                background: $color-base!important;
+                color: #fff;
+
+                &:before {
+                    content: '\f00c';
+                    color: #fff;
+                }
+            }
+
+            &.focus {
+
+                &:before {
+                    content: '\f00c';
+                }
+            }
+
+        }
+    }    
+}
+
+.page-home{
+    .search_box{
+        background: #ebebeb;
+        background: linear-gradient(#FFFFFF, #EFEFEF); /* Standard syntax */        
+        padding-top: 10px;
+    }        
+}    
+
+.container-busca-avancada{
+        transition: width 0.250s ease-in-out;      
+        top: 330px;
+        position: relative;
+        margin: -235px auto 0px;
+        
+        width: 100%;
+        position: absolute;
+        margin: 0;
+        
+    &.affix{
+        margin-top: 0;
+        width: 100%;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        right: 0;
+    }
+}
+
+.search_box{    
+    margin-bottom: 24px; 
+    background: transparent;
+    position: relative;
+    z-index: 100;
+    color: #a0a1a0;
+    
+    a {
+        color: #555;
+        font-weight: bold;
+        &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    background: #ebebeb;
+    margin-bottom: 24px;
+    .search{ 
+        width: 100%; 
+        display: inline-block;
+        padding: 15px;
+    }
+    .search_top{
+        margin-bottom: 15px;
+    }
+    .search_bottm{ 
+        width: 100%; 
+        display: inline-block; 
+        margin: 0;
+        padding: 24px 0 0 0;
+        text-align: right;
+        .ttcount-box{
+            float: left;
+            text-align: left;
+            .ttcount{
+                color: #555;
+            }
+        }
+
+        .ttlegend{
+            text-align: left;
+        }
+    }    
+    
+    .switch-toggle{
+        label{
+            padding-top: 12px;
+            padding-bottom: 10px;
+            cursor: pointer;
+            font: $font-default;
+            user-select: none;
+            &.locacao{
+                border-right: 1px solid #eaeaea;
+                border-left: 1px solid #eaeaea;
+            }
+        }        
+    }
+
+    .bt-buscar{
+        height: 40px;
+        padding: 8px 36px;
+        margin: 20px 0 0 0;        
+        transition: all 0.5s ease-in-out;
+        background: #3FB8AF; 
+        color:#fff;
+        text-align: center; 
+        font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+        text-decoration: none; 
+        border-radius: 3px;
+        box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75); 
+        cursor: pointer;
+        &:hover{ 
+            background: #005249;
+            color:#fff;                
+        }
+    }    
+}
+
+.select2-container{
+    .select2-selection{
+        &.select2-selection--multiple{            
+            min-height: 40px;
+            padding: 0 0px 0 0px;
+            text-align: left;
+            -webkit-appearance: none;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 0px;
+            outline: none;
+            li{
+                padding: 5px;
+            }
+        }
+    }
+    .select2-dropdown{
+        border: 1px solid #ccc;
+    }
+    &.select2-container--focus{
+        .select2-selection{
+            &.select2-selection--multiple{
+                border: 1px solid #ccc;
+            }
+        }
+    }
+    &.select2-container--default{
+        .select2-search--inline{
+            .select2-search__field::placeholder{
+                color: #999;
+            }            
+        }
+    }
+    .select2-results__options{
+        .select2-results__option{}
+        .select2-results__option--highlighted[aria-selected]{
+            background-color: #3FB8AF;
+            color: #fff;
+        }            
+    }
+}
+
+#busca-avancada-box{        
+    margin-bottom: 15px;
+    margin-top: 15px;        
+    display: none;
+    transition: none !important;
+}
+.cod-imovel{
+    margin-top: 20px;
+    .select2-container{
+        width: 100% !important;
+        .select2-selection{
+            height: 40px;
+            padding: 0 0px 0 0px;
+            transition: all 0.5s ease-in-out;
+            text-align: left;
+            -webkit-appearance: none;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 0px;
+            border: 1px solid #ccc;
+            outline: none;
+            .select2-selection__arrow b{
+                margin-top: 4px;
+            }
+        }
+    }
+    .select2-container--default{
+        .select2-selection--single{
+            .select2-selection__rendered{
+                margin-top: 5px;
+            }                                    
+        }
+    } 
+}
+.expand_top{   
+    transition: none !important;
+    .input-range-area,
+    .input-range-valor{
+        width: 46%;
+        float: left;
+        height: 40px;
+        margin-top: 10px;
+        padding: 0 30px 0 12px;
+        transition: all 0.5s ease-in-out;                
+        text-align: left;
+        border: none;
+        -webkit-appearance: none;
+        background: #fff;
+        font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+        color: #a0a1a0;
+        text-decoration: none;
+        border-radius: 3px;
+        box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);                        
+    }
+    .input-min{
+        margin-right: 8%;
+    }
+}
+
+.search_Box1{
+    width: 100%; 
+    float: left;        
+    &.select_search{}
+    input.loc-search {
+        height: 40px;
+        padding: 0 30px 0 12px;
+        transition: all 0.5s ease-in-out;
+        text-align: left;
+        border: none;
+        -webkit-appearance: none;
+        background: #fff;
+        font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+        color: #a0a1a0;
+        text-decoration: none;
+        border-radius: 3px;
+        outline: none;
+    }
+    p{ 
+        padding: 0 0 8px; 
+        margin: 0px; 
+        font: 700 10px/12px "Trebuchet MS", Helvetica, sans-serif;
+        color:#a0a1a0; 
+        text-align: left; 
+        text-transform: uppercase;
+    }
+    a{
+        display: block;
+        height:40px; 
+        padding: 12px 0;
+        transition: all 0.5s ease-in-out;
+        background: #fff; 
+        text-align: center; 
+        font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+        color:#a0a1a0; 
+        text-decoration: none;         
+        border-radius: 3px;
+        box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);
+        &:hover{
+            background: #3FB8AF; 
+            color:#fff;        
+        }
+        &.active{
+            background: #3FB8AF; 
+            color:#fff;         
+        }
+    }
+    &.search_select{
+        margin: 20px 0;
+    }
+}
+.search-top{
+    .search_Box1{
+        &.search_select{
+            margin: 0;
+        }
+    }
+}    
+.search-lateral{
+    .search_Box1{
+        &.search_select{
+            margin: 20px 0;
+        }
+    }
+}    
+
+.form_control select {        
+    height: 40px;
+    padding: 0px 46px 0 5px;
+    margin: 0px;
+    transition: all 0.5s ease-in-out;
+    border: none;
+    background: #fff;
+    text-align: center;
+    color: #a0a1a0;
+    text-decoration: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #A0A1A0;
+    width: 100%;
+    border: 1px solid #ccc !important;
+}
+
+.expand_sec_main{
+    label{
+    }
+}
+
+.expand_top {        
+    text-align: left;
+    width: 100%;
+    padding: 2px 0;        
+
+    .form-group{
+        margin-top: 20px;
+        input{
+            font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+            color: #a0a1a0;        
+        }
+        select{
+            height: 40px;
+            border: none;        
+            background: #fff;
+            text-align: center;
+            font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+            color: #a0a1a0;
+            text-decoration: none;
+            border-radius: 3px;
+            box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);        
+        }
+    }
+    .valor,
+    .area{
+        float: left;
+        text-align: center;        
+    }
+    .noUi-target{
+        width: 86%;
+        margin: 0 auto 5px;
+    }
+    .noUi-connect{
+        background: #3FB8AF;        
+    }
+    .noUi-handle{
+        border: 1px solid #bebdbd;        
+    }
+    .noUi-horizontal {
+        .noUi-handle{
+            border-radius: 22px;
+        }
+    }
+
+}
+
+.expand_top_left{ 
+    width: 100%;
+    ul{ 
+        padding: 0px; 
+        margin: 0px; 
+        list-style: none; 
+        float: left;
+        li{ 
+            padding: 0px; 
+            margin: 0 8px 0 0 !important; 
+            float: left; 
+            border: none !important; 
+            background: none !important;
+            &:last-child{ 
+                margin-right: 0px;
+            }
+            a{ 
+                padding: 0px !important ; 
+                margin: 0px;
+            }
+        }
+    }
+}
+
+div.select-to-check{
+    width: 100%;
+    height: 40px;
+    float: left;
+    padding: 13px 14px;
+    margin: 0 8px 0 0;        
+
+    background: #fff;
+    font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+    color: #a0a1a0;
+    text-decoration: none;
+    text-align: left;
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 0px 1px 3px -1px rgba(50, 50, 50, 0.75);
+    i{
+        font-size: 14px;
+        line-height: 10px;
+    }
+}
+
+.box-filtro{        
+    display: none;
+    z-index: 1002;
+    position: absolute;
+    top: 36px;
+    border-radius: 4px;
+    &.check-quartos{ width: 100%; left: 0px; top: 22px; padding: 0 15px;}
+    &.check-suites{ width: 100%; left: 0px; top: 22px; padding: 0 15px;}
+    &.check-wctotal{ width: 100%; left: 0px; top: 22px; padding: 0 15px;}
+    &.check-vaga{ width: 100%; left: 0px; top: 22px; padding: 0 15px;}
+
+    i{
+        font-size: 14px;
+        line-height: 10px;
+        padding: 18px 14px;
+        color: #FFF;
+    }
+    .titulo{
+        float: left;
+        width: 100%;
+        height: 40px;
+        padding-left: 15px;
+        font-size: 14px;
+        color: #fff;
+        box-sizing: border-box;
+        background-color: #3FB8AF;
+        border-radius: 4px 4px 0 0;
+        font: 500 16px/44px "Trebuchet MS", Helvetica, sans-serif;
+    }
+    .unstyled{ 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul.opcoes-check {
+        border: 1px solid #ddd;
+        background-color: #f6f5f1;
+        box-shadow: 0 5px 17px -4px rgba(0,0,0,0.25);        
+        li {
+            width: 100%;
+            padding-left: 14px;
+            height: 30px;
+            float: left;
+            border-bottom: 1px solid #dcd8cd;
+        }
+        input {
+            margin: 8px 0;
+        }
+        label {
+            cursor: pointer;
+            padding: 0 8px;
+            margin: 0;        
+            font: 500 16px/16px "Trebuchet MS", Helvetica, sans-serif;
+            width: 85%;
+        }
+    }
+}
+    
+
+// TOGGLE SWITCH
+#main-search{
+    // CSS do sulco dos botoes
+    .switch-toggle.switch-skin-1.well{
+        margin-bottom: 0;
+        background-color: #FFF;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.05);        
+    }
+    .switch-toggle.switch-skin-1,
+    .switch-toggle.switch-skin-1 > span {
+        background-color: #fff;
+        border-radius: 0px;
+        //box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2); 
+    }
+
+    // CSS dos botoes nao selecionados
+    .switch-toggle.switch-skin-1 span span,
+    .switch-toggle.switch-skin-1 input:checked ~ span span:first-child,
+    .switch-toggle.switch-skin-1 label {
+        color: #a1a1a1;
+        text-align: center;
+        transition: 0.5s all;
+        //font-weight: bold;
+        //text-shadow: 1px 1px 1px #191b1e; 
+    }
+
+    // CSS do botao selecionado
+    .switch-toggle.switch-skin-1 input ~ span span:first-child,
+    .switch-toggle.switch-skin-1 input:checked ~ span span:nth-child(2),
+    .switch-skin-1 input:checked + label {
+        color: #FFF;
+        //text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); 
+    }    
+    .switch-skin-1 a.switch-selected {
+        border: 0;
+        background-color: $color-base;        
+        background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2), transparent);
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent); 
+        box-shadow: 0 none;
+        border-radius: 0px;
+        width: 34% !important;
+    }        
+}

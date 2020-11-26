@@ -1,0 +1,20 @@
+
+<div class="side_box">
+	<h3>Notícias em Destaque</h3>
+	<div class="list">
+		<ul>
+			{% for key, post in posts %}
+			{% set index = key < 10 ? '0' ~ (key + 1) : ( key + 1) %}
+				<li>
+					<a href="/blog/{{ post.slug }}/{{post.NoticiaID}}">
+						<div class="count">{{index}}</div>
+						<div class="text">
+							<h5>{{post.Titulo}}</h5>
+							<small>{{post.Date|date("d/m/Y")}}</small>
+						</div>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

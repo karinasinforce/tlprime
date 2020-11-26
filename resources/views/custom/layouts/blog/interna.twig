@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xl-10 col-12 content-list" id="blog-content">
+            <div class="blog-interna">
+            
+                <h2>{{content.Titulo}}</h2>
+                <h5 class="categoria_data"><span class='data'>{{content.Data|date("d/m/Y")}}</span></h5>
+                <div class="text-body">
+                    {{content.Corpo|raw}}
+                </div>
+                {# <span class="autor">{% if content.Fonte %}Fonte: {{content.Fonte}}{% endif %}</span> #}
+                
+                {# {% if content.Imagens[0] %}
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 blog-galeria">
+                    <h3>Galeria</h3>
+                    {% include ['custom.helpers.slide-light-gal','core.helpers.slide-light-gal'] with {item:content, data:data} %}
+                </div>        
+                {% endif %} #}
+                
+            </div>
+        </div>
+                
+        {# <div class="col-xl-4 col-12">
+            <div id="sidebar_blog">
+                {% include ['custom.layouts.blog.sidebar-destaque','core.layouts.blog.sidebar-destaque'] with {posts:sidebar.destaks} %}
+            </div>
+        </div>    #}
+    </div> 
+</div>       
+

@@ -1,0 +1,109 @@
+{% set class_mobile = '' %}
+{% if data.isMobile %}
+	{% set class_mobile = 'mobile' %}
+{% endif %}
+
+{# <div class="load_slider">
+    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div> #}
+
+<div class="banner">
+
+
+	<div id="content-slider">
+		{% if content.Itens %}
+			<ul id="slider_home">
+
+				{% for key, item in content.Itens %}
+
+					{% if data.APP_DEBUG == TRUE %}
+						{% set image_url = '' %}
+					{% else %}
+						{% set image_url = data.IMG_PATH . item.Arquivo %}
+					{% endif %}
+
+					{% if siteparam.https == 'true' %}
+						{% set image_url = item.Url|replace({'http://':'https://'}) %}
+					{% else %}
+						{% set image_url = item.Url %}
+					{% endif %}
+
+					<li>
+						{% if item.Link %}
+							<a href="{{item.Link}}" title="{{item.Titulo}}">
+							{% endif %}
+							{% if key == 0 %}
+								<div class="image-box {{class_mobile}}" style="background-image: url({{image_url|replace({'http://':'https://'})}}); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+								{% else %}
+									<a href="{{item.Link}}"><div class="image-box {{class_mobile}} lazyload_slide" data-blazy="{{image_url|replace({'http://':'https://'})}}" style="background-repeat: no-repeat; background-position: center center; background-size: cover;"></a>
+										<div class="loading">
+											<i class="fas fa-spinner fa-spin"></i>
+										</div>
+									{% endif %}
+									
+                                    <div class="text_banner">
+										<div class="container">
+                                            <a href="{{item.Link}}">
+											<h1>{{item.Titulo|default('')}}</h1>
+											<div class="subtitulo">{{item.Subtitulo|default('')}}</div>
+											{# <pre>
+												{{ dump(item) }}
+											</pre> #}
+                                            </a>
+										</div>
+									</div>
+								</div>
+								{% if item.Link %}
+								</a>
+							{% endif %}
+						</li>
+
+					{% endfor %}
+
+				</ul>
+				{% include ['custom.helpers.busca-avancada-horizontal','core.helpers.busca-avancada-horizontal'] %}
+			{% endif %}
+
+			{# <div class="image-box {{class_mobile}}" style="background-image: url('img/banner_home.jpg'); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+						            <div class="text_banner">
+						                <div class="container">
+						                    <h1>Os melhores imóveis para venda e aluguel</h1>
+						                    <h2>na cidade do Rio de Janeiro</h2>
+						                </div>
+						            </div>
+						            {% include ['custom.helpers.busca-avancada-horizontal','core.helpers.busca-avancada-horizontal'] %}
+						        </div> #}
+
+		</div>
+
+
+		{%if content.ExceptionMessage %}
+			<div class="col-md-12">
+				<h3>{{content.ExceptionMessage}}</h3>
+			</div>
+			{%endif%}
+
+		</div>
+
+		<script>
+			window.addEventListener('DOMContentLoaded', function () {
+
+$(document).ready(function () {
+$("#slider_home").lightSlider({
+auto: true,
+loop: true,
+keyPress: true,
+item: 1,
+// pause é a duração de cada slide (ms)
+pause: 6000,
+onSliderLoad: function () {
+$(".load_slider").fadeOut(800);
+},
+onBeforeSlide: function () {
+var change_slide_bLazy = new Blazy({selector: '.lazyload_slide', src: 'data-blazy'});
+}
+});
+});
+
+});
+		</script>

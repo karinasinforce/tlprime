@@ -1,0 +1,166 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content is not null %}
+
+
+<div class="vitrine home-vitrine-imoveis bg_gray" >
+    <div class="container">
+        <section class="nav_vit">
+            <h2>Imóveis à venda</h2>
+            <select id="change_vitrine" class="custom-select-nice">
+                <option value="zona-sul">Zona Sul</option>
+                <option value="barra-e-recreio">Barra e Recreio</option>
+                <option value="grande-tijuca">Grande Tijuca</option>
+                <option value="outras-regioes">Outras Regiões </option>
+            </select>
+        </section>
+        <div id="vitrines-multiples-home"></div>
+    </div>
+</div>
+                            
+
+<script>
+    // setando variavel das vitrines
+    var vitrine_data = "{{vitrines}}";
+    // tratando para evitar erro de parse.
+    vitrine_data = vitrine_data.replace( /&quot;/g, '"' )
+    vitrine_data = JSON.parse(vitrine_data);
+    console.log(vitrine_data);
+    // função com inicialização e com os helpers do handlebar.
+    function builderVit(data) {
+        // console.log(data.content.Itens)
+
+        // registrando helper para usar o slug
+        Handlebars.registerHelper('slug', function (str) {
+            str = str.replace(/^\s+|\s+$/g, ''); // trim
+            str = str.toLowerCase();
+        
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to   = "aaaaeeeeiiiioooouuuunc------";
+            for (var i=0, l=from.length ; i<l ; i++) {
+                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+            return str;
+        })
+
+        Handlebars.registerHelper('qtdquartos', function (str) {
+            var str = str > 1 ? str + ' Quartos' : str + ' Quarto';
+            return str;
+        })
+
+        Handlebars.registerHelper('qtdsuites', function (str) {
+            var str = str > 1 ? str + ' Suítes' : str + ' Suíte';
+            return str;
+        })
+
+        Handlebars.registerHelper('qtdvagas', function (str) {
+            var str = str > 1 ? str + ' vagas' : str + ' vaga';
+            return str + ' na garagem';
+        })
+
+        Handlebars.registerHelper('formatCurrency', function(value) {
+            return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        });
+
+        // atualiza a lista de favoritos do box
+        var source      = $("#template-vitrines").html();
+        var template    = Handlebars.compile(source);
+        var html        = template( {"items": data.content.Itens} );
+
+        $("#vitrines-multiples-home").html(html);
+
+        initCarousel( $('#owl-home-vitrine-dinamic') );
+
+    }
+
+    function initCarousel($virtine) {
+            
+        $virtine.owlCarousel({
+            // onInitialize : function(element){
+            //     vit_bLazy.revalidate();
+            // },            
+            onInitialized : function(element){
+                setTimeout(function(){
+                    imageToSvgData();
+                }, 4000);
+
+                imageToSvg();
+            },            
+            loop: true,
+            margin: 15,
+            // nav: false,
+            lazyLoad: true,
+            navText: ['<i class="fa fa-angle-left">','<i class="fa fa-angle-right">'],
+            items: 4,
+            responsive: {
+                300:{
+                    items:1,
+                },
+                700:{
+                    items:2,
+                },
+                1000:{
+                    items:3,
+                },
+                1200:{
+                    items:4,
+                },
+                1400:{
+                    items:4,
+                },
+                1600:{
+                    items:4,
+                }
+            }
+            
+        });
+    }
+
+  
+    window.addEventListener('DOMContentLoaded', function() {
+        
+        $(document).ready(function() {
+
+            var owl_home_vitrine = $("#owl-home-vitrine");
+            
+            initCarousel(owl_home_vitrine)
+            
+            builderVit(vitrine_data['zona-sul'])
+
+            $('.nav_vit #change_vitrine').change(function(e){
+                var ref_data = vitrine_data[e.target.value]
+                builderVit(ref_data)
+                console.log(ref_data)
+            });
+            
+        
+        });
+    });
+</script>
+{% endif %}
+
+
+{% include "custom.layouts.home.vitrines.hendlebar-template-vitrine" %}
+
+
+{% if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{% endif %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

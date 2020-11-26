@@ -1,0 +1,79 @@
+
+.form-contato {
+    .formEnviar {
+
+        input, textarea {
+            background: #f6f6f6;
+        }
+
+    }
+
+    .formResposta {
+        display: none;
+        padding: 20px 0;
+
+        i {
+            color: #28a745;
+            font-size: 72px;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+
+            strong {
+                display: block;
+            }
+        }
+    }
+}
+
+.form-contato-modal {
+
+    h3 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .formEnviar {
+        .btn {
+            width: 60%;
+            background: $dark-color;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        input, textarea {
+            background: #f6f6f6;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+    }
+
+    .formResposta {
+        display: none;
+        padding: 20px 0;
+
+        i {
+            color: #28a745;
+            font-size: 72px;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+
+            strong {
+                display: block;
+            }
+        }
+    }
+
+}

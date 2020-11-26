@@ -1,0 +1,361 @@
+<style>
+    
+
+   
+</style>
+<div class="container-busca-avancada">
+    <div class="content_close_mobile_busca d-md-none">
+        <div class="container">
+            <button type="button" class="close_mobile_busca d-md-none" data-target="#navbarNavDropdown">
+                <i class="fas fa-arrow-left"></i>
+                <small>fechar</small>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- NOVA BUSCA -->
+        <div class="search_box">
+            <form name="main-search" class="search-form" id="main-search">
+
+               	<!-- OBRIGATORIO -->
+				<input type="hidden" id="InputsFinalidade"          name="Finalidade"           value="{{content.url_local.Finalidade|default("venda")}}">
+				<input type="hidden" id="InputsValorMin"            name="ValorMin"             value=""/>
+				<input type="hidden" id="InputsValorMax"            name="ValorMax"             value=""/>
+				<input type="hidden" id="InputsAreaMin"             name="AreaMin"              value="">
+				<input type="hidden" id="InputsAreaMax"             name="AreaMax"              value="">
+				<input type="hidden" id="InputsQtdQuarto"           name="QtdQuarto"            value="{{inputs.QtdQuarto|default("")}}">
+				<input type="hidden" id="InputsQtdSuite"            name="QtdSuite"             value="{{inputs.QtdSuite|default("")}}">
+				<input type="hidden" id="InputsQtdBanheiro"         name="QtdBanheiro"          value="{{inputs.QtdBanheiro|default("")}}">
+				<input type="hidden" id="InputsQtdVaga"             name="QtdVaga"              value="{{inputs.QtdVaga|default("")}}">
+				<input type="hidden" id="InputsTipos"               name="Tipos"                value="{{content.url_local.Tipos|default("")}}">
+				<input type="hidden" id="InputsCondominioNome"      name="CondominioNome"       value="">
+				<input type="hidden" id="InputsEmpreendimentoNome"  name="EmpreendimentoNome"   value="">
+				<input type="hidden" id="InputsCaracteristica"      name="Caracteristica"       value="[]">
+				<input type="hidden" id="InputsAnuncio"             name="Anuncio"              value="[]">
+				<input type="hidden" id="InputsAutoSuggest"         name="AutoSuggest"          value="{{inputs.AutoSuggest|default("")}}">
+				<input type="hidden" id="InputsUF"                  name="UF"                   value="{{content.url_local.UF|default("")}}">
+				<input type="hidden" id="InputsHasMapa"             name="HasMapa"              value="false">
+				<input type="hidden" id="InputsOrder"               name="Order"                value="">
+				<input type="hidden" id="InputsActualPage"          name="Page"                 value="1">
+				<input type="hidden" id="InputsPageSize"            name="PageSize"             value="{{inputs.PageSize|default(10)}}">
+				<input type="hidden" id="InputsCorretor"            name="NomeCorretor"         value="{{sitecorretor.Nome|default("")}}">
+				<input type="hidden" id="InputsSimilares"           name="carregarSimilares"    value="true">
+                <input type="hidden" id="InputsSomenteImoveis"      name="SomenteImoveis"       value="true">
+            
+                <div class="search">
+                   
+                    {% if data.isMobile %}
+                        <!-- TOP -->
+                        <div class="search-top px-md-3">
+                            <div class="row">
+                                <div class="col-12 col-md-4 md-none d-lg-none">
+                                    <span class="search_Box1 px-md-3">
+                                        <div class="row mb-4 mb-md-0">
+                                            <div class="col-12 col-sm-12">
+                                                <div class="row">
+                                                    <h4>O que procura?</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-12">
+                                                <div class="row">
+                                                    <div class="switch-toggle switch-skin-1 well">
+                                                     <input id="switch-alugel" name="state-d" type="radio">
+                                                        <label for="switch-aluguel" data-product="imovel" data-fin="alugel" class="switch_finalidade" onclick="">Locação</label>
+                                                        <input id="switch-venda" name="state-d" type="radio">
+                                                        <label for="switch-venda" data-product="imovel" data-fin="venda" class="switch_finalidade" onclick="">Imóvel</label>
+                                                        <input id="switch-imovel" name="state-d" type="radio">
+                                                        {# <label for="switch-imovel" data-product="imovel" data-fin="lancamentos" class="switch_finalidade" onclick="">Empreendimento</label>
+                                                        <a class="switch-selected"></a> #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                
+                                <div class="col-12 col-md-4 px-0 pr-md-3 mb-4 mb-md-0 d-md-none d-lg-none">
+                                    <span class="search_Box1 produto-tipo assoc-prontos">
+                                        <h4>Tipo</h4>
+                                        
+                                        <div class="form_control">
+                                            <select class="select-filtro-lateral form-control" data-filtro="InputsTipos" id="Tipos">
+                                                <option value="" data-value="">Todos os imóveis</option>
+                                                {% set keyNat = 1 %}
+                                                {% for key, tipos in selectTipos %}
+                                                    {# data-i é para fazer o optiongroup no plugin nice select #}
+                                                    <optgroup label="{{key}}" data-i="{{keyNat}}">
+                                                        {% for tipo in tipos %}
+                                                            <option value="{{tipo.Nome|lower}}" data-target="Tipos" data-tag="{{tipo.Nome}}" >{{tipo.Nome}}</option>
+                                                        {% endfor %}
+                                                        {% set keyNat = keyNat + 1 %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                
+                                    </span>
+                                </div>
+                                
+                                <div class="col-12 col-md-9 col-lg-9 px-0 mb-4 mb-md-0 ">    
+                                    <span class="search_select">
+                                        {# <h4>Onde?</h4> #}
+                                        <select id="AutoSuggest" style="width: 100%; display:none;" multiple="multiple"></select>
+                                    </span>
+                                </div>
+                                
+                                <div class="col-12 col-md-3 col-lg-3">
+                                    <div class="row content_buttons_advanced text-right justify-content-end align-items-center">
+                                        
+                                        <a id="toggle-busca-avancada" class="mr-4 d-md-none d-lg-none">
+                                            Busca Avançada 
+                                            <i class="fas fa-caret-down"></i>
+                                        </a>
+                                    
+                                        <a onclick="doSearch(false)" class="bt-buscar" id="bt-busca-avancada" tabindex="9">
+                                            <i class="fas fa-search d-md-none"></i>
+                                            <span class="d-none d-md-inline">Buscar</span>
+                                        </a>
+                                    
+                                    </div>
+                                
+                                        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /TOP -->
+                        
+                        <!-- ADVANCED -->
+                        <div class="row expand_sec_main px-3 px-md-4 mx-md-0 d-md-none d-lg-none" id="busca-avancada-box">
+                            <!-- adv top -->
+                            <div class="expand_top">
+                                <div class="row">
+                        
+                                    <div class="col-md-2 col-6 form-group group-select">
+                                        <h4>Quartos</h4>
+                                        
+                                        <div class="grupo">
+                                            <div id="QtdQuarto" name="QtdQuarto" data-filtro="QtdQuarto" class="form-control select-to-check" tabindex="1">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Quarto(s)</span> <i class="fa fa-sort-down pull-right"></i>
+                                            </div>
+                                            <div id="divQuarto" class="filtro-check check-quartos box-filtro" data-filtro="InputsQtdQuarto">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Quarto(s)</span> <i class="fa fa-sort-up pull-right"></i></span>
+                                                <ul class="opcoes-check unstyled pull-left">
+                                                    <li><input type="checkbox" value="1" class="search-checkbox" data-target="QtdQuarto" id="quarto1"><label for="quarto1">1</label></li>
+                                                    <li><input type="checkbox" value="2" class="search-checkbox" data-target="QtdQuarto" id="quarto2"><label for="quarto2">2</label></li>
+                                                    <li><input type="checkbox" value="3" class="search-checkbox" data-target="QtdQuarto" id="quarto3"><label for="quarto3">3</label></li>
+                                                    <li><input type="checkbox" value="4" class="search-checkbox" data-target="QtdQuarto" id="quarto4"><label for="quarto4">4+</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-md-2 col-6 form-group group-select">
+                                        <h4>Suítes</h4>
+                                        
+                                        <div class="grupo">
+                                            <div id="QtdSuite" name="QtdSuite" data-filtro="QtdSuite" class="form-control select-to-check" tabindex="2">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Suíte(s)</span> <i class="fa fa-sort-down pull-right"></i>
+                                            </div>
+                                            <div id="divSuite" class="filtro-check check-suites box-filtro" data-filtro="InputsQtdSuite">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Suíte(s)</span> <i class="fa fa-sort-up pull-right"></i></span>
+                                                <ul class="opcoes-check unstyled pull-left">
+                                                    <li><input type="checkbox" value="1" class="search-checkbox" data-target="QtdSuite" id="suite1"><label for="suite1">1</label></li>
+                                                    <li><input type="checkbox" value="2" class="search-checkbox" data-target="QtdSuite" id="suite2"><label for="suite2">2</label></li>
+                                                    <li><input type="checkbox" value="3" class="search-checkbox" data-target="QtdSuite" id="suite3"><label for="suite3">3</label></li>
+                                                    <li><input type="checkbox" value="4" class="search-checkbox" data-target="QtdSuite" id="suite4"><label for="suite4">4+</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-md-2 col-6 form-group group-select">
+                                        <h4>Banheiros</h4>
+                                        
+                                        <div class="grupo">
+                                            <div id="QtdBanheiro" name="QtdBanheiro" data-filtro="QtdBanheiro" class="form-control select-to-check" tabindex="3">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Banh.</span> <i class="fa fa-sort-down pull-right"></i>
+                                            </div>
+                                            <div id="divBanheiro" class="filtro-check check-wctotal box-filtro" data-filtro="InputsQtdBanheiro">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Banheiro(s)</span> <i class="fa fa-sort-up pull-right"></i></span>
+                                                <ul class="opcoes-check unstyled pull-left">
+                                                    <li><input type="checkbox" value="1" class="search-checkbox" data-target="QtdBanheiro" id="wc1"><label for="wc1">1</label></li>
+                                                    <li><input type="checkbox" value="2" class="search-checkbox" data-target="QtdBanheiro" id="wc2"><label for="wc2">2</label></li>
+                                                    <li><input type="checkbox" value="3" class="search-checkbox" data-target="QtdBanheiro" id="wc3"><label for="wc3">3</label></li>
+                                                    <li><input type="checkbox" value="4" class="search-checkbox" data-target="QtdBanheiro" id="wc4"><label for="wc4">4+</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-md-2 col-6 form-group group-select">
+                                        <h4>Vagas</h4>
+                                        
+                                        <div class="grupo">
+                                            <div id="QtdVaga" name="QtdVaga" data-filtro="QtdVaga" class="form-control select-to-check" tabindex="4">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Vaga(s)</span> <i class="fa fa-sort-down pull-right"></i>
+                                            </div>
+                                            <div id="divQtdVaga" class="filtro-check check-vaga box-filtro" data-filtro="InputsQtdVaga">
+                                                <span class="titulo"><span class="qtd"></span> <span class="ttfiltro">Vaga(s)</span> <i class="fa fa-sort-up pull-right"></i></span>
+                                                <ul class="opcoes-check unstyled pull-left">
+                                                    <li><input type="checkbox" value="1" class="search-checkbox" data-target="QtdVaga" id="vaga1"><label for="vaga1">1</label></li>
+                                                    <li><input type="checkbox" value="2" class="search-checkbox" data-target="QtdVaga" id="vaga2"><label for="vaga2">2</label></li>
+                                                    <li><input type="checkbox" value="3" class="search-checkbox" data-target="QtdVaga" id="vaga3"><label for="vaga3">3</label></li>
+                                                    <li><input type="checkbox" value="4" class="search-checkbox" data-target="QtdVaga" id="vaga4"><label for="vaga4">4+</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                        
+                                    <div class="col-md-4 col-12 form-group group-select">
+                                        <h4>Código do Imóvel</h4>
+                                        <div class="expand_bottom_inn produto-buscar-codigo">
+                                            <div class="cod-imovel">
+                                                <select id="ImovelCodigo" class="loc-codigo"></select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                            
+                                    <!-- adv bottom -->
+                                    <div class="col-12">
+
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6 area mt-3 mt-md-0">
+                                                <h4>Área M2</h4>
+                                                <div id="slider-range-area" class="blue"></div>
+                                                <div class="half_5">
+                                                    <input type="text" name="" id="input-area-min"
+                                                        class="input-sm input-range-area input-min"
+                                                        value="{{inputs.AreaMin|default("0")}}" tabindex="7"/>
+                                                </div>
+                                                <div class="half_6">
+                                                    <input type="text" name="" id="input-area-max"
+                                                        class="input-sm input-range-area input-max"
+                                                        value="{{inputs.AreaMax|default("6000")}}" tabindex="8"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-6 valor mt-3 mt-md-0">
+                                                <h4>Valor</h4>
+                                                <div id="slider-range-valor" class="blue"></div>
+                                                <div class="half_3">
+                                                    <input type="text" name="" id="input-number-min"
+                                                        class="input-sm input-range-valor input-min"
+                                                        value="{{inputs.ValorMin|default("0")}}" tabindex="5"/>
+                                                </div>
+                                                <div class="half_4">
+                                                    <input type="text" name="" id="input-number-max"
+                                                        class="input-sm input-range-valor input-max"
+                                                        value="{{inputs.ValorMax|default("50000000")}}" tabindex="6"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-12 mt-md-3 mb-md-3">
+                                                <div class="content_btn_bottom d-flex justify-content-end mt-3 mt-md-0">
+                                                    <a onclick="doSearch()" class="bt-buscar mr-md-3" id="bt-busca-avancada2" tabindex="9">Buscar</a>
+                                                    <a class="close_busca_avanc d-flex align-items-center justify-content-center ml-3 ml-md-0">
+                                                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ADVANCED -->
+                    {% else %}
+                        <div class="search-group">
+                            <div class="search-group__row">
+                                <div class="search-group__select-item active" data-fin="venda">Comprar</div> 
+                                {# <div class="search-group__select-item" data-fin="lancamentos">Empreendimento</div> #}
+                                <div class="search-group__select-item " data-fin="aluguel">Alugar</div> 
+                                <a class="search-group__select-item link" href="/contato/anuncie-seu-imovel">Venda seu Imóvel</a>
+                            </div>
+                            <div class="search-group__row search-group__row--with-shadow">
+                                <div class="search-group__field-container basis--flex-big search-group__field-container--radius-left search-group__field-container--marker">
+                                    <div class="search-group__field-container-icon"></div>
+                                    <select id="AutoSuggest" style="width:100%;display:none;" multiple="multiple"></select>
+                                </div>
+                                <div class="search-group__field-container basis--flex-med  search-group__field-container--home">
+                                    <div class="search-group__field-container-icon"></div>
+                                    <select class="select-filtro-lateral" data-filtro="InputsTipos" id="Tipos">
+                                        <option value="" data-value="">Todos os imóveis</option>
+                                        {% set keyNat = 1 %}
+                                        {% for key, tipos in selectTipos %}
+                                            {# data-i é para fazer o optiongroup no plugin nice select #}
+                                            <optgroup label="{{key}}" data-i="{{keyNat}}">
+                                                {% for tipo in tipos %}
+                                                    <option value="{{tipo.Nome|lower}}" data-target="Tipos" data-tag="{{tipo.Nome}}" >{{tipo.Nome}}</option>
+                                                {% endfor %}
+                                                {% set keyNat = keyNat + 1 %}
+                                            </optgroup>
+                                        {% endfor %}
+                                    </select> 
+                                </div>
+                                <button onclick="doSearch(false)"class="search-group__button basis--flex-small search-group__field-container--radius-right btn-buscar"></button>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!-- TOP -->
+                   
+                    <!-- /TOP -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- NOVA BUSCA -->
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    $( document ).ready(function() {
+         {% if inputs %}
+             $('#busca-avancada-box').css('display','block');
+         {% endif %}
+
+         var bt_busca = $("#bt-busca-avancada");
+        
+         $("#toggle-busca-avancada").click(function(){
+             $("#toggle-busca-avancada .fa-caret-down").toggleClass("fa-rotate-180");
+             $( "#busca-avancada-box" ).slideToggle( "slow", function() {
+                //Animation complete.
+                 if ( bt_busca.hasClass('disabled') ) {
+                     bt_busca.toggleClass('disabled').attr('onclick', 'doSearch()');
+                 } else {
+                     bt_busca.toggleClass('disabled').removeAttr('onclick');
+                 }
+             });
+         });
+
+         $('.close_busca_avanc').click(function () {
+             $( "#busca-avancada-box" ).slideToggle( "slow", function() {
+                  //Animation complete.
+                 $("#toggle-busca-avancada .fa-caret-down").toggleClass("fa-rotate-180");
+                 bt_busca.toggleClass('disabled').attr('onclick', 'doSearch()' );
+             });
+         });
+        
+
+        $('[data-fin]').click(function() {
+            var _this = $(this); 
+            var fin = $(this).attr('data-fin'); 
+
+            $('#InputsFinalidade').val(fin); 
+            $('[data-fin]').removeClass('active');
+            _this.addClass('active'); 
+        })
+
+    });
+});
+</script>
+
+

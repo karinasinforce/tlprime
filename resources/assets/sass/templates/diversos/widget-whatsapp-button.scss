@@ -1,0 +1,33 @@
+.whatsapp_link {
+    position: fixed;
+    bottom: 90px;
+    right: 15px;
+    width: auto;
+    height: auto;
+    z-index: 99;
+
+
+    a {
+        text-decoration: none;
+        background: #25D366;
+        display: flex;
+        border-radius: 50px;
+        -ms-align-items: center;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        width: 60px;
+        transition: all .3s;
+        -webkit-animation: pulse 2s infinite;
+        animation: pulse 8s infinite;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        i {
+            color: #FFFFFF;
+        }
+    }
+}

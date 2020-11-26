@@ -1,0 +1,961 @@
+{% spaceless %}
+
+{% if session_get('parametros') %}{% set siteparam = session_get('parametros') %}{% else %}{% set siteparam = '' %}{% endif %}
+{% if session_get('corretor') %}{% set sitecorretor = session_get('corretor') %}{% else %}{% set sitecorretor = '' %}{% endif %}
+
+{% set title = "Enjoy Brasil Brokers " ~ content.Nome|default('') ~ ', ' ~ content.BairroNome|default('') ~ ' - ' ~ content.CidadeNome|default('')  %}
+{% set description = "Empreendimento" ~ ( content.BairroNome|default('') != '' ? ' situado em ' ~ content.BairroNome ) ~ ( content.Localizacao|default('') != '' ? ' (' ~ content.Localizacao ~ ')' : '') ~ ' - ' ~ content.CidadeNome  ~ " " %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}} | {{APP_NAME}}</title>
+    <meta name="description" content="{{description}}">
+
+    <meta property="og:url" content="{{url_current()}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Enjoy Brasil Brokers - {{content.Nome}}" />
+    <meta property="og:description" content="{{item.Descricao}}" />
+    
+    
+    {% if content.Topicos[0].Imagens[0] is defined %}
+        <meta property="og:image" content="{{IMG_PATH}}/{{content.Topicos[0].Imagens[0]}}.jpg?mw=300&wm=5" />
+    {% else %}
+        <meta property="og:image" content="{{IMG_PATH}}/img/facebook-share.png" /> 
+    {% endif %}
+
+    {% if content.UrlTrack is defined %}
+        <link rel="canonical" href="{{SITE_URL}}lancamento/{{content.UrlTrack}}/ID-{{content.ID}}"/>
+    {% endif %}
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="/js/plugins/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/land-nova.css">
+    <link href="/js/plugins/lightGallery/css/lightgallery.min.css" rel="stylesheet">    
+
+    <!-- Google Maps -->
+    <script type="text/javascript" defer src="https://maps.googleapis.com/maps/api/js?key={{siteparam.googlemapskey}}"></script>
+ 
+    {% if siteparam.googleanalytics %}
+        <script>
+            var _gacode = '{{siteparam.googleanalytics}}';
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', _gacode, 'auto');
+            ga('send', 'pageview');
+
+        </script>        
+    {% endif %}
+    
+    {% if siteparam.facebookpixel %}
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window,document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', '{{siteparam.facebookpixel}}'); 
+            fbq('track', 'PageView');
+        </script>
+
+        <noscript>
+            <img height="1" width="1" src="https://www.facebook.com/tr?id=1863129267342172&ev=PageView&noscript=1"/>
+        </noscript>
+        <!-- End Facebook Pixel Code --> 
+    {% endif %}        
+    
+</head>
+<body>
+    <div class="wrapper-content">
+        <header class="header">
+            <!-- Menu Desktop-->
+            <div class="container d-none d-md-flex justify-content-end">
+                <div class="row w-100">
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                        <div class="logo" style="background-image: url('/img/logo_landing_page.png');"></div>
+                    </div>
+                    <div class="col-7 d-flex  align-items-center">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle menu-dropdown-nav" type="button" id="dropdown-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Navegação
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-menu">
+                                {% for item in content.Topicos %}
+                                    <a class="dropdown-item" href="#{{item.Nome|replace({' ':'-', '.':''})|lower}}">{{item.Nome}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="contact-buttons">
+                            <a class="contact-buttons__button contact-buttons__info-mail button button--effect1"
+                                href="#bloco-6">
+                                <i class="far fa-envelope fa-2x"></i>
+                                <p class="contact-buttons__title button__text button__text--header">
+                                    Informações via Email
+                                </p >
+                            </a>
+                            <a class="contact-buttons__button contact-buttons__info-whatsapp button button--effect1"
+                                href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                                <i class="fab fa-whatsapp fa-2x"></i>
+                                <p class="contact-buttons__title button__text button__text--header">
+                                    Informações via Whatsapp
+                                </p >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Menu Desktop-->
+            
+            <!-- Menu Mobile -->
+            <nav role="navigation" class="d-md-none">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <div id="menuToggle">
+                            <input type="checkbox" />
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <ul id="menu">
+                                {% for item in content.Topicos %}
+                                    <li><a href="#{{item.Nome|replace({' ':'-', '.':''})|lower}}">{{item.Nome}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end align-items-center">
+                        <div class="logo" style="background-image: url('/img/logo_landing_page.png');"></div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Menu Mobile -->
+        </header>
+
+        <section class="banner" style="background-image: url('{{data.APP_ADMIN|replace({'http://':'https://'})}}/api/empreendimento/capa/{{content.ID}}?v=1');">
+            <div class="container">
+                <div class="col-md-5 col-12 offset-md-7 d-flex justify-content-center justify-content-md-end p-0">
+                    <div class="box-actions-wrapper">
+                        <div class="box-actions">
+                            <div class="box-actions__price">
+                                <p class="box-actions__price-text">a partir de</p>
+                                <p class="box-actions__price-number">{{content.ValorMenor ? 'R$ ' ~ content.ValorMenor|number_format(0,',', '.') : '-'}}</p>
+                            </div>
+        
+                            <h1 class="box-actions__title">{{content.Nome}}</h1>
+                            <h2 class="box-actions__subtitle box-actions__subtitle--with-border">{{content.BairroNome}} - {{content.CidadeNome}}</h2>
+        
+                            <div class="bloco__info-icons">
+                                <div class="row">
+                                    <div class="col-4 bloco__info-icons__item bloco__info-icons__item--small-text bloco__info-icons__item--auto">
+                                        <i class="fa fa-home fa-2x"></i>
+                                        <span>{{content.NaturezaNome}}</span>
+                                    </div>
+                                    <div class="col-4 bloco__info-icons__item bloco__info-icons__item--small-text bloco__info-icons__item--auto">
+                                        <i class="fas fa-bed fa-2x"></i>
+                                        <span>{{content.QtdQuarto ? content.QtdQuarto|join(', ') ~ ' quarto(s)' : '-'}} </span>
+                                    </div>
+                                    <div class="col-4 bloco__info-icons__item bloco__info-icons__item--small-text bloco__info-icons__item--auto">
+                                        <i class="fas fa-vector-square fa-2x"></i>
+                                        <span>
+                                            de 
+                                            {{content.M2Menor ? content.M2Menor ~ 'm²' : '-'}}
+                                            até 
+                                            {{content.M2Maoir ? content.M2Maoir ~ 'm²' : '-'}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-buttons">
+                            <a class="contact-buttons__button contact-buttons__button--no-direction contact-buttons__info-mail button button--effect1"
+                                href="#bloco-6">
+                                <i class="far fa-envelope fa-2x"></i>
+                                <span class="contact-buttons__title contact-buttons__title--medium">
+                                    Informações via Email
+                                </span>
+                            </a>
+                            <a class="contact-buttons__button contact-buttons__button--no-direction contact-buttons__info-whatsapp button button--effect1"
+                                href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                                <i class="fab fa-whatsapp fa-2x"></i>
+                                <span class="contact-buttons__title contact-buttons__title--medium">
+                                    Informações via Whatsapp
+                                </span>
+                            </a>
+                        </div>
+                        <div class="button button--effect1 button--full button--strong button--center button--font-medium">
+                            <a class="button__text button__text--white" href="#o-empreendimento">Quero conhecer o empreendimento</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        {% if content.Topicos %}
+            {% for key, item in content.Topicos %}
+                
+                {% if item.Nome == 'O empreendimento' %}
+                    <section id="{{item.Nome|replace({' ':'-', '.':''})|lower}}" class="container bloco">
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                {% if item.Imagens %}
+                                    <div class="image-capa-left open-gallery-emp" style="background-image: url('{{data.IMG_PATH}}/{{item.Imagens[0]}}.jpg?wm=5');"></div>
+                                {% else %}
+                                    <div class="image-capa-left open-gallery-emp"  style="background-image: url('{{data.IMG_PATH}}/{{content.ImgVitrineID}}.jpg?wm=5');"></div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div class="bloco__info">
+                                    <h2 class="title">
+                                        {{item.Nome}}
+                                        <hr class="title__line title__line--left">
+                                    </h2>
+                                    <div class="text-body">
+                                        {{item.Descricao|raw}}
+                                    </div>
+
+                                    <div class="bloco__info-icons">
+                                        <div class="row">
+                                            <div class="col-4 bloco__info-icons__item">
+                                                <i class="fa fa-home fa-3x"></i>
+                                                <span>{{content.NaturezaNome|default('-')}}</span>
+                                            </div>
+                                            <div class="col-4 bloco__info-icons__item">
+                                                <i class="fas fa-tools fa-3x"></i>
+                                                <span>{{content.StatusNome|default('-')}}</span>
+                                            </div>
+                                            <div class="col-4 bloco__info-icons__item">
+                                                <i class="fa fa-bed fa-3x"></i>
+                                                <span>{{content.QtdQuarto ? content.QtdQuarto|join(', ') ~ ' quarto(s)' : '-'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery d-none gallery-emp">
+                            <div class="gallery__wrapper">
+                                {% for img in item.Imagens %}
+                                    <div class="gallery__item" data-src="{{IMG_PATH}}/{{img}}.jpg?wm=5">
+                                        <img src="{{IMG_PATH}}/thumb/{{img}}.jpg?wm=5"/>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+
+                {% if item.Nome == 'Lazer' %}
+                    <section id="{{item.Nome|replace({' ':'-', '.':''})|lower}}" class="bloco">
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <a class="title-custom title-custom--seta" href="#lazer">
+                                Conheça os itens de lazer
+                            </a>
+                        </div>
+
+                        <div class="float-bar-actions float-bar-actions--top-space">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8 pl-0">
+                                        <div class="float-bar-actions__title-box">
+                                            <h3 class="float-bar-actions__title-box__title">Quer mais informações sobre esse empreendimento ?</h3>
+                                            <p class="float-bar-actions__title-box__subtitle">Ficaremos extremamente felizes em realizar este contato</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="contact-buttons">
+                                            <a class="contact-buttons__button contact-buttons__info-mail button button--effect1"
+                                                href="#bloco-6">
+                                                <i class="far fa-envelope fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Email
+                                                </p >
+                                            </a>
+                                            <a class="contact-buttons__button contact-buttons__info-whatsapp button button--effect1"
+                                                href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                                                <i class="fab fa-whatsapp fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Whatsapp
+                                                </p >
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="d-flex flex-column flex-md-row">
+                                <div class="col-12 col-md-4 order-2 order-md-1 offset-md-2">
+                                    <div class="bloco__info ajust-container">
+                                        <h2 class="title">
+                                            {{item.Nome}}
+                                            <hr class="title__line title__line--left">
+                                        </h2>
+                                        <div class="text-body">
+                                            {{item.Descricao|raw}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 order-1 order-md-2 pr-0">
+                                    {% if item.Imagens %}
+                                        <div class="image-capa-left open-gallery-lazer" style="background-image: url('{{data.IMG_PATH}}/{{item.Imagens[0]}}.jpg?wm=5');"></div>
+                                    {% else %}
+                                        <div class="image-capa-left open-gallery-lazer" style="background-image: url('{{data.IMG_PATH}}/{{content.ImgVitrineID}}.jpg?wm=5');"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="float-bar-actions">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8 pl-0">
+                                        <div class="float-bar-actions__title-box">
+                                            <h3 class="float-bar-actions__title-box__title">Quer mais informações sobre esse empreendimento ?</h3>
+                                            <p class="float-bar-actions__title-box__subtitle">Ficaremos extremamente felizes em realizar este contato</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="contact-buttons">
+                                            <a class="contact-buttons__button contact-buttons__info-mail button button--effect1"
+                                                href="#bloco-6">
+                                                <i class="far fa-envelope fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Email
+                                                </p >
+                                            </a>
+                                            <a class="contact-buttons__button contact-buttons__info-whatsapp button button--effect1"
+                                                href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                                                <i class="fab fa-whatsapp fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Whatsapp
+                                                </p >
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery d-none gallery-lazer">
+                            <div class="gallery__wrapper">
+                                {% for img in item.Imagens %}
+                                    <div class="gallery__item" data-src="{{IMG_PATH}}/{{img}}.jpg?wm=5">
+                                        <img src="{{IMG_PATH}}/thumb/{{img}}.jpg?wm=5"/>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+
+                {% if item.Nome != 'Lazer' and item.Nome != 'O empreendimento' and item.Nome != 'Vídeo' and item.Nome != 'Localização' %}
+                    <section id="{{item.Nome|replace({' ':'-', '.':''})|lower}}" class="bloco">
+                        <div class="container">
+                            <div class="bloco__info full">
+                                <h2 class="title title--center">
+                                    {{item.Nome}}
+                                    <hr class="title__line">
+                                </h2>
+                                <div class="text-body">
+                                    {{item.Descricao|raw}}
+                                </div>
+                            </div>
+                        </div>
+                        {% if item.Imagens %}
+                            <div class="gallery">
+                                <div class="owl-carousel owl-theme gallery__wrapper">
+                                    {% for img in item.Imagens %}
+                                        <div class="gallery__item" 
+                                            style="background-image: url('{{IMG_PATH}}/{{img}}.jpg?mw=500&wm=5');" 
+                                            data-src="{{IMG_PATH}}/{{img}}.jpg?wm=5">
+                                            
+                                            <img src="{{IMG_PATH}}/thumb/{{img}}.jpg?wm=5"/>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="float-bar-actions">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8 pl-0">
+                                        <div class="float-bar-actions__title-box">
+                                            <h3 class="float-bar-actions__title-box__title">Quer mais informações sobre esse empreendimento ?</h3>
+                                            <p class="float-bar-actions__title-box__subtitle">Ficaremos extremamente felizes em realizar este contato</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="contact-buttons">
+                                            <a class="contact-buttons__button contact-buttons__info-mail button button--effect1"
+                                                href="#bloco-6">
+                                                <i class="far fa-envelope fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Email
+                                                </p >
+                                            </a>
+                                            <a class="contact-buttons__button contact-buttons__info-whatsapp button button--effect1"
+                                                href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                                                <i class="fab fa-whatsapp fa-3x"></i>
+                                                <p class="contact-buttons__title contact-buttons__title--big button__text">
+                                                    Informações via Whatsapp
+                                                </p >
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                
+                {% if item.Nome == 'Video' %}
+                    <section id="bloco-5" class="bloco bloco--no-bottom">
+                        <div class="container">
+                            <div class="bloco__info full">
+                                <h2 class="title title--center">
+                                    Vídeo
+                                    <hr class="title__line">
+                                </h2>
+                            </div>
+                        </div>
+                        
+                        <div class="container">
+                            <div class="row">
+                                <iframe width="100%" height="500" src="{{item.Descricao}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
+
+            {% if (content.MapaLatitude and content.MapaLongitude) or content.Endereco %}
+                <section id="localização" class="bloco bloco--no-bottom">
+                    <div class="container">
+                        <div class="bloco__info full">
+                            <h2 class="title title--center">
+                                Localização
+                                <hr class="title__line">
+                            </h2>
+                            <div class="text-body">
+                                {{content.Endereco}}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row-box maps stack">
+                    <div id="map_canvas" class="blur">
+                    </div>
+                    <div class="container_button_map" id="activate-map">
+                        <button class="btn btn-primary">Exibir Mapa</button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <section id="bloco-6" class="bloco__form">
+            <div class="container">
+            <div class="row">
+                <div class="d-none d-md-block col-12 col-md-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Camada_1" x="0px" y="0px" width="350px" viewBox="0 0 361.1 320" style="enable-background:new 0 0 361.1 320;" xml:space="preserve" class="img-responsive tosvg replaced-svg">
+                            <style type="text/css">
+                                .st0{fill:#FFFFFF;}
+                            </style>
+                            <path class="st0" d="M82.5,292.8c-24.6,0-49.3,0-73.9,0c-1.2,0-2.5-0.1-3.7,0.1c-2.8,0.4-4.5,2.2-4.8,5c-0.3,3.1,1.3,5.1,4.2,5.9  c1.1,0.4,2.5,0.2,3.7,0.2c49.6,0,99.2,0,148.7,0c0.9,0,1.9,0.1,2.8-0.1c3.4-0.5,5.4-2.4,5.2-6c-0.2-3.3-2.2-5-5.5-5.2  c-1.9-0.1-3.7,0-5.6,0C129.9,292.8,106.2,292.8,82.5,292.8z"></path>
+                            <path class="st0" d="M34.6,260.6c9,0,18,0,27.1,0c5,0,7.6-1.9,7.6-5.6c0-3.7-2.5-5.6-7.5-5.6c-18,0-36.1,0-54.1,0  c-5,0-7.6,2-7.6,5.5c0,3.6,2.6,5.6,7.5,5.7C16.5,260.6,25.6,260.6,34.6,260.6z"></path>
+                            <path class="st0" d="M26.1,181.8c30.2,19.4,60.5,38.8,90.8,58.1c38.5,24.6,77.1,49.3,115.6,73.9c16.6,10.6,32.2,7.3,42.8-9.3  c26.6-41.7,53.3-83.4,79.9-125c10.3-16.1,6.8-31.8-9.3-42.1C277.3,93.5,208.7,49.5,140,5.5C134.8,2.2,129.3,0,121.6,0  c-9.2,0.5-17.2,5.2-22.9,14.2c-27,42.4-54.1,84.7-81.1,127.1c-1.9,3-3.6,6.2-4.5,9.7C10.2,163.3,14.9,174.6,26.1,181.8z M27.9,146.1  c26.5-41.4,53-82.9,79.5-124.3c7.5-11.7,15.9-13.5,27.5-6.1c41.5,26.4,82.9,52.9,124.3,79.3c27.2,17.3,54.3,34.7,81.5,51.9  c5.7,3.6,9,8.4,9.2,15.2c0.1,4.1-1.7,7.5-3.8,10.8c-26.7,41.8-53.4,83.7-80.1,125.5c-7.1,11.1-15.8,13-26.9,5.9  c-68.5-43.7-136.9-87.4-205.4-131.1C22.5,166.1,20.6,157.5,27.9,146.1z"></path>
+                            <path class="st0" d="M248.3,178.1c22,0,44,0,66,0c1.4,0,2.8,0,4.2-0.1c3.1-0.3,4.9-2.2,5.1-5.1c0.2-3-1.5-5.1-4.4-5.7  c-1.5-0.3-3.1-0.3-4.6-0.3c-42.6,0-85.1-0.1-127.7,0.1c-3.5,0-5.1-1.1-6.5-4.3c-17.5-38.1-35.2-76.1-52.9-114.2  c-0.5-1.1-1-2.3-1.7-3.3c-1.7-2.5-4.2-3.3-6.9-2.1c-2.7,1.2-4,3.5-3.4,6.4c0.4,1.6,1.1,3.2,1.8,4.8c18.3,39.3,36.8,78.5,55,117.9  c2.1,4.5,4.8,6.1,9.7,6C204,177.9,226.2,178.1,248.3,178.1z"></path>
+                            <path class="st0" d="M89.9,159.2c11.5,0,23,0,34.6,0c5,0,7.5-1.9,7.5-5.6c0-3.7-2.6-5.6-7.6-5.6c-23,0-46.1,0-69.1,0  c-4.9,0-7.5,2.1-7.5,5.7c0,3.6,2.5,5.5,7.6,5.5C66.8,159.2,78.3,159.2,89.9,159.2z"></path>
+                            <path class="st0" d="M214.2,212.4c0.2,0.7,0.5,1.8,1,2.7c10,21.5,20,43,30.1,64.6c1.3,2.8,3.3,4.5,6.6,3.9c3.6-0.6,5.6-4.2,3.9-7.9  c-10.1-22-20.4-43.9-30.6-65.8c-1.4-3-3.9-4-7-3.1C215.6,207.5,214.5,209.5,214.2,212.4z"></path>
+                        </svg>
+                </div>
+                <div class="col-12 col-md-7">
+                        
+                        <div class="form-wrapper">
+                            <h3 class="form-wrapper__title">Se encantou com o empreendimento e gostaria de receber mais informações ?</h3>
+                            <p class="form-wrapper__subtitle">Preencha o formulário abaixo. Você receberá todas as informações em poucos instantes.</p>
+                            <form class="form-contato">
+                                <input type="hidden" name="FormularioID" value="2">
+                                <input type="hidden" name="LancamentoID" value="{{content.ID}}" data="true">
+                                <input type="hidden" name="Tag" value="contato/landing-empreendimento">
+                                <input type="hidden" name="FlagNewsletter" value="true">
+                                <input type="hidden" name="Origem" value="form-newsletter" data="values">
+                                <input type="hidden" name="Lancamento" value="{{content.Nome}}" data="values">
+                                <div class="row">
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        <input class="form-control" type="text" name="Nome" value="" placeholder="Nome*" required>
+                                    </div>
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        <input class="form-control mask-email" type="text" name="Email" value="" placeholder="E-mail*" required>
+                                    </div>
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        <input class="form-control mask-tel" type="text" name="TelResidencial" value="" placeholder="Telefone" maxlength="15">
+                                    </div>
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        <input class="form-control mask-tel" type="text" name="TelCelular" value="" placeholder="Whatsapp*" maxlength="15" required>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <textarea name="Mensagem" class="form-control" placeholder="Mensagem*" required></textarea>
+                                    </div>
+                                    <span class="contato-mss col-12" style="display: block;">
+                                    </span>
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <p class="form-wrapper__text form-wrapper__text--small">Quer conhecer mais ? <a href="/" class="form-wrapper__text-link">Clique aqui</a> e continue navegando.</p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button class="btn form-control button button--effect1" type="submit">
+                                                    <span class="button__text">Enviar</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+
+        <div class="float-bar-mobile">
+            <div class="contact-buttons">
+                <a class="contact-buttons__button contact-buttons__button--no-direction contact-buttons__info-mail button button--effect1"
+                    href="#bloco-6">
+                    <i class="far fa-envelope fa-2x"></i>
+                    <span class="contact-buttons__title contact-buttons__title--medium">
+                        Informações via Email
+                    </span>
+                </a>
+                <a class="contact-buttons__button contact-buttons__button--no-direction contact-buttons__info-whatsapp button button--effect1"
+                    href="https://api.whatsapp.com/send?phone={{siteparam.telefones.whatsappnumber}}&text=Olá, gostaria de mais informações sobre o empreendimento {{content.Nome}}." target="_blank">
+                    <i class="fab fa-whatsapp fa-2x"></i>
+                    <span class="contact-buttons__title contact-buttons__title--medium">
+                        Informações via Whatsapp
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-info">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 col-md-2">
+                            <div class="logo" style="background-image: url('/img/logo_landing_page.png');"></div>
+                        </div>
+                        <div class="col-7 col-md-6 d-flex justify-content-left align-items-center">
+                            <p class="mb-0 footer-info__text">{{content.Localizacao}} - {{content.BairroNome}} - {{content.CidadeNome}}</p>
+                        </div>
+                        {# <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center social">
+                            {% if siteparam.facebook_url %}
+                                <a href="" class="social__item"><i class="fab fa-facebook"></i></a>
+                            {% endif %}
+                            {% if siteparam.instagram_url %}
+                                <a href="" class="social__item"><i class="fab fa-instagram"></i></a>
+                            {% endif %}
+                            {% if siteparam.twitter_url %}
+                                <a href="" class="social__item"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if siteparam.youtube_url %}
+                                <a href="" class="social__item"><i class="fab fa-youtube"></i></a>
+                            {% endif %}
+                            {% if siteparam.linkedin_url %}
+                                <a href="" class="social__item"><i class="fab fa-linkedin"></i></a>
+                            {% endif %}
+                        </div> #}
+                    </div>
+                </div>
+            </div>
+            <div class="footer-end">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12 d-flex justify-content-center align-items-center">
+                            <p class="footer-end__text">2019 {{APP_NAME}} - Todos os Direitos Reservados</p>
+                        </div>
+                        {# <div class="col-12 col-md-6 d-flex justify-content-end align-items-center flex-column flex-md-row">
+                            <p class="footer-end__text">Desenvolvimento:</p>
+                            <a href="http://www.inforce.com.br/?ApartamentosRio" target="_blank"><img src="/img/infor_logo_white.png" alt="Inforce Internet"></a>
+                        </div> #}
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap 3.3.7 JS -->
+    <script src="/js/popper.min.js" defer type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" defer type="text/javascript"></script>
+    
+    <script src="/js/plugins/owl.carousel.min.js"></script>
+    <script src="/js/plugins/lightGallery/js/lightgallery.min.js"></script>
+    <script src="/js/plugins/lightGallery/js/lg-thumbnail.min.js"></script>3,
+    <script src="/js/plugins/lightGallery/js/lg-fullscreen.min.js"></script>
+    <script src="/js/plugins/bLazy/blazy.min.js"></script>
+
+</body>
+</html>
+
+
+<script type="application/ld+json">
+{
+   "@context":"https://schema.org/",
+   "@type":"Product",
+   "name":"{{content.Nome}}",
+   "productID":"{{content.ID}}",
+   "image":[
+        {% for key, img in content.Topicos[0].Imagens %}
+            {% if content.Topicos[0].Imagens|length == (key + 1) %}
+            {
+                "@type":"ImageObject",
+                "contentUrl":"{{IMG_PATH}}/{{img}}.jpg?wm=5"
+            }
+            {% else %}
+            {
+                "@type":"ImageObject",
+                "contentUrl":"{{IMG_PATH}}/{{img}}.jpg?wm=5"
+            },
+            {% endif %}
+        {% endfor %}
+   ],
+   "description":"{{item.Descricao}}",
+    "review": {
+        "@type": "Review",
+        "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "4",
+            "bestRating": "5"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Enjoy Brasil Brokers"
+        }
+    },
+   "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "18"
+    },
+    "sku": "{{content.ID}}",
+    "mpn": "{{content.ID}}",
+    "brand": {
+        "@type": "Thing",
+        "name": "Enjoy Brasil Brokers"
+    }
+    {% if content.ValorMenor is defined and content.ValorMenor != "" %}
+    ,"offers": {
+        "@type": "Offer",
+        "url": "{{url().current()}}",
+        "priceCurrency": "BRL",
+        "price": "{{content.ValorMenor}}",
+        "availability": "https://schema.org/InStock"
+    }
+    {% endif %}
+}
+</script>
+<script>
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    $(document).ready(function() {
+        //Carrossel
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            nav:true,
+            navText: ['', ''],
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        })
+
+        //Galeria de imagens
+        $lg = $('.gallery__wrapper').lightGallery({
+            selector: '.gallery__item',
+            escKey: true,
+            thumbnail:true,
+            lazyLoad:true
+        });
+
+        $('.open-gallery-emp').click(function() {
+            var $items = $('.gallery-emp').find('.gallery__item')
+            
+            if ($items) {
+                var first = $items[0];
+                $(first).click();
+            }
+        });
+
+        $('.open-gallery-lazer').click(function() {
+            var $items = $('.gallery-lazer').find('.gallery__item')
+            
+            if ($items) {
+                var first = $items[0];
+                $(first).click();
+            }
+        });
+
+      
+         /* Funcao que trata os dados do form de contato para envio para a API */
+        $(".form-contato").submit(function(e) {
+            debugger
+            e.preventDefault();
+            
+            var $this = $(this); 
+            var $btnSubmit = $this.find("button[type=submit]");
+            $btnSubmit.attr("disabled", true);
+            $btnSubmit.find('.button__text').text('Enviando...')
+
+            var url                 = "{{API_PATH}}/{{API_KEY}}/Formulario/Generico";
+            var error               = null;
+            var form                = $(this);
+
+            var message             = "";
+            var unindexed_array     = form.serializeArray();
+            var indexed_array       = IndexDataForm(unindexed_array);
+            var values_array        = indexed_array;
+            var values              = "";
+            
+            
+            // prepara os inputs com os data=values
+            values_array            = IndexDataForm( form.find(":input[data='values']").serializeArray() );
+            indexed_array.values    = JSON.stringify(values_array);
+           
+            // envia para a API
+            $.ajax({
+                method: "POST",
+                url:    url,
+                data:   indexed_array
+            })
+            .done(function( resp ) {
+                debugger
+                console.log(resp);
+                form.find('.contato-mss').html( '<p class="form-wrapper__message">' + resp.Message + '</p>' );
+                form.parent('.box-contato').css("opacity","1");
+                $btnSubmit.attr("disabled", false);
+                $btnSubmit.find('.button__text').text('Enviar');
+            })
+            .fail(function(resp){
+                debugger
+                console.log("erro de consumo da api");
+                console.log(resp);
+                form.find('.contato-mss').html( '<p class="form-wrapper__message">Por favor, tente novamente em alguns minutos.</p>' );
+                form.parent('.box-contato').css("opacity","1");
+                $btnSubmit.attr("disabled", false);
+                $btnSubmit.find('.button__text').text('Enviar');
+            });
+
+            return false;
+        });    
+
+        function IndexDataForm(unindexed_array){
+            var indexed_array   = {};
+            var nKey            = "";
+            var nVal            = "";
+            
+            $.map(unindexed_array, function(n, i){
+                iVal = n['value'];
+                if(iVal){
+                    
+                    iVal = iVal.split('.').join("");
+                    if( (n['name']=='email') || (n['name']=='Email') ){
+                        iVal = n['value'];
+                    }
+                        
+                    iVal = iVal.replace( /\+/g, '');
+                    if(nKey==n['name']){
+                        nVal = nVal+";"+iVal;
+
+                    }else{
+                        nVal = iVal;
+                    }            
+                    nKey = n['name'];
+                    indexed_array[nKey] = nVal;
+                }
+            });
+            
+            return indexed_array;
+        }
+
+
+        {% if (content.MapaLatitude and content.MapaLongitude) or content.Endereco %}
+             var activateMap = (function() {
+                
+                try{
+
+                    var geocoder = new google.maps.Geocoder();
+
+                    var address;    
+                    {% if item.produtotag=='lancamentos' %}
+                        {% if item.MapaLatitude|default("") and item.MapaLongitude|default("") %}
+                            address = "{{content.MapaLatitude}}, {{content.MapaLongitude}}";
+                        {% else %}
+                            address = "Brasil, {{content.CidadeNome}}, {{content.BairroNome}} - {{content.Localizacao}}";
+                        {% endif %}
+                    {% else %}
+                        address = "{{content.EnderecoLogradouro}} - {{content.BairroNome}}, {{content.CidadeNome}} {{content.EstadoSigla}}, Brasil  ";
+                    {% endif %}
+
+
+                    var latitude = "";
+                    var longitude = ""; 
+
+                    geocoder.geocode( {'address':address}, function(results) {
+                        latitude =  latitude + results[0].geometry.location.lat();
+                        longitude = longitude + results[0].geometry.location.lng();
+
+                        var latlng = new google.maps.LatLng(latitude, longitude);
+                        var myOptions = {
+                            zoom: 14,
+                            center: latlng,
+                            scrollwheel: false,
+                            draggable: false,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+
+                        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+                        new google.maps.Circle({
+                            strokeColor: '#ffc74b',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#ffc74b',
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: latlng,
+                            radius: 500
+                        });
+                        
+                        {# 
+                        
+                        var image = '/img/icon_placemark_sm2.png';
+                        var imageHover = '/img/icon_placemark_sm2.png';
+                        var myLatLng = new google.maps.LatLng(latitude, longitude);
+                        
+                        var marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            icon: image
+                        });
+
+                        var contentString = '<h6>'+address+'</h6>';
+                        var infowindow = new google.maps.InfoWindow({ 
+                            content: contentString,
+                            maxWidth: 290
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                        }); #}
+
+                        //google.maps.event.addListener(marker, 'mouseout', function() {
+                            //infowindow.close(map,marker);
+                        //});
+
+                        // Hover
+                        //google.maps.event.addListener(marker, 'click', function() {
+                            //this.setIcon(imageHover);
+                        //});
+
+                        //google.maps.event.addListener(marker, 'mouseout', function() {
+                            //this.setIcon(image);
+                        //});
+                    });
+                    
+                }catch(err){
+                    console.log(err.message);
+                }
+                
+            });
+
+            $('#activate-map').click(function() {
+                activateMap();
+                $('.container_button_map').hide();
+                $('#map_canvas').removeClass('blur');
+            });
+        {% endif %}
+    })
+    
+</script>
+
+<style type="text/css">
+
+    .maps {
+        position: relative; 
+    }
+    #map_canvas {
+        width: 100%;
+        height: 450px;
+        background-image: url('/img/maps_base_small_1.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #map_canvas.blur {
+        filter: blur(0.8px);
+        -webkit-filter: blur(0.8px);
+    }
+    #map_canvas .titulo {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+        color: #07406a;
+    }
+    #map_canvas p {
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .container_button_map {
+        position: absolute; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        top: 0px;
+        width: 100%; 
+        height: 100%;
+        cursor: pointer; 
+    }
+</style>
+{% endspaceless %}
+
+
+
+  

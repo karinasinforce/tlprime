@@ -1,0 +1,127 @@
+<html lang="en">
+    {% include ['custom.partials.html-header','core.partials.html-header'] with { html_header_title: 'Check Status Page' } %}
+
+    <body class="page {{actual_page|default("")}}">
+
+        <style>
+            .status-ok {
+                color: #ffffff;
+                border: 1px solid green;
+                padding: 6px;
+                background: green;
+                border-radius: 50px;
+            }
+
+            .status-failed {
+                color: #ffffff;
+                border: 1px solid #a21a1a;
+                padding: 6px;
+                background: #ad0000;
+                border-radius: 50px;
+            }
+
+            
+            .status-warning {
+                color: #ffffff;
+                border: 1px solid #bda311;
+                padding: 6px;
+                background: #bda311;
+                border-radius: 50px;
+            }
+
+            .status-info {
+                color: #ffffff;
+                border: 1px solid #086aac;
+                padding: 6px;
+                background: #086aac;
+                border-radius: 50px;
+            }
+
+
+            a {
+                color: blue !important;
+            }
+        </style>
+        <div class="container">
+            <h1>Check status:</h1>
+            <div class="alert alert-warning" role="alert">
+                <i class="fa fa-warning"></i> Essa ferramenta tem o objetivo de verificar alguns status do site. Ela deve ser utilizada pelo suporte técnico para identificar falhas visualmente,
+                e pela nossa ferramenta de monitoramento, para alarmar quando algum site estiver com o funcionamento comprometido.
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Passo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cloud Server</td>
+                        <td><span class="status-ok">OK <i class="fa fa-check"></i></span></td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Sistema Operacional</td>
+                        <td><span class="status-ok">OK <i class="fa fa-check"></i></span></td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Web Server</td>
+                        <td><span class="status-ok">OK <i class="fa fa-check"></i></span></td>
+                        <td>NGINX Web Server</td>
+                    </tr>
+                    <tr>
+                        <td>PHP</td>
+                        <td><span class="status-ok">OK <i class="fa fa-check"></i></span></td>
+                        <td><a href="/_app/info.php" target="_blank">Acesse o link aqui</a></td>
+                    </tr>
+                    <tr>
+                        <td>API (.NET)</td>
+                        <td>{{ API ? '<span class="status-ok">OK <i class="fa fa-check"></i></span></td>' : '<span class="status-failed">Falhou <i class="fa fa-times-circle"></i></span></td>'}}</td>
+                        <td><a href="{{ API_PATH }}" target="_blank">Acesse o link aqui</a></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>GAPO</td>
+                        <td>{{ GAPO ? '<span class="status-ok">OK <i class="fa fa-check"></i></span></td>' : '<span class="status-failed">Falhou <i class="fa fa-times-circle"></i></span></td>'}}</td>
+                        <td><a href="{{ GAPO_PATH }}" target="_blank">Acesse o link aqui</a></td>
+                    </tr>
+                    <tr>
+                        <td>Usa CloudFlare ?</td>
+                        <td>{{ CLOUDFLARE ? '<span class="status-ok">Sim <i class="fa fa-check"></i></span></td>' : '<span class="status-warning">Não <i class="fa fa-times-circle"></i></span></td>'}}</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>HTTPS Habilitado (Server)</td>
+                        <td>
+                            {% if LOCAL %}
+                                <span class="status-info">LOCALHOST</span>
+                            {% else %}
+                                {% if HTTPS %}
+                                    <span class="status-ok">Sim <i class="fa fa-check"></i></span>
+                                {% else %}
+                                    <span class="status-warning">Não <i class="fa fa-times-circle"></i></span>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>HTTPS Habilitado (Cloudflare)</td>
+                        <td>{{ CLOUDFLARE_HTTPS_ENABLED ? '<span class="status-ok">Sim <i class="fa fa-check"></i></span></td>' : '<span class="status-warning">Não <i class="fa fa-times-circle"></i></span></td>'}}</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card" style="width: auto;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="font-weight: bold;">Status: {{ STATUS }} <small>(Não mude esse texto)</small></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
+

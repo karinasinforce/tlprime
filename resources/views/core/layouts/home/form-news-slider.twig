@@ -1,0 +1,33 @@
+<section id="newsletter_home">
+    <div class="container px-4">
+        <h4 class="px-2 text-center mb-3"><strong>Cadastre-se</strong> para receber informações exclusivas!</h4>
+        
+        <form class="form-contato">
+            {{ csrf_field() }}
+            <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+            <input type="hidden" name="FormularioID" value="2">
+            <input type="hidden" name="Tag" value="contato/newsletter">
+            <input type="hidden" name="FlagNewsletter" value="true">
+
+            <div class="row mx-0">
+                <div class="form-group col-12 col-md-4 px-1">
+                    {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                    <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="Nome*" required/>
+                </div>
+                
+                <div class="form-group col-12 col-md-4 px-1">
+                    <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="E-mail*" required/>
+                </div>
+                
+                <div class="form-group col-12 col-md-4 px-1">    
+                    {# o botao de submit precisa ter a classe 'form-submit' #}
+                    <button class="btn form-control form-submit btn-default mt-0 mb-0" value="ok"/>Enviar</button>
+                </div>
+            </div>
+
+            <span class="contato-mss" style="display: block;"> </span>
+
+        </form>
+
+    </div>
+</section>

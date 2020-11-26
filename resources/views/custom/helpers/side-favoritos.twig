@@ -1,0 +1,338 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if siteparam.userfavoritos == 1 %}
+
+<section class="section-favs box-favoritos hidden-xs hidden-sm">
+    <div class="bt-favo">
+        <i class="fa fa-heart" title="Favoritos"></i>
+        <span>Meus Favoritos</span>
+        <i class="fa fa-chevron-up hide" title="Favoritos"></i>
+    </div>
+    <div class="fav-lista">
+        <a href="/favoritos" class="btn btn-favs">Meus Favoritos</a>
+        <ul class="fav-itens" id="lista-favoritos"></ul>
+    </div>
+</section>
+   
+
+<script>
+
+//global de favoritos
+var owl_vitrine = "";
+$(document).ready(function(){
+    
+    // verifica se o visitante ja tem itens no favoritos dele
+        // carrega o cookie 'guest'
+        var guest = getCookie('guest');
+        if(guest){ 
+
+            // converte a string em JSON
+            guest = JSON.parse(guest); 
+            
+            // atualiza a lista de favoritos do tracking
+            gFAVS = guest.favoritos;
+                       
+            // atualiza a lista de favoritos do box
+            updateList();                
+            
+        }
+        
+        
+    // slide in/out da caixa de favoritos
+    $(".bt-favo").click(function(){
+        var slideValue = "0";        
+        var elem = $( ".box-favoritos" );
+        
+        var posit = parseInt( elem.css("right") );
+        
+        // se ele estiver escondido ou o resultado for um "Not a Number"
+        if ( isNaN(posit) || (posit == -220) ){
+            slideValue = "0";            
+        }else{
+            slideValue = "-220";            
+        }
+                
+        elem.animate({
+            right: slideValue + "px",
+            opacity: "1"
+        }, {
+            duration: 500,
+            specialEasing: {
+                width: "swing",
+                height: "easeOutBounce"
+            }
+        });        
+    });
+    
+    
+    // INTERNA FAVORITOS
+    var itemID = "{{content.ID}}";
+    $.each(gFAVS, function( i, item ) {
+        if( (item.ID) && (itemID) ){
+            if((item.ID) == (itemID)) {
+                $(".item-id-"+itemID+" .icon-favoritos .btn-favoritos").addClass("favoritado");
+                flyHeart(itemID);
+            }
+        }
+    });             
+    // INTERNA FAVORITOS
+    
+});
+
+/**
+ * Funcao que liga ou desliga o coracao dos favoritos
+ * @param {type} id
+ * @param {type} state
+ * @returns {undefined}
+ */
+function flyHeart(id, state='on'){
+    // animacao do coracao    
+    var heart = $('i.heart-'+id);
+    var elem = $('i.animated.heart-'+id);
+    
+    if(state==='on'){
+        heart.css("color","red");
+        elem.css("color","red");
+        elem.animate({
+            top: "-30px",
+            opacity: "0"
+        }, {
+            duration: 500,
+            specialEasing: {
+                width: "swing",
+                height: "easeOutBounce"
+            }
+        });            
+        
+    }else{
+        heart.css("color","#FFF");
+        elem.css("color","#FFF");
+        elem.animate({
+            top: "0px",
+            opacity: "1"
+        }, {
+            duration: 1,
+            specialEasing: {
+                width: "swing",
+                height: "easeOutBounce"
+            }
+        });        
+    }
+    
+}
+
+function addFav(id){
+    
+    var btnFavorito = $(".item-id-"+id+" .icon-favoritos .btn-favoritos");
+    // se ja estiver favoritado, desfavorita
+    if( btnFavorito.hasClass("favoritado") ){
+        
+        btnFavorito.removeClass("favoritado");        
+        removeFav(id);
+                
+    }else{
+        
+        // animacao do coracao
+        flyHeart(id);
+        
+        // pega o JSON do favorito
+        var favoritado = JSON.parse( $(".prod-id-"+id).val() );
+        
+        // empurra na global de favoritos
+        gFAVS.push(favoritado);
+                
+        // carrega o cookie 'guest'
+        var guest = getCookie('guest');
+        if(guest){ 
+            
+            // converte a string em JSON
+            guest = JSON.parse(guest); 
+            
+            // atualiza a lista de favoritos do visitante
+            guest.favoritos = gFAVS;
+
+                
+        }        
+        
+        btnFavorito.addClass("favoritado");
+        
+        updateList();        
+    }    
+}
+
+
+function removeFav(id=null){
+    if(id){
+        // remove do html do favoritos
+        if(owl_vitrine){
+            // seta o item do carrossel
+            var owlItem = $(".favorito-item-"+id).parent('.owl-item');            
+            // seta o indice
+            var owlItemIdx = owlItem.index();            
+            // remove o item do carrossel
+            owl_vitrine.trigger('remove.owl.carousel',[owlItemIdx]);
+            // recarrega o carrossel
+            owl_vitrine.trigger('refresh.owl.carousel');
+            
+            // verifica o total de itens do carrossel
+            var totalItems = $('#owl-vitrine-favoritos .owl-item').length;
+            
+            // dependendo da quantidade de itens, seta um offset se necessario, para centralizar o carrossel
+            if(totalItems===0){
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-2");
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-4");                
+                
+                $('#vitrine-favoritos .coluna').html('<h2 class="text-center">Nenhum Imóvel foi marcado como Favorito ainda!</h2>');
+            }
+
+            if(totalItems===1){
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-2");
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-4");                
+                
+                $('#vitrine-favoritos .coluna').addClass("col-sm-offset-4");                
+            }
+            
+            if(totalItems===2){
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-2");
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-4");                
+                
+                $('#vitrine-favoritos .coluna').addClass("col-sm-offset-2");                
+            }
+            
+            if(totalItems > 2){
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-2");
+                $('#vitrine-favoritos .coluna').removeClass("col-sm-offset-4");                
+            }
+            
+        }
+    
+        // atualiza o coracao da lista de produtos
+        flyHeart(id, 'off');
+        
+        // remove da lista global dos favoritos
+        var index = -1;
+        $.each(gFAVS, function( i, item ) {
+            if( (item) && (item.ID) ){
+                if( item.ID == id ){
+                    index = i;
+                    if (index > -1) { gFAVS.splice(index, 1); }
+                    return true;
+                }
+            }
+        });        
+                
+        // carrega o cookie 'guest'
+        var guest = getCookie('guest');
+        if(guest){ 
+
+            // converte a string em JSON
+            guest = JSON.parse(guest); 
+            
+            // atualiza a lista de favoritos do visitante
+            guest.favoritos = gFAVS;
+                
+        }
+        
+        var btnFavorito = $(".item-id-"+id+" .icon-favoritos .btn-favoritos");
+        btnFavorito.removeClass("favoritado");        
+        
+        updateList();
+        
+    }else{
+        console.log("ID não defindo");
+    }
+    
+}
+
+function updateList(){
+    // atualiza a lista de favoritos do box
+    var source      = $("#handlebars-favoritado").html();
+    var template    = Handlebars.compile(source);
+    var html        = template( {"items": gFAVS} );
+
+    $("#lista-favoritos").html(html);
+
+}
+    
+</script>
+
+
+        
+{% verbatim %}                        
+<script id="handlebars-favoritado" type="text/x-handlebars-template" class="hide">
+
+    {{#each items}}   
+        {{#if Lancamento }}                     
+            <li class="item fav-item-{{ID}} empreendimentos">
+                <h6 class="preco">
+                {{#if Valor}} a partir de 
+                    <strong>R$ <span class="value currency">{{Valor}}</span></strong>
+                {{/if}} <i onclick="removeFav({{ID}})" class="fa fa-window-close remove-fav"></i></h6>
+                <a href="/lancamento/oferta/ID-{{ID}}">
+                    <div class="foto">                    
+                        <img src="/img/placeholders/ph16x9.gif" style="background: url({{ImagemDestaque}}) no-repeat center center;background-size: cover;">
+                    </div>
+                    <h6>{{Nome}}</h6>
+                    <h6>Bairro: {{BairroNome}}</h6>
+                    <ul class="caracteristicas">
+                        {{#if QtdAreaAsFormatted }}<li><i class="fa fa-arrows-alt"></i> {{QtdAreaAsFormatted}} </li>{{/if}}
+                        {{#if M2Menor }}<li><i class="fa fa-arrows-alt"></i> de {{M2Menor}} </li>{{/if}}
+                        {{#if M2Maior }}<li><i class="fa fa-arrows-alt"></i> até {{M2Maior}} </li>{{/if}}
+                        {{#if QtdSuite }}<li><i class="fa fa-shower"></i> {{QtdSuite}} </li>{{/if}}
+                        {{#if QtdQuarto }}<li><i class="fa fa-bed"></i> {{QtdQuarto}} </li>{{/if}}
+                        {{#if QtdWcTotal }}<li><i class="fa fa-bath"></i> {{QtdWcTotal}} </li>{{/if}}
+                        {{#if QtdVaga }}<li><i class="fa fa-car"></i> {{QtdVaga}} </li>{{/if}}
+                    </ul>                                
+                </a>
+            </li>
+        {{/if}}
+        {{#if Imovel }}
+            <li class="item fav-item-{{ID}}">
+                <h6 class="preco">
+                    {{#if ValorVenda }}
+                        Venda R$ <span class="value currency">{{ValorVenda}}</span>
+                    {{/if}}
+                    {{#if ValorLocacao }}
+                        Locação R$ <span class="value currency">{{ValorLocacao}}</span>
+                    {{/if}}
+                    <i onclick="removeFav({{ID}})" class="fa fa-window-close remove-fav"></i>
+                </h6>
+                <a href="/imovel/oferta/ID-{{ID}}">
+                    <div class="foto">                    
+                        <img src="/img/placeholders/ph16x9.gif" style="background: url({{ImagemDestaque}}) no-repeat center center;background-size: cover;">
+                    </div>
+                    <h6>{{Nome}}</h6>
+                    <h6>{{TipoNome}}, <span class="area_util">{{AreaUtil}} m²</span></h6>
+                    <ul class="caracteristicas">
+                        {{#if QtdSuite }}<li><i class="fa fa-shower"></i> {{QtdSuite}} </li>{{/if}}
+                        {{#if QtdQuarto }}<li><i class="fa fa-bed"></i> {{QtdQuarto}} </li>{{/if}}
+                        {{#if QtdWcTotal }}<li><i class="fa fa-bath"></i> {{QtdWcTotal}} </li>{{/if}}
+                        {{#if QtdVaga }}<li><i class="fa fa-car"></i> {{QtdVaga}} </li>{{/if}}
+                    </ul>                                
+                </a>
+            </li>
+        {{/if}}
+    {{/each}}
+
+</script>
+{% endverbatim %}   
+
+
+
+{% endif %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+<script>
+    $(document).ready(function() {
+        $("#lista-favoritos .currency").mask('000.000.000', {reverse: true});
+    });
+</script>

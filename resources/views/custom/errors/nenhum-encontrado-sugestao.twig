@@ -1,0 +1,108 @@
+{% verbatim %}
+<script id="lista-item-handle" type="text/x-handlebars-template" class="hide">
+    {{#if similares}}
+        <div class="col-md-12 col-sm-12 content-lista nenhum-imovel">
+            <h1>Ops! <strong>Nenhum imóvel encontrado para essa busca.</strong></h1>
+            <p>
+                Abaixo temos outras sugestões de imóveis que você pode se interessar.
+            </p>
+        </div>
+        
+        <div class="vitrine vitrine-nenhum-encontrado">
+            {{#each similares}} 
+                {{#if Tipo}}
+                    
+                {{else}}
+                    <div class="product_itemBx mb-4 item-id-{{ID}}">
+                        <div class="product_itemBxTop">
+                            <a class="vit_link_foto" href="/imovel/{{UrlTrack}}/ID-{{ID}}">
+                                <div class="pdct_pic">                                    
+                                    
+                                    <div class="vitrine-venda-img" style="background-image: url('{{ImageUrl}}?wm=0&mw=500')">
+                                        <div class="hover_img"></div>
+                                    </div>
+                                </div>
+                            </a>                                        
+                        </div>
+
+                        <div class="product_itemBxBot">
+                            <a href="/imovel/{{UrlTrack}}/ID-{{ID}}">
+                                <h3>
+                                    {{#if EmpreendimentoNome}}
+                                    <span class="empnome">
+                                        {{EmpreendimentoNome}} 
+                                    </span> - 
+                                    {{/if}}
+                                    {{#if TipoNome }}
+                                        {{ TipoNome }}
+                                    
+                                        {{#if ValorVenda  }}
+                                            para venda
+                                        {{else}}
+                                            pata locação
+                                        {{/if}}
+                                    {{/if}}
+
+                                    {{#if QtdQuarto }}com {{ QtdQuarto }} quarto(s){{/if}}{{#if QtdSuite }}, sendo {{ QtdSuite }} suite(s){{/if }}
+                                    {{#if QtdVaga}} e {{ QtdVaga }} vaga(s){{/if}}, {{BairroNome}}
+                                </h3>
+                            </a>
+
+                            <div class="localidade">
+                                <i class="fas fa-map-marker-alt"></i> {{BairroNome}}, {{CidadeNome}} - {{EstadoSigla}}
+                            </div>
+
+                            <ul class="icons">
+                                {{#if QtdQuarto}}
+                                    <li>
+                                        <img src="/img/svg/quartos.svg" alt="" class="tosvg" height="17">
+                                        <span>{{QtdQuarto}}</span>
+                                    </li>
+                                {{/if}}
+                                {{#if QtdWcTotal}}
+                                    <li>
+                                        <img src="/img/svg/shower.svg" alt="" class="tosvg" height="17">
+                                        <span>{{QtdWcTotal}}</span>
+                                    </li>
+                                {{/if}}
+                                {{#if QtdVaga}}
+                                    <li>
+                                        <img src="/img/svg/car-in-garage.svg" alt="" class="tosvg" height="17">
+                                        <span>{{QtdVaga}}</span>
+                                    </li>
+                                {{/if}}
+                                {{#if AreaUtil}}
+                                    <li class="area">
+                                        <img src="/img/svg/area.svg" alt="" class="tosvg" height="17">
+                                        <span>{{AreaUtil}}m<sup>2</sup></span>
+                                    </li>
+                                {{/if}}
+
+                            </ul>
+
+                            <div class="valorimv">
+                                <a href="/imovel/{{UrlTrack}}/ID-{{ID}}">
+                                    <small>R$ </small>
+                                    <span>
+                                        {{formatCurrency ValorVenda}}
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+        
+    {{else}}
+        <div class="col-md-12 col-sm-12 content-lista nenhum-imovel">
+            <h1>Ops! <strong>Nenhum imóvel encontrado.</strong></h1>
+            <p>
+                Ainda não encontramos nenhum imóvel com as caracteristicas selecionadas.</br>
+                Continue buscando, temos certeza que você vai encontrar o imóvel dos seus sonhos.</br></br>
+                Você também pode enviar um <a href="/contato/fale-conosco/">e-mail</a> para nossa equipe que vamos te ajudar a encontrar seu imóvel.
+            </p>
+        </div>
+    {{/if}}
+</script>
+{% endverbatim %}

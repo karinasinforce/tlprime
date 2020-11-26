@@ -1,0 +1,307 @@
+
+{# LANCAMENTOS #}
+{% set item = content %}
+
+{% set slickslider = 'true' %}
+
+<div class="bg-lancamento d-none d-lg-block"></div>
+
+<div id="product-content" class="lancamento-content">
+    <div class="row mx-0">
+        <div class="col-12 col-lg-8">
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="javascript:void(0);" onclick="window.history.back()" class="bt_voltar_back">&laquo; Voltar</a>
+                <p class="subtitle">{{item.StatusNome}}</p>
+            </div>
+
+            <!-- INFORMACOES -->
+            <div class="box-details">
+                <div class="row-box basic-info">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <h1 class="pull-left">
+                                <p class="logradouro">{{item.Nome}}</p>
+                            </h1>
+                            <div class="regiao"><i class="fas fa-map-marker-alt"></i> {{item.Localizacao != '' ? item.Localizacao ~ ', ' : ''}} {{item.BairroNome != '' ? item.BairroNome ~ ', ' : ''}} {{item.CidadeNome != '' ? item.CidadeNome ~ ' - ' : ''}} {{item.EstadoSigla}}</div>
+                                
+                        </div>
+                    </div>
+                </div>        
+                            
+                {#<div class="row-box destaque" style="background: url('/img/placeholders/vitrine-demo.jpg') center center; background-size: cover; height: 510px;">
+                    {#<img src="{{asset('/img/placeholders/vitrine-demo.jpg')}}">#}
+                {#</div>#}
+                <div class="lightGalDestaque">
+                    <div class="row-box destaque item" style="background: url('{{IMG_PATH}}/{{item.ImageCapa}}.jpg?wm=5') center center; background-size: cover;" data-src="{{IMG_PATH}}/{{item.ImageCapa}}.jpg?wm=0">
+                        {% if siteparam.favoritos == 'true' %}
+                            <div class="icon-favoritos">
+                                <div class="btn-favoritos" onclick="addFav({{item.ID}})">
+                                    <span>Adicionar aos Favoritos</span>
+                                    <i class="fa fa-heart heart-{{item.ID}}"></i>
+                                    <i class="fa fa-heart animated heart-{{item.ID}}"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="hide produto-favorito prod-id-{{item.ID}}" value='{"ID":"{{item.ID}}", 
+                               "M2Menor":"{{item.M2Menor}}", "M2Maior":"{{item.M2Maior}}", "Nome":"{{item.Nome}}", 
+                               "Tipos":"{{item.Tipos}}", "BairroNome":"{{item.BairroNome}}", "QtdSuite":"{{item.QtdSuite}}", 
+                                "QtdQuarto":"{{item.QtdQuarto|join(', ')}}", "QtdWcTotal":"{{item.QtdWcTotal}}", "QtdVaga":"{{item.QtdVaga}}",
+                               "ImagemDestaque":"{{IMG_PATH}}/{{item.ImageCapa}}.jpg?wm=5", "Lancamento": "true" }'>
+                        {% endif %}
+
+                        <img src="{{IMG_PATH}}/{{item.ImageCapa}}.jpg" alt="" class="hide">
+                    </div>
+                </div>
+
+
+                <!-- ATRIBUTOS -->
+               
+               <div class="row-box attributes">
+                
+                   {% if item.QtdQuarto %}
+                       <div class="item_info">
+                           <div class="icon_wrap">
+                               <img src="/img/svg/quartos.svg" class="tosvg">
+                           </div>
+                           <div class="text-info">
+                               <span class="quartos">
+                                   <strong class="d-block">{{item.QtdQuarto|join(', ')}} </strong>
+                                   <span>Quartos</span>
+                               </span>
+                               {% if item.QtdSuite %}
+                                   <span> sendo <strong>{{item.QtdSuite}}</strong> {{ item.QtdSuite > 1 ? 'Suítes' : 'Suíte'}}</span>
+                               {% endif %}
+                           </div>
+                       </div>
+                   {% endif %}
+
+                   {% if item.M2Menor or M2Maior %}
+                       <div class="item_info">
+                           <div class="icon_wrap">
+                               <img src="/img/svg/area.svg" class="tosvg">
+                           </div>
+                           <span class="text-info">Área Útil</span>
+                           <strong>
+                                {% if item.M2Menor %}
+                                    <span>de </span>{{item.M2Menor}}m²
+                                {% endif %}
+                                {% if item.M2Menor %}
+                                    <span>até </span>{{item.M2Maior}}m²
+                                {% endif %}
+                           </strong>
+                       </div>
+                   {% endif %}
+
+               </div>
+
+                {% if item.Video %}
+                    <div class="row-box video">
+                            <!-- VIDEO -->
+                            <div class="col-sm-12 col-xs-12 ">
+                                <div class="row-box video">
+                                    <div class="conteudo">
+                                        <h3>Video</h3>
+                                        <iframe width="420" height="315" src="https://www.youtube.com/embed/{{item.Video}}"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                {% endif %}
+                
+                {% if item.Descricao != '' %}
+                    <div class="row-box descricao row mx-0">
+                        <!-- CARACTERISTICAS -->
+                            <div class="col-sm-12 col-12">
+                                <div class="row-box descriptions">
+                                    <div class="descript">
+                                        <h3>Descrição</h3>
+                                        <div class="descricao_corpo_txt">
+                                            {{item.Descricao|raw}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                {% endif %}
+
+                {% if item.Topicos %}
+                    <!-- TOPICOS -->
+                    <div class="topicos">
+                        {% for key,item in item.Topicos if item.Nome != 'Localização' %}
+                            <div class="row-box topics topics-{{key}}">
+                                <div class="topic-descript">
+                                    <h3>{{item.Nome}}</h3>
+                                    <span>{{item.Descricao|raw}}</span>
+                                </div>
+                                {% if item.Imagens %}
+                                    <div class="topic-gallery">
+                                        <div class="row-box gallery-list">    
+                                            {% include ['custom.helpers.slide-light-gal','core.helpers.slide-light-gal'] with {index:key, item:item, data:data} %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+            </div>
+            
+            <!-- MAPA -->
+            <div class="col-12">
+                <div class="row-box maps">
+                    <h3>Localização</h3>
+                    {% for key, item in item.Topicos if item.Nome == 'Localização' %}
+                        <div class="descript_local">
+                            {{item.Descricao|raw}}
+                        </div>
+                    {% endfor %}
+                    <span class="d-block mt-3 mb-3">
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span> {{item.Localizacao}}</span>
+                    </span>
+                    <div id="map_canvas"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTATAR -->
+        <div class="col-12 col-lg-4 content_form">
+            <div class="affix-anchor">
+                <div class="affix-child contact">
+
+                    {% include ['custom.helpers.formulario-interessado','core.helpers.formulario-interessado'] %}
+
+                    <div class="chat">
+                        <a onclick="callChat()">
+                            <div><i class="fab fa-whatsapp"></i> Atendimento via Whatsapp</div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>              
+        </div>
+    
+    </div>
+</div>
+
+{% include ['custom.layouts.lancamentos.modal','core.layouts.lancamentos.modal'] with {data: data} %}
+
+
+<!-- END CONTENT -->
+<script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function(){
+            
+            // incia o slide da galeria // dispara o evento do click na imagem do slick de indice zero = imagem da galeria
+            $("#COD{{item.id}}").click(function(){
+                $(".galeria-0 [data-slick-index=0]").trigger("click");
+            });
+          
+          
+            $('#product-content .slider-case').slick({
+                asNavFor: '#product-content .slides',
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true
+            });  
+            $("#product-content .slides").slick({
+                asNavFor: '#product-content .slider-case',
+                slidesToShow: 3, 
+                slidesToScroll: 1,
+                centerMode: true,
+                focusOnSelect: true,
+                nextArrow: '<i class="fa fa-chevron-right"></i>',
+                prevArrow: '<i class="fa fa-chevron-left"></i>'
+            });       
+            
+            
+            (function() {
+                
+                var geocoder = new google.maps.Geocoder();
+
+                var address;    
+                {% if item.produtotag=='lancamentos' %}
+                    {% if item.MapaLatitude|default("") and item.MapaLongitude|default("") %}
+                        address = "{{item.MapaLatitude}}, {{item.MapaLongitude}}";
+                    {% else %}
+                        address = "Brasil, {{item.CidadeNome}}, {{item.BairroNome}} - {{item.Localizacao}}";
+                    {% endif %}
+                {% else %}
+                    address = "{{item.Logradouro}} - {{item.BairroNome}}, {{item.CidadeNome}} {{item.EstadoSigla}}, Brasil  ";
+                {% endif %}
+                    
+                    
+                var latitude = "";
+                var longitude = ""; 
+
+                geocoder.geocode( {'address':address}, function(results) {
+                    latitude =  latitude + results[0].geometry.location.lat();
+                    longitude = longitude + results[0].geometry.location.lng();
+
+                    var latlng = new google.maps.LatLng(latitude, longitude);
+                    var myOptions = {
+                      zoom: 14,
+                      center: latlng,
+                      scrollwheel: false,
+                      draggable: false,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+                    var image = '/img/icon_placemark_sm.png';
+                    var imageHover = '/img/icon_placemark_sm.png';
+                    var myLatLng = new google.maps.LatLng(latitude, longitude);
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: image
+                    });
+
+                    var contentString = '<h6>'+address+'</h6>';
+                    var infowindow = new google.maps.InfoWindow({ content: contentString });
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.open(map,marker);
+                    });
+
+                    //google.maps.event.addListener(marker, 'mouseout', function() {
+                        //infowindow.close(map,marker);
+                    //});
+
+                    // Hover
+                    //google.maps.event.addListener(marker, 'click', function() {
+                        //this.setIcon(imageHover);
+                    //});
+
+                    //google.maps.event.addListener(marker, 'mouseout', function() {
+                        //this.setIcon(image);
+                    //});
+                });
+            })();
+                
+        });
+    });
+</script>
+
+<style type="text/css">
+    #map_canvas{
+        width: 100%;
+        height: 400px;
+    }
+    #map_canvas .titulo{
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+        color: #07406a;
+    }
+    #map_canvas p{
+        font-family: Helvetica, Arial, Sans-serif;
+        font-size: 12px;
+        margin: 0;
+    }
+</style>
+

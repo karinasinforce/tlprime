@@ -1,0 +1,149 @@
+
+ /* CSS do FOOTER do site */
+
+ .footer-main {
+    padding: 0;
+    background: $footer-bg;
+    color: $footer-color;
+    box-shadow: 1px -3px 12px 1px #00000014;
+    
+    
+    .menu-footer{
+        margin-bottom: 3rem;
+
+        .logo_footer{
+            width:100px;
+        }
+    }
+
+    .box-endereco {
+        p{
+            font-size: 12px;
+            margin-top: 20px;
+            color: $color-base;
+        }
+    }
+
+    
+    .ftr_menu {
+        margin: 0;
+        padding: 0;
+
+        h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            // border-bottom: 1px solid rgba($color-base, .15);
+            color: $color-base;
+            font-weight: bold;
+            padding-bottom: 2px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+            // padding-bottom: 5px;
+            list-style-type: none;
+            span{
+                font-size: 16px;
+                color: $color-base;
+            }
+
+            &:not(:first-child) {
+                // border-bottom: 1px dotted rgba($color-base, .15);
+            }
+
+            a {
+                color: $color-base;
+                font-size: 12px;
+            }
+
+            i{
+                text-align: left;
+                font-size:22px;
+                margin-right: 8px;
+                &:hover{
+                    color: #666;
+                }
+            }
+        }
+    }
+
+ }
+
+ .footer-aux {
+     background: darken($color-base, 15%);
+     color: $color-base;    
+    //  border-top: 1px solid $color-base;
+    //  border-bottom: 1px solid $color-base;
+     
+     .redes-sociais{
+         padding: 12px 0;
+     }
+     
+    a {
+        margin: 0 0 0 16px;
+        color: #333;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        text-align: center;
+        font-size: 18px;
+        line-height: 34px;
+        border: 2px solid $color-base;
+        border-radius: 40px;
+        transition: all .3s;
+        
+        &:hover{
+            color: darken($color-base, 15%);
+            background: $color-base;
+        }
+    }    
+ }
+
+ .footer-sub {
+     padding: 16px 0;
+     color: $color-base;
+     background-color: #EEEEEE;
+     height: 60px;
+     
+     .container{
+       p{
+           color:#3C3A3A;
+           font-size: 12px;
+           a{
+           img {
+               margin-left: 10px;
+            } 
+        }
+    }
+
+        .rt_foot {
+            a {
+                 color: $color-base;
+                 &:hover{}
+            }
+        }
+     }
+ }
+
+.intermed{
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 12px;
+    font-weight: bold;
+}
+li.menu_item_1.d-flex.flex-column.Horario_funcionamento{
+   
+    span{
+        font-size: 12px;
+        b{
+            font-size: 14px;
+        }
+    }
+}
+.ftr_menu.Servicos{
+
+    li{
+        font-size: 12px;
+        color: $footer-color; 
+    }
+}

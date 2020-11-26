@@ -1,0 +1,21 @@
+{% if destak %}
+    <div class="col-12">
+        <div id="destak_blog" style="background-image: url('{{item.ImageCapaId ? IMG_PATH ~ item.ImageCapaId ~ '.jpg?wm=0' : '/img/blog-default.jpg'}}');">
+            <a class="text" href="/blog/{{destak.slug}}/{{destak.ConteudoID}}">
+                
+                {% if destak.Categorias %}
+                    {% for cat in destak.Categorias %}
+                        <span class="tag_cat">{{cat.Nome}}</span>
+                    {% endfor %}
+                {% endif %}
+                <div>
+                    <h2>{{destak.Titulo}}</h2>
+                </div>
+                <p>
+                    {{destak.Sumario}}
+                </p>
+                <p class="data">{{destak.Data|date("d/m/Y - g:i")}}</p>
+            </a>
+        </div>
+    </div>
+{% endif %}

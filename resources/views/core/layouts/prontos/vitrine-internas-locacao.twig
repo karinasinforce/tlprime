@@ -1,0 +1,255 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% set HTMLHeaderTitle =  content.Titulo %}
+
+
+{% block html_header_title %}{{HTMLHeaderTitle}}{% endblock %}
+
+{# {% block content_header_title %}
+                
+{% endblock %} #}
+
+{% block content_header_description %}
+                <div class="hide">Locação</div>
+{% endblock %}
+
+
+
+{# {% block content_header_breadcrumb %}
+    {{data.breadcrumb|raw}}
+{% endblock %} #}
+
+{% set actual_page = "page-locacao" %}
+
+{% block main_content %}
+
+    
+                <div class="container-busca-avancada">
+                    <div class="container">
+                        {% include ['custom.helpers.busca-avancada-horizontal','core.helpers.busca-avancada-horizontal'] %}
+                    </div>
+                </div>
+
+                {% include ['custom.layouts.prontos.slider-internas','core.layouts.prontos.slider-internas'] with { content: banner.content, data: data } %}
+                
+                <div class="spark-screen">
+                    <!-- MESSAGES -->
+                    <div class="container">
+                        <div class="row">
+                            {% include ['custom.errors.mesages','core.errors.mesages'] %}
+                        </div>
+                    </div>
+    
+                    
+                    <div class="container">
+                            <div class="row">
+                                
+                                <div class="col-sm-12">
+                                    <div class="row nav_results">
+                                        <!-- TOTAL -->
+                                        <h3 class="title_interna_vitrine">
+                                            Aluguel Residencial
+                                        </h3>
+                                        <h4 class="subtitle_interna_vitrine">Destaques selecionados para você</h4>
+
+
+
+                                        <!-- CONTROLS -->
+                                        <div class="vitrine_interna">
+                                            
+                                            {% for entry in content.Itens %}
+                                                
+                                                {#
+                                                {% if loop.index == 1 or loop.index0 is divisibleby(2) %}
+                                                <div class="item"> <!-- item duplo -->
+                                                {% endif %}
+                                                #}
+
+                                                {% set image_url = data.IMG_PATH ~ "/thumb/" ~ entry.ID ~ ".jpg" %}
+                                                {% if entry.UrlTrack %}
+                                                    {% set product_url = "/imovel/" ~ entry.UrlTrack ~ "/ID-" ~ entry.ID %}
+                                                {% else %}
+                                                    {% set product_url = "/imovel/oferta/ID-" ~ entry.ID %}
+                                                {% endif %}
+                                                
+                                                <div class="col-sm-4">
+                                                    <div class="product_itemBx item-id-{{entry.ID}}"><!-- item unico -->
+                                                        {% if siteparam.userfavoritos == 1 %}
+                                                        <div class="icon-favoritos">
+                                                            <div class="btn-favoritos" onclick="addFav({{entry.ID}})">
+                                                                <span>Adicionar aos Favoritos</span>
+                                                                <i class="fa fa-heart heart-{{entry.ID}}"></i>
+                                                                <i class="fa fa-heart animated heart-{{entry.ID}}"></i></div>
+                                                        </div>
+                                                        <input type="text" class="hide produto-favorito prod-id-{{entry.ID}}" value='{"ID":"{{entry.ID}}", 
+                                                               "ValorVenda":"{{entry.ValorVenda}}", "ValorLocacao":"{{entry.ValorLocacao}}", 
+                                                               "BairroNome":"{{entry.BairroNome}}", "ImagemDestaque":"{{entry.ImageUrl}}", 
+                                                               "BairroNome":"{{entry.BairroNome}}", "TipoNome":"{{entry.TipoNome}}", "AreaUtil":"{{entry.AreaUtil}}", 
+                                                               "QtdSuite":"{{entry.QtdSuite}}", "QtdQuarto":"{{entry.QtdQuarto}}", "QtdWcTotal":"{{entry.QtdWcTotal}}", 
+                                                               "QtdVaga":"{{entry.QtdVaga}}", "Imovel": "true" }'>
+                                                        {% endif %}
+
+                                                        <div class="product_itemBxTop">
+                                                            <a class="vit_link_foto" href="{{product_url}}">
+                                                                <div class="pdct_pic">                                    
+                                                                    <div class="vitrine-venda-img" style="background-image: url('{{entry.ImageUrl}}');">
+                                                                            <div class="hover_img">
+                                                                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                                {% if entry.EmpreendimentoNome %}
+                                                                    <h6 class="EmpreendimentoNome"><small>Empreendimento:</small> {{ entry.EmpreendimentoNome }}</h6>
+                                                                {% endif %}
+                                                            </a>                                        
+                                                        </div>
+                                                                        
+                                                        <div class="product_itemBxBot">
+                                                            <div class="row">
+                                                                <div class="itens_info">
+                                                                    
+                                                                    <div class="col-sm-12">
+                                                                        <p class="text-center">{{entry.TipoNome}}</p>
+                                                                        <hr class="row">
+                                                                    </div>
+
+                                                                </div>
+                                                                
+                                                                <div class="col-xs-12 col-sm-12 text-center">
+                                                                    <h3>{{entry.BairroNome}}</h3>
+                                                                </div>
+                                                                
+                                                                <div class="col-xs-12 col-sm-12 text-center">
+                                                                    <div class="nomeh4">{{entry.CidadeNome}} - {{entry.EstadoSigla}}</div>
+                                                                </div>
+
+                                                                <div class="col-sm-12">
+                                                                    {% if entry.TipoNome or entry.QtdQuarto %}
+                                                                        <h4>
+
+                                                                            {% if entry.TipoNome %}
+                                                                                {{ entry.TipoNome }}
+                                                                            {% endif %}
+
+                                                                            {% if entry.TipoNome and entry.ValorVenda or entry.TipoNome and entry.ValorLocacao %}
+                                                                                para
+                                                                            {% endif %}
+
+                                                                            {# {% if entry.ValorVenda %}
+                                                                                Venda
+                                                                            {% endif %} #}
+
+                                                                            {% if entry.ValorLocacao %}
+                                                                                Aluguel
+                                                                            {% endif %}
+
+                                                                            {% if entry.QtdQuarto %}
+                                                                                com {{ entry.QtdQuarto }}
+                                                                                {{ entry.QtdQuarto > 1 ? 'Quartos' : 'Quarto' }}
+                                                                            {% endif %}
+
+                                                                            {% if entry.QtdSuite %}
+                                                                                sendo {{ entry.QtdSuite }}
+                                                                                {{ entry.QtdSuite > 1 ? 'Suites' : 'Suíte' }}
+                                                                            {% endif %}
+                                                                        </h4>
+                                                                    {% endif %}
+                                                                </div>
+
+
+                                                                <div class="col-sm-6">
+
+                                                                    {% set Preco = entry.ValorLocacao %}
+
+                                                                    {# {% if entry.ValorLocacao %}
+                                                                        {% set Preco = entry.ValorLocacao %}
+                                                                    {% elseif entry.ValorVenda %}
+                                                                        {% set Preco = entry.ValorVenda %}
+                                                                    {% endif %} #}
+
+                                                                    {% if Preco %}
+                                                                        <h5 class="price"><small>R$</small> {{ Preco|number_format(0, ',', '.') }}</h5>
+                                                                    {% endif %}
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="content_btn_more text-center">
+                                                                        <a class="bt-saibamais" href="{{product_url}}">Ver Imóvel</a>
+                                                                    </div>
+                                                                </div>
+
+                                                                {% include ['custom.helpers.botoes-share-vitrine','core.helpers.botoes-share-vitrine'] %}
+                                                                
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                {#
+                                                {% if loop.index is divisibleby(2) %}
+                                                </div> <!-- item duplo -->
+                                                {% endif %}
+                                                #}
+
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <!-- CONTENT LIST -->
+
+                            </div>
+                        </div>
+                    {% include ['custom.partials.barra-flutuante','core.partials.barra-flutuante'] %}
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+
+    <script src="{{ asset('/js/controller/busca-avancada.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/controller/prontos.js') }}" type="text/javascript"></script>
+    
+    <script src="{{ asset('/js/plugins/custom.list.js') }}"></script>
+
+    <script src="{{ asset('/js/plugins/nouislider.min.js') }}"></script>
+    <link  href="{{ asset('/js/plugins/nouislider.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <script src="{{ asset('/js/plugins/wNumb.js') }}"></script>
+{#
+    <script src="{{ asset('/js/plugins/jquery.simplePagination.js') }}"></script>
+    <link  href="{{ asset('/js/plugins/jquery.simplePagination.css') }}" rel="stylesheet" type="text/css" />#}
+            
+    
+    <script>
+    /* PRONTOS */ 
+    function callPage(){
+        gAJAX = "abort";
+        setLoading("remove");
+        window.location.reload();
+    }
+
+    $( document ).ready(function() {
+        //console.log('chegou');
+    });
+
+    </script>
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

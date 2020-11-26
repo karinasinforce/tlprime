@@ -1,0 +1,65 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Cadastre-se{% endblock %}
+
+{% block content_header_title %}
+                <div class="">{{data.Titulo}}</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Cadastre-se na nossa newsletter</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{% set actual_page = "page-newsletter page_form" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+                        
+
+                        <div class="row box-newsletter">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                {% include ['custom.helpers.formulario-newsletter','core.helpers.formulario-newsletter'] %}
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs">
+                                {% include ['custom.helpers.endereco','core.helpers.endereco'] %}
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="{{ asset('/js/controller/newsletter.js') }}" type="text/javascript"></script>
+
+    {% if data.isMobile %}
+        <script src="{{ asset('/js/controller/busca-avancada.js') }}" type="text/javascript"></script>
+    {% endif %}
+
+{% endblock %}
+
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

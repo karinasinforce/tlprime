@@ -1,0 +1,82 @@
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Quem Somos{% endblock %}
+
+{% block content_header_title %}
+                <div class="">Quem Somos</div>
+
+{% endblock %}
+
+{% block content_header_description %}
+                <div class="hide">Quem Somos</div>
+{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+{# 
+{% set actual_page = "page-quem-somos" %} #}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+                        
+                        {% if not data.isMobile %}                        
+                        <div class="row">
+                            <div class="col-md-12 box-quem-somos">                            
+                                <h2>Quem somos</h2>
+                                
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum 
+                                    suscipit urna dolor, vitae vehicula magna ultrices vitae. Nam turpis
+                                    lectus, commodo a eleifend a, convallis vitae lorem. Praesent tempor 
+                                    facilisis dolor sed tempus. Phasellus id tristique risus. Phasellus mollis
+                                    aliquet sapien eget interdum. Pellentesque id lorem sagittis, condimentum 
+                                    lectus eu, gravida urna. Donec nec diam neque. Donec in nisl nec nisi fringilla 
+                                    dignissim non non nulla. Donec ultricies egestas leo sollicitudin pharetra.
+                                    Pellentesque sed egestas nisi. Curabitur sagittis venenatis augue nec feugiat.
+                                    Pellentesque tellus turpis, aliquet eget venenatis quis, dignissim sit amet eros.</p>
+
+                                <p>Mauris ex nulla, porta ac enim id, luctus aliquam ante. Aliquam eu commodo dolor,
+                                    eget aliquam eros. Nullam nisl elit, convallis id mauris id, tempor pellentesque 
+                                    odio. Sed sit amet lectus id ligula tincidunt consectetur eu sed libero. Nullam
+                                    dui mi, mattis et gravida in, gravida vel sem. Sed pellentesque velit sed ipsum 
+                                    rhoncus interdum. Nulla ante dolor, luctus at vehicula non, consequat quis erat. Aliquam
+                                    erat volutpat. Sed nec leo sit amet lacus viverra tincidunt ac in tellus. Cras 
+                                    placerat vehicula nisi, vitae porta elit. Orci varius natoque penatibus et magnis 
+                                    dis parturient montes, nascetur ridiculus mus. Morbi tristique placerat aliquam.
+                                    Pellentesque viverra molestie enim vel ultrices. Nullam semper ex neque, nec feugiat
+                                    augue pharetra quis. Nam vehicula dapibus turpis a consectetur.</p>
+
+                                <p>Proin vitae sapien eget felis iaculis rutrum sit amet eget enim. Maecenas sed imperdiet
+                                    justo. Nulla vel ultricies arcu, nec malesuada leo. Fusce vel rutrum magna.
+                                    Nulla lacus odio, vestibulum non lobortis a, cursus et felis. Nunc in turpis sit amet
+                                    nibh finibus faucibus quis a augue. Quisque quis dui vel ex euismod facilisis.
+                                    Quisque eget diam nec ex auctor condimentum. Aliquam erat volutpat. Nam maximus auctor
+                                    sem, ac euismod leo vulputate id. Praesent vitae urna mi. Fusce a finibus mi. In sed
+                                    dui sit amet leo posuere dignissim.</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    <script src="{{ asset('/js/controller/newsletter.js') }}" type="text/javascript"></script> 
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

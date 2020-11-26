@@ -1,0 +1,77 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% set class_mobile = '' %}{% if data.isMobile %} {% set class_mobile = 'mobile' %} {% endif %}
+
+{% set content      = content %}
+
+
+    <div class="hide">
+        {% include ['custom.layouts.prontos.lista-item-handle','core.layouts.prontos.lista-item-handle'] with { Finalidade : content.url_local.Finalidade, Tipos : content.url_local.Tipos, Regioes : content.url_local.Regioes, content:content, data:data } %}
+    </div>
+
+    <div class="product-list-container {{class_mobile}}">
+        <div class="load_grid_list">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        </div>
+        <div class="row">
+            
+            <!-- LISTA DE PRODUTOS -->
+            <div class="col-12 content-list" id="product-list">
+
+            </div>                     
+            <div class="col-12 content-list" id="product-list-mobile"></div>
+                        
+        </div>
+        
+        
+        {# {% if data.isMobile %} #}
+        <!-- BOTAO MOBILE VEJA MAIS -->            
+        <div class="btn_box-veja-mais d-xl-none">
+            <button class="btn-mobile-veja-mais" onclick="doSearchMobile()">Carregar Mais</button>
+        </div>
+        {#
+        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
+            <span class="lista-loader">
+                <img src="/img/loader.svg"/>
+                </br>carregando 
+            </span>
+        </div>                
+        #}
+        {# {% endif %} #}
+        
+                
+        <!-- SEM RESULTADOS -->
+        <div class="message-box">
+            <div class="conteudo-nao-encontrado hide">
+                {% include ['custom.errors.conteudo-nao-encontrado','core.errors.conteudo-nao-encontrado'] %}
+            </div>
+            <div class="acesso-nao-autorizado hide">
+                {% include ['custom.errors.acesso-nao-autorizado','core.errors.acesso-nao-autorizado'] %}
+            </div>
+            <div class="nenhum-encontrado">
+
+            </div>
+            <div class="nenhum-encontrado-sugestao hide">
+                {# include ['custom.errors.nenhum-encontrado','core.errors.nenhum-encontrado'] #}
+                {% include ['custom.errors.nenhum-encontrado-sugestao','core.errors.nenhum-encontrado-sugestao'] %}
+            </div>
+            <div class="erro-servidor hide">
+                {% include ['custom.errors.erro-servidor','core.errors.erro-servidor'] %}
+            </div>
+        </div>
+                     
+    </div>
+           
+            
+{% include ['custom.layouts.prontos.modal','core.layouts.prontos.modal'] with { content:content } %}            
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

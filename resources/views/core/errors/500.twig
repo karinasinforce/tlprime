@@ -1,0 +1,37 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% extends ['custom.layouts.app','core.layouts.app'] %}
+
+{% block htmlheader_title %}
+ - Página não encontrada
+{% endblock %}
+
+{% block contentheader_title %}{% endblock %}
+
+{% block contentheader_description %}{% endblock %}
+
+{% block contentheader_breadcrumb %}{% endblock %}
+
+{% block main_content %}
+                <div class="row">    
+                    <div class="col-md-12">                                        
+                        <div class="error-page">
+                            <h2 class="headline text-yellow">404</h2>
+                            <div class="error-content">
+                                <h3><i class="fa fa-warning text-yellow"></i> Oops! Ocorreu um erro!</h3>
+                                <p>Por favor, volte para a <a href='{{ url('/') }}'>Página Inicial</a>.</p>
+                            </div><!-- /.error-content -->
+                        </div><!-- /.error-page -->
+                    </div>
+                </div>
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

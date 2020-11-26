@@ -1,0 +1,63 @@
+<section id="news">
+    <div class="container">
+        <div class="col-sm-5">
+            <img src="/img/land/carta.svg" alt="" class="img-responsive tosvg" height="320">
+        </div>
+        <div class="col-sm-7">
+            <h3>Se encantou com o empreendimento <br>
+                e gostaria de receber contato?</h3>
+
+            <p>Preencha o formulário abaixo. Você receberá retorno em até 24 horas:</p>
+
+            <form class="form-contato">
+                {{ csrf_field() }}
+                <input type="hidden" name="token" value="{{data.Guest.token|default("")}}">
+                <input type="hidden" name="FormularioID" value="2">
+                <input type="hidden" name="LancamentoID" value="{{content.ID}}" data="true">
+                <input type="hidden" name="Tag" value="contato/land-empreendimento">
+                <input type="hidden" name="FlagNewsletter" value="true">
+                <input type="hidden" name="Origem" value="form-newsletter" data="values">
+                <input type="hidden" name="Lancamento" value="{{content.Nome}}" data="values">
+                
+                <div class="row">
+                    
+                    <div class="form-group col-sm-6 col-xs-12">
+                        {# todos os inputs, textarea, checkbox etc precisam ter a classe 'form-control' #}
+                        <input class="form-control" type="text" name="Nome" value="{{data.Guest.Nome|default("")}}" placeholder="Nome*" required/>
+                    </div>
+                        
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <input class="form-control mask-email" type="text" name="Email" value="{{data.Guest.Email|default("")}}" placeholder="E-mail*" required/>                            
+                    </div>
+
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <input class="form-control mask-tel" type="text" name="TelResidencial" value="" placeholder="Telefone"/>                            
+                    </div>
+
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <input class="form-control mask-tel" type="text" name="TelCelular" value="" placeholder="Whatsapp*"/>                            
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <textarea name="Mensagem" class="form-control" placeholder="Mensagem*" required></textarea>
+                    </div>
+                    
+                    <span class="contato-mss" style="display: block;"></span>
+                        
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            {# o botao de submit precisa ter a classe 'form-submit' #}
+                            <div class="col-sm-4 pull-right">
+                                <button class="btn form-control form-submit" value="ok">Enviar</button>
+                            </div>
+                        </div>                            
+                    </div>
+
+                </div>
+                
+            </form>
+
+            <p>Quer conhecer mais? <a href="/">Clique aqui</a> e continue navegando!</p>
+        </div>
+    </div>
+</section>

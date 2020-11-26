@@ -1,0 +1,29 @@
+
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+
+        <div class="wrapper_bread">
+            <div class="container">
+                {% if (content_header_breadcrumb) %}
+                <ol class="breadcrumb">
+                    <li><a href="/home">Página Inicial</a></li>
+                    {{ content_header_breadcrumb|raw }}
+                </ol>
+                {% endif %}
+                {{ content_share_bread|raw }}
+            </div>
+        </div>
+
+        {% if (content_header_title) %}
+            <div class="main_title">
+                <div class="container">
+                    <h1>
+                        {{ content_header_title|raw }}
+                        <small>{{ content_header_description|raw }}</small>
+                    </h1>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+
+

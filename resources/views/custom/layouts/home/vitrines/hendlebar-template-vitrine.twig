@@ -1,0 +1,93 @@
+
+{% verbatim %}                        
+<script id="template-vitrines" type="text/x-handlebars-template" class="hide">
+
+    <div class="col-sm-12 px-0">
+        <div id="owl-home-vitrine-dinamic" class="owl-carousel">
+            
+            {{#each items}} 
+                <div class="product_itemBx mb-4 item-id-{{ID}}">
+                                        
+                    <div class="product_itemBxTop">
+                        <a class="vit_link_foto" href="/imovel/{{slug TipoNome}}-{{slug BairroNome}}/ID-{{ID}}">
+                            <div class="pdct_pic">                                    
+                                
+                                <div class="vitrine-venda-img owl-lazy" data-src="{{ImageUrl}}?wm=5">
+                                    <div class="hover_img"></div>
+                                </div>
+                            </div>
+                        </a>                                        
+                    </div>
+
+                    <div class="product_itemBxBot">
+                        <a href="/imovel/{{slug TipoNome}}-{{slug BairroNome}}/ID-{{ID}}">
+                            <h3>
+                                {{#if EmpreendimentoNome}}
+                                <span class="empnome">
+                                    {{EmpreendimentoNome}} 
+                                </span> - 
+                                {{/if}}
+                                {{#if TipoNome }}
+                                    {{ TipoNome }}
+                                
+                                    {{#if ValorVenda  }}
+                                        para venda
+                                    {{else}}
+                                        pata locação
+                                    {{/if}}
+                                {{/if}}
+
+                                {{#if QtdQuarto }}com {{ qtdquartos QtdQuarto }}{{/if}}{{#if QtdSuite }}, sendo {{ qtdsuites QtdSuite }}{{/if }}
+                                {{#if QtdVaga}} e {{ qtdvagas QtdVaga }}{{/if}}, {{BairroNome}}
+                            </h3>
+                        </a>
+
+                        <div class="localidade">
+                            <i class="fas fa-map-marker-alt"></i> {{Titulo}}
+                        </div>
+
+                        <ul class="icons">
+                            {{#if QtdQuarto}}
+                                <li>
+                                    <img src="./img/svg/quartos.svg" alt="" class="tosvg" height="17">
+                                    <span>{{QtdQuarto}}</span>
+                                </li>
+                            {{/if}}
+                            {{#if QtdWcTotal}}
+                                <li>
+                                    <img src="./img/svg/shower.svg" alt="" class="tosvg" height="17">
+                                    <span>{{QtdWcTotal}}</span>
+                                </li>
+                            {{/if}}
+                            {{#if QtdVaga}}
+                                <li>
+                                    <img src="./img/svg/car-in-garage.svg" alt="" class="tosvg" height="17">
+                                    <span>{{QtdVaga}}</span>
+                                </li>
+                            {{/if}}
+                            {{#if AreaUtil}}
+                                <li class="area">
+                                    <img src="./img/svg/area.svg" alt="" class="tosvg" height="17">
+                                    <span>{{AreaUtil}}m<sup>2</sup></span>
+                                </li>
+                            {{/if}}
+
+                        </ul>
+
+                        <div class="valorimv">
+                            <a href="/imovel/{{slug TipoNome}}-{{slug BairroNome}}/ID-{{ID}}">
+                                <small>R$ </small>
+                                <span>
+                                    {{formatCurrency Valor}}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+
+</script>
+{% endverbatim %}  

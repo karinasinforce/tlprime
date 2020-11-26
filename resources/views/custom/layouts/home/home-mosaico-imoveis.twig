@@ -1,0 +1,176 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+{% if content.Itens[0] %}
+<div class="vitrine" id="home-mosaico-imoveis">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product_item_sec">
+                    <div class="row">
+                        <div class="col-sm-12">         
+                            <h2>{{content.Titulo|default('Mosaico')}}</h2>
+                            <p class="subtitulo">{{content.SubTitulo|default('Encontre aquele local especial')}}</p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>                  
+                
+                    <div class="row">
+                        {% if content.Itens[1] is defined %}
+                        <div class="col-sm-12 col-md-4">
+                            <div class="row">
+                                {% set item = content.Itens[1] %}
+                                {% set image_url = '/img/placeholders/vitrine-demo.jpg' %}
+                                {% set image_url = IMG_PATH~'/vitrine/lancamento/'~item.ID %}
+                                {% set image_url = item.ImageUrl %}
+                                <div class="col-sm-12">
+                                    <div class="lancamentos_pic_row row_one" style="background-image: url({{image_url}}); 
+                                        background-repeat: no-repeat; background-size: cover;">
+                                        <div class="camada-opacity"></div>
+                                        <div class="lancamentos_pic_txt">
+                                            <p class="tipo"> {{item.Tipos}}</p>
+                                            <div class="nomeh5">{{item.Nome}}</div>
+                                            <p class="barra_upercas"><a href="/lancamento/{%if item.UrlTrack%}{{item.UrlTrack}}{%else%}oferta{%endif%}/ID-{{item.ID}}" title="">Saiba mais</a></p>
+                                        </div>                
+                                    </div>
+                                </div>
+                            </div>
+                                        
+                            <div class="row">
+                                {% if content.Itens[2] is defined %}
+                                {% set item = content.Itens[2] %}
+                                {% set image_url = '/img/placeholders/vitrine-demo.jpg' %}
+                                {% set image_url = IMG_PATH~'/vitrine/lancamento/'~item.ID %}
+                                {% set image_url = item.ImageUrl %}
+                                <div class="col-sm-12">
+                                    <div class="lancamentos_pic_row row_two" style="background-image: url({{image_url}}); 
+                                        background-repeat: no-repeat; background-size: cover;">
+                                        <div class="camada-opacity"></div>
+                                        <div class="lancamentos_pic_txt">
+                                            <p class="tipo"> {{item.Tipos}}</p>
+                                            <div class="nomeh5">{{item.Nome}}</div>
+                                            <p class="barra_upercas"><a href="/lancamento/{%if item.UrlTrack%}{{item.UrlTrack}}{%else%}oferta{%endif%}/ID-{{item.ID}}" title="">Saiba mais</a></p>
+                                        </div>                
+                                    </div>
+                                </div>    
+                                {% endif %}
+                            </div>    
+                        </div>
+                        {% endif %}
+                    
+                        {% if content.Itens[0] is defined %}
+                        <div class="col-sm-12 col-md-4">
+                            <div class="row">
+                                {% set item = content.Itens[0] %}
+                                {% set image_url = '/img/placeholders/vitrine-demo.jpg' %}
+                                {% set image_url = IMG_PATH~'/vitrine/lancamento/'~item.ID %}
+                                {% set image_url = item.ImageUrl %}
+
+                                {% if item.ValorMenor > 1000 %}
+                                    {% set ValorImovel = (item.ValorMenor / 1000) %}
+                                    {% set Milhar = "mil" %}
+                                {% else %}
+                                    {% set ValorImovel = item.ValorMenor|number_format(2, ',', '.') %}
+                                    {% if item.ValorMenor == 0 %}
+                                        {% set ValorImovel = "Consulte" %}
+                                    {% endif %}
+                                {% endif %}
+
+                                <div class="col-sm-12">
+                                    <div class="lancamentos_pic_colm">
+                                        <div class="camada-blur" style="
+                                            background-image: url({{image_url}}); 
+                                            background-repeat: no-repeat; 
+                                            background-position: center center;
+                                            background-size: cover;"></div>
+                                        <div class="camada-opacity"></div>
+                                        <div class="lancamentos_pic_txt">
+                                            <p class="tipo"> {{item.Tipos}}</p>
+                                            <div class="nomeh5">{{item.Nome}}</div>
+                                            <p> 
+                                                {% if item.ValorMenor > 0 %}
+                                                <span style="display: block">a partir de</span><br>
+                                                <span class="moeda">R$</span>
+                                                {% endif %}
+                                                <span class="valor">{{ValorImovel}}</span>
+                                                <span class="milhar">{{Milhar|default('')}}</span>
+                                            </p>                                    
+                                            <p class="barra_upercas"><a href="/lancamento/{%if item.UrlTrack%}{{item.UrlTrack}}{%else%}oferta{%endif%}/ID-{{item.ID}}" title="">Saiba mais</a></p>
+                                        </div>                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    
+                        {% if content.Itens[3] is defined %}
+                        <div class="col-sm-12 col-md-4">
+                            <div class="row">
+                                {% set item = content.Itens[3] %}
+                                {% set image_url = '/img/placeholders/vitrine-demo.jpg' %}
+                                {% set image_url = IMG_PATH~'/vitrine/lancamento/'~item.ID %}
+                                {% set image_url = item.ImageUrl %}
+                                <div class="col-sm-12">
+                                    <div class="lancamentos_pic_row row_one" style="background-image: url({{image_url}}); 
+                                        background-repeat: no-repeat; background-size: cover;">
+                                        <div class="camada-opacity"></div>
+                                        <div class="lancamentos_pic_txt">
+                                            <p class="tipo"> {{item.Tipos}}</p>
+                                            <div class="nomeh5">{{item.Nome}}</div>
+                                            <p class="barra_upercas"><a href="/lancamento/{%if item.UrlTrack%}{{item.UrlTrack}}{%else%}oferta{%endif%}/ID-{{item.ID}}" title="">Saiba mais</a></p>
+                                        </div>                
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                {% set item = content.Itens[4] %}
+                                {% set image_url = '/img/placeholders/vitrine-demo.jpg' %}
+                                {% set image_url = IMG_PATH~'/vitrine/lancamento/'~item.ID %}
+                                {% set image_url = item.ImageUrl %}
+                                <div class="col-sm-12">
+                                    <div class="lancamentos_pic_row row_two" style="background-image: url({{image_url}}); 
+                                        background-repeat: no-repeat; background-size: cover;">
+                                        <div class="camada-opacity"></div>
+                                        <div class="lancamentos_pic_txt">
+                                            <p class="tipo"> {{item.Tipos}}</p>
+                                            <div class="nomeh5">{{item.Nome}}</div>
+                                            <p class="barra_upercas"><a href="/lancamento/{%if item.UrlTrack%}{{item.UrlTrack}}{%else%}oferta{%endif%}/ID-{{item.ID}}" title="">Saiba mais</a></p>
+                                        </div>                
+                                    </div>
+                                </div>                    
+                            </div>                                                            
+                        </div>
+                        {% endif %}
+                        
+                    </div>
+                
+                {#
+                    <div class="col-sm-12 text-center">
+                        </br>
+                        <a class="bt-saibamais" href="/lancamentos">Ver mais Imóveis</a>
+                        </br>
+                    </div>
+                #}
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{%if content.ExceptionMessage %}
+    <div class="col-md-12">
+        <h3>{{content.ExceptionMessage}}</h3>
+    </div>
+{%endif%}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

@@ -1,0 +1,487 @@
+<div class="container-busca-avancada side">
+    <div class="content_close_mobile_busca d-xl-none">
+        <div class="container">
+            <button type="button" class="close_mobile_busca" data-target="#navbarNavDropdown">
+                <i class="fas fa-arrow-left"></i>
+                <small>fechar</small>
+            </button>
+        </div>
+    </div>
+    <!-- NOVA BUSCA -->
+    <div class="search_box lateral hidden-xs hidden-sm">
+        <form name="main-search" class="search-form" id="main-search">
+            
+            <!-- OBRIGATORIO -->          
+            <input type="hidden" id="InputsFinalidade"          name="Finalidade"           value="{{info_api.url_local.Finalidade|default("venda")}}">
+            <input type="hidden" id="InputsValorMin"            name="ValorMin"             value="{{info_api.inputs.ValorMin|default('0')}}"/>
+            <input type="hidden" id="InputsValorMax"            name="ValorMax"             value="{{info_api.inputs.ValorMax|default('50000000')}}"/>
+            <input type="hidden" id="InputsAreaMin"             name="AreaMin"              value="{{info_api.inputs.AreaMin|default('0')}}">
+            <input type="hidden" id="InputsAreaMax"             name="AreaMax"              value="{{info_api.inputs.AreaMax|default('6000')}}">
+            <input type="hidden" id="InputsQtdQuarto"           name="QtdQuarto"            value="{{info_api.inputs.QtdQuarto|default('')}}">
+            <input type="hidden" id="InputsQtdSuite"            name="QtdSuite"             value="{{info_api.inputs.QtdSuite|default('')}}">
+            <input type="hidden" id="InputsQtdBanheiro"         name="QtdBanheiro"          value="{{info_api.inputs.QtdBanheiro|default('')}}">
+            <input type="hidden" id="InputsQtdVaga"             name="QtdVaga"              value="{{info_api.inputs.QtdVaga|default('')}}">
+            <input type="hidden" id="InputsTipos"               name="Tipos"                value="{{info_api.url_local.Tipos|default('')}}">
+            <input type="hidden" id="InputsCondominioNome"      name="CondominioNome"       value="">
+            <input type="hidden" id="InputsEmpreendimentoNome"  name="EmpreendimentoNome"   value="">
+            <input type="hidden" id="InputsCaracteristica"      name="Caracteristica"       value="[]">
+            <input type="hidden" id="InputsAnuncio"             name="Anuncio"              value="[]">
+            {% if info_api.inputs.AutoSuggest %}
+                <input type="hidden" id="InputsAutoSuggest"         name="AutoSuggest"          value="{{info_api.inputs.AutoSuggest|default('')}}">
+            {% else %}
+                <input type="hidden" id="InputsAutoSuggest"         name="AutoSuggest"          value="{{info_api.json.AutoSuggest|default('')}}">
+            {% endif %}
+            
+            <input type="hidden" id="InputsUF"                  name="UF"                   value="{{info_api.url_local.UF|default('')}}">                
+            <input type="hidden" id="InputsHasMapa"             name="HasMapa"              value="false">
+            <input type="hidden" id="InputsOrder"               name="Order"                value="{{info_api.inputs.Order|default('')}}">
+            <input type="hidden" id="InputsActualPage"          name="Page"                 value="{{info_api.inputs.Page|default(1)}}">
+            <input type="hidden" id="InputsPageSize"            name="PageSize"             value="{{info_api.inputs.PageSize|default(10)}}">
+            <input type="hidden" id="InputsCorretor"            name="NomeCorretor"         value="{{sitecorretor.Nome|default('')}}">                
+            <input type="hidden" id="InputsSimilares"           name="carregarSimilares"    value="true">
+            <input type="hidden" id="InputsSomenteImoveis"      name="SomenteImoveis"       value="true">
+            
+            <div class="search">
+                <!-- TOP -->
+                <div class="search-lateral row">
+                    <div class="container px-xl-0">
+                        <div class="row mx-0">
+                            {# busca por codigo #}
+                            <div class="col-12 produto-buscar-codigo cod-imovel form-group">
+                                <label>Busca Por Código</label>
+                                <select id="ImovelCodigo" class="loc-codigo" style="display: none;"></select>
+                            </div>
+                            
+                            {# localizacao #}
+                            <div class="col-12 form-group">
+                                <span class="search_Box1">
+                                    <label>Localização</label>
+                                    <select id="AutoSuggest" style="width: 100%; display: none;" multiple="multiple"></select>
+                                </span>
+                            </div>
+                                          
+                            {# tipo de imovel #}
+                            
+                            <div class="col-12 form-group">                            
+                                <span class="search_Box1 produto-tipo assoc-prontos">
+                                    <label class="search_Box1_padding">Qual o Tipo do Imóvel? {{info_api.inputs.Tipos}}</label>
+                                    <div class="form_control ">
+                                        <select class="select-filtro-lateral form-control" data-filtro="InputsTipos" id="Tipos">
+                                            <option value="" data-value="">Todos os imóveis</option>
+                                            
+                                            {% set keyNat = 1 %}
+                                            {% for key, tipos in selectTipos %}
+                                                {# data-i é para fazer o optiongroup no plugin nice select #}
+                                                <optgroup label="{{key}}" data-i="{{keyNat}}">
+                                                    {% for tipo in tipos %}
+                                                        <option value="{{tipo.Nome|lower}}" data-target="Tipos" data-tag="{{tipo.Nome}}" {{ tipo.Nome|lower == info_api.inputs.Tipos|default('') ? 'selected' : ''}} >{{tipo.Nome}}</option>
+                                                    {% endfor %}
+                                                    {% set keyNat = keyNat + 1 %}
+                                                </optgroup>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                </span>
+                            </div>
+
+                            {# valor #}
+                            <div class="col-12 form-group">
+                                <div class="row">
+                                    
+                                    <div class="col-6 pr-md-1">
+                                        <label>Preço Mínimo</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="input-number-min">R$</label>
+                                            </div>
+                                            <input  type="text" 
+                                                    id="input-number-min" 
+                                                    class="input-sm input-min form-control js-keyup-update" 
+                                                    value="{{info_api.inputs.ValorMin|default("0")}}" 
+                                                    data-target="InputsValorMin"
+                                                    tabindex="5"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 pl-md-1 mt-md-0">
+                                        <label>Preço Máximo</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="input-number-max">R$</label>
+                                            </div>
+                                            <input  type="text" 
+                                                    id="input-number-max" 
+                                                    class="input-sm input-max form-control js-keyup-update"  
+                                                    value="{{info_api.inputs.ValorMax|default("50000000")}}" 
+                                                    data-target="InputsValorMax"
+                                                    tabindex="6"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- /TOP -->
+                             
+                
+                <!-- ADVANCED -->
+                <div class="expand_sec_main row" id="busca-avancada-box">
+                    <!-- adv top -->
+                    <div class="expand_top">
+                        <div class="container px-xl-0">
+                            <div class="row">
+                                {# Quartos #}
+                                <div class="col-12 form-group">
+                                    <label>Quartos</label>
+                                    <ul class="check_options">
+                                        {% set qtdQuartos = info_api.inputs.radQtdQuarto %}
+                                        <li>
+                                            <label for="quarto1">
+                                                <input  type="radio" 
+                                                        {{ qtdQuartos == '1' ? 'checked="checked"' : '' }}
+                                                        name="radQtdQuarto" 
+                                                        id="quarto1" 
+                                                        value="1" 
+                                                        data-target="InputsQtdQuarto" 
+                                                        class="checkbox_item">
+                                                <span>1</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="quarto2">
+                                                <input  type="radio" 
+                                                        {{ qtdQuartos == '2;3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdQuarto" 
+                                                        id="quarto2" 
+                                                        value="2;3;4 ou mais" 
+                                                        data-target="InputsQtdQuarto" 
+                                                        class="checkbox_item">
+                                                <span>2+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="quarto3">
+                                                <input  type="radio" 
+                                                        {{ qtdQuartos == '3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdQuarto" 
+                                                        id="quarto3" 
+                                                        value="3;4 ou mais" 
+                                                        data-target="InputsQtdQuarto" 
+                                                        class="checkbox_item">
+                                                <span>3+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="quarto4">
+                                                <input  type="radio"
+                                                        {{ qtdQuartos == '4 ou mais' ? 'checked="checked"' : '' }} 
+                                                        name="radQtdQuarto" 
+                                                        id="quarto4" 
+                                                        value="4 ou mais" 
+                                                        data-target="InputsQtdQuarto" 
+                                                        class="checkbox_item">
+                                                <span>4+</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                
+                                </div>
+                                
+                                {# Banheiros #}
+                                <div class="col-12 form-group">
+                                    <label>Banheiros</label>
+                                    <ul class="check_options">
+                                        {% set qtdBanheiros = info_api.inputs.radQtdBanheiro %}
+                                        <li>
+                                            <label for="banheiro1">
+                                                <input  type="radio"
+                                                        {{ qtdBanheiros == '1' ? 'checked="checked"' : '' }}
+                                                        name="radQtdBanheiro" 
+                                                        id="banheiro1" 
+                                                        value="1" 
+                                                        data-target="InputsQtdBanheiro" 
+                                                        class="checkbox_item">
+                                                <span>1</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="banheiro2">
+                                                <input  type="radio" 
+                                                        {{ qtdBanheiros == '2;3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdBanheiro" 
+                                                        id="banheiro2" 
+                                                        value="2;3;4 ou mais" 
+                                                        data-target="InputsQtdBanheiro" 
+                                                        class="checkbox_item">
+                                                <span>2+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="banheiro3">
+                                                <input  type="radio" 
+                                                        {{ qtdBanheiros == '3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdBanheiro" 
+                                                        id="banheiro3" 
+                                                        value="3;4 ou mais" 
+                                                        data-target="InputsQtdBanheiro" 
+                                                        class="checkbox_item">
+                                                <span>3+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="banheiro4">
+                                                <input  type="radio" 
+                                                        {{ qtdBanheiros == '4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdBanheiro" 
+                                                        id="banheiro4" 
+                                                        value="4 ou mais" 
+                                                        data-target="InputsQtdBanheiro" 
+                                                        class="checkbox_item">
+                                                <span>4+</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                
+                                </div>
+                                
+                                {# Vagas #}
+                                <div class="col-12 form-group">
+                                    <label>Vagas</label>
+                                    <ul class="check_options">
+                                        {% set qtdVagas = info_api.inputs.QtdVaga %}
+                                        <li>
+                                            <label for="vaga1">
+                                                <input  type="radio" 
+                                                        {{ qtdVagas == '1' ? 'checked="checked"' : '' }}
+                                                        name="radQtdVaga" 
+                                                        id="vaga1" 
+                                                        value="1" 
+                                                        data-target="InputsQtdVaga" 
+                                                        class="checkbox_item">
+                                                <span>1</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="vaga2">
+                                                <input  type="radio" 
+                                                        {{ qtdVagas == '2;3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdVaga" 
+                                                        id="vaga2" 
+                                                        value="2;3;4 ou mais" 
+                                                        data-target="InputsQtdVaga" 
+                                                        class="checkbox_item">
+                                                <span>2+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="vaga3">
+                                                <input  type="radio" 
+                                                        {{ qtdVagas == '3;4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdVaga" 
+                                                        id="vaga3" 
+                                                        value="3;4 ou mais" 
+                                                        data-target="InputsQtdVaga" 
+                                                        class="checkbox_item">
+                                                <span>3+</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="vaga4">
+                                                <input  type="radio" 
+                                                        {{ qtdVagas == '4 ou mais' ? 'checked="checked"' : '' }}
+                                                        name="radQtdVaga" 
+                                                        id="vaga4" 
+                                                        value="4 ou mais" 
+                                                        data-target="InputsQtdVaga" 
+                                                        class="checkbox_item">
+                                                <span>4+</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                
+                                </div>
+
+                                
+                                <div class="col-12 form-group">
+                                    <div class="row">
+                                        
+                                        <div class="col-6 pr-md-1">
+                                            <label>Área Mínima</label>
+                                            <div class="input-group">
+                                                <input  type="text" 
+                                                        id="input-area-min" 
+                                                        class="input-sm input-min form-control js-keyup-update" 
+                                                        value="{{info_api.inputs.AreaMin|default("0")}}"
+                                                        data-target="InputsAreaMin"
+                                                        tabindex="5"/>
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text" for="input-area-min">M²</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 pl-md-1 mt-md-0">
+                                            <label>Área Máxima</label>
+                                            <div class="input-group">
+                                                <input  type="text" 
+                                                        id="input-area-max" 
+                                                        class="input-sm form-control js-keyup-update"  
+                                                        value="{{info_api.inputs.AreaMax|default("6000")}}" 
+                                                        data-target="InputsAreaMax"
+                                                        tabindex="6"/>
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text" for="input-area-max">M²</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+
+                                <div class="col-12">
+                                    <a onclick="doSearch(false)" class="bt-buscar" id="bt-busca-avancada" tabindex="9">Buscar</a>
+                                </div>                                
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ADVANCED -->
+  
+                
+            </div>
+
+        </form>
+    </div>
+    <!-- NOVA BUSCA -->
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        $( document ).ready(function() {
+            $('.select-filtro-lateral').niceSelect();
+
+            $('.check_options label input').click(function(event) {
+                $label = $(this).parent('label');
+                // debugger
+                if ($label.hasClass('checked')) {
+                    $label.removeClass('checked');
+                    $(this).prop('checked', false);
+                } else {
+                    $('.check_options label').removeClass('checked');
+                    $label.addClass('checked');    
+                }
+
+                var targetChange = $(this).data('target');
+                // console.log(targetChange);
+                $('#'+targetChange).val($(this).val());
+                
+            });
+
+            $('.tag_filtro i').click(function(event) {
+                var $label = $(this).parent('.tag_filtro');
+                // Pega o valor atual do autosugest e transforma em objeto
+                var _autoSugest = $('#InputsAutoSuggest').val();
+                var sugest_array = JSON.parse(_autoSugest);
+                
+                // Identifica o item a ser removido pela propriedade tag e o tipo
+                var dataTag = $label.data('sugest-tag');
+                var dataTipo = $label.data('tipo');
+                
+                // Se estiver vinculado ao autosugest trata os dados e atualiza o autosugest
+                if ( dataTipo == 'sugest' ) {
+                    
+                    // Remove o elemento clicado do objeto capiturado no autosugest
+                    var newData = sugest_array.filter( function( elem, index, array ) {
+                        return elem.Tag !== dataTag;
+                    });
+
+                    // Transforma o obj em string
+                    var dataString = JSON.stringify(newData);
+                    // Zera as informações do autosugest
+                    $('#AutoSuggest').html('').val(null).trigger("change");
+                    
+                    // insere as novas informações
+                    fillInputRegiao( dataString );
+                    $label.remove();
+                    // Atualiza a busca
+                    doSearch();
+                }
+
+                if ( dataTipo == 'selectTipo' ) {
+                    $('#InputsTipos').val('');
+                    $label.remove();
+                    doSearch();
+                }
+
+                if ( dataTipo == 'valmax' ) {
+                    var defaultVal = $label.data('default-value');
+                    $('#InputsValorMax').val(defaultVal);
+                    $label.remove();
+                    doSearch();
+                }
+
+                if ( dataTipo == 'valmin' ) {
+                    $('#InputsValorMin').val('0');
+                    $label.remove();
+                    doSearch();
+                }
+
+                if ( dataTipo == 'inputs' ) {
+                    
+                    var inputTarget = $label.data('target');
+                    $('#'+inputTarget).val('');
+                    $label.remove();
+                    doSearch();
+                }
+
+                if ( dataTipo == 'areamin' ) {
+                    $('#InputsAreaMin').val('0');
+                    $label.remove();
+                    doSearch();
+                }
+
+                if ( dataTipo == 'areamax' ) {
+                    var defaultArea = $label.data('default-value');
+                    $('#InputsAreaMax').val(defaultVal);
+                    $label.remove();
+                    doSearch();
+                }
+
+                console.log('click');
+
+
+            });
+
+            $('.js-keyup-update').keyup(function(event) {
+                var newValue = $(this).val();
+                var targetUpdate = $(this).data('target');
+
+                if (newValue == '' || newValue == undefined ) {
+                    newValue = 0;
+                }
+                
+                newValue = newValue.replace(/\./g, '');
+                $('#'+targetUpdate).val( parseInt( newValue ) );
+
+            });
+
+            // Alterar busca por finalidade
+            var actual_finalidade = $('#InputsFinalidade').val();
+            $('.bt_finalidade').click(function(e) {
+                e.preventDefault();
+                var dataFin = $(this).data('fin');
+                if ( dataFin != actual_finalidade ) {
+                    window.location = '/'+dataFin+'/imoveis' + window.location.search;
+                }
+            });
+            
+        });
+    });
+</script>

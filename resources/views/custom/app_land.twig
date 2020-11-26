@@ -1,0 +1,427 @@
+{% spaceless %}
+<!DOCTYPE html>
+{# CONFIGURACAO DOS PARAMETROS <- SESSION #}
+{% if session_get('parametros') %}{% set siteparam = session_get('parametros') %}{% else %}{% set siteparam = '' %}{% endif %}
+{% if session_get('corretor') %}{% set sitecorretor = session_get('corretor') %}{% else %}{% set sitecorretor = '' %}{% endif %}
+
+
+<html lang="en">
+    {% include ['custom.layouts.land.html-header','core.layouts.land.html-header'] with { html_header_title: block('html_header_title'), siteparam:siteparam } %}
+    
+    <body class="page {{actual_page|default("")}}  {%if data.isMobile %}mobile{%endif%}">
+        
+        {# Plugin do facebook (rodapé - likebox)#}
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+        {# Plugin do facebook (rodapé - likebox)#}
+
+        <div class="wrapper">
+            {% include ['custom.layouts.land.header-land','core.layouts.land.header-land'] %}
+            <div class="content-wrapper">
+                <section class="content">
+                {% if content.ExceptionMessage %}
+                        <div class="container">
+                            <!-- CONTENT DETAIL -->
+                            <div class="row">
+                                {% include ['custom.errors.erro-identificado','core.errors.erro-identificado'] with {content: content, data:data} %}
+                            </div>
+                        </div>
+                {% else %}                    
+                    {{ block('main_content') }}
+                {% endif %}
+                </section>
+            </div>
+            {% include ['custom.layouts.land.footer-land','core.layouts.land.footer-land'] %}
+        </div>
+        <div class="full-loader">
+            <div class="loading">
+                <img alt="loading..." src="/img/loader.svg"/>
+                </br>carregando
+            </div>
+        </div>
+            
+        <div class="topper">
+            <i class="fa fa-chevron-up"></i>
+        </div>
+
+        {% include ['custom.layouts.land.form-interessado','core.layouts.land.form-interessado'] %}
+
+        {% include ['custom.layouts.land.form-outpage','core.layouts.land.form-outpage'] %}
+        
+        {% include ['custom.helpers.widget-float-button','core.helpers.widget-float-button'] with {
+            link: siteparam['wg-contact-link']|default(null), 
+            target: siteparam['wg-contact-link-target']|default(null), 
+            color: siteparam['wg-contact-color']|default(null), 
+            font_awesome_class: siteparam['wg-contact-icon']|default(null), 
+        } %}
+
+        {% include ['custom.partials.scripts','core.partials.scripts'] with {slickslider: true, lightgal: true}%}
+
+
+        {%if not content.ExceptionMessage %}
+        {{ block('extra_scripts') }}
+                
+        <script>
+                    
+        $(document).ready(function(){
+
+            // GUEST
+            // verifica se existe um track ativo
+            verifyGuest();
+                
+
+            /* Funcao que trata os dados do form de contato para envio para a API */
+            $(".form-contato .form-submit").click(function(){
+                
+                var url                 = "{{API_PATH}}/{{API_KEY}}/Formulario/Generico";
+
+                var error               = null;
+                var form                = $(this).parents(".form-contato");
+
+                var message             = "";
+                var unindexed_array     = form.serializeArray();
+                var indexed_array       = IndexDataForm(unindexed_array);
+                var values_array        = indexed_array;
+                var values              = "";
+                
+                
+                // prepara os inputs com os data=values
+                values_array            = IndexDataForm( form.find(":input[data='values']").serializeArray() );
+                indexed_array.values    = JSON.stringify(values_array);
+                
+                // valida os campos obrigatorios
+                form.find(".form-control").each(function(idx){
+                    var el          = $(this);
+                    var required    = el.attr("required");
+                    var value       = el.val();
+
+                    if ((required) && (value==="")){
+                        el.addClass("alert-danger");
+                        form.find('.contato-mss').html("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>Preencha os campos obrigatórios!</h6></div>");
+                        error = 1;
+                    }else{
+                        el.removeClass("alert-danger");
+                        if(!error){
+                            form.find('.contato-mss').html("");
+                        }
+                    }                    
+                });
+                                
+                if(validateEmail(indexed_array["Email"])){
+                    // email ok
+                }else{
+                    // email fora do formato
+                    $("input[name='Email']").addClass("alert-danger");
+                    form.find('.contato-mss').append("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>O Email está em um formato inválido!</h6></div>");
+                    error = 1;
+                    console.log(indexed_array);
+                }                     
+                
+                if(error){
+                    return false;
+                }
+                
+                
+                form.parent('.box-contato').css("opacity","0.5");
+                form.find('.btn.form-submit').attr("disabled","disabled");       
+
+                //return false;
+
+                // envia para a API
+                $.ajax({
+                    method: "POST",
+                    url:    url,
+                    data:   indexed_array
+                })
+                .done(function( resp ) {
+                    console.log(resp);
+                    form.find('.contato-titulo').html( resp.Title );
+                    form.find('.contato-mss').html( '<p>' + resp.Message + '</p>' );
+                    form.parent('.box-contato').css("opacity","1");
+                    form.find('.btn.form-submit').prop("disabled", false);
+
+                    // Código de Conversão do formulário
+                    gtag('event', 'conversion', {'send_to': 'AW-824816791/RFFQCIrgn3oQl-mmiQM'});
+
+                    //Shopback Tag Conversão
+                    window._st_account = 4455;
+                    window._cv_data = {
+                        'order_id': 0,      // Número do pedido
+                        'valor': 1          // Valor do pedido                             
+                    };
+                    (function () {
+                        var ss = document.createElement('script');
+                        ss.type = 'text/javascript';
+                        ss.async = true;
+                        ss.src = '//app.shoptarget.com.br/js/tracking.js';
+                        var sc = document.getElementsByTagName('script')[0];
+                        sc.parentNode.insertBefore(ss, sc);
+                    })();
+
+                })
+                .error(function(resp){
+                    console.log("erro de consumo da api");
+                    console.log(resp);
+                    form.find('.contato-titulo').html( "Erro de comunicação:" );
+                    form.find('.contato-mss').html( "Por favor, tente novamente." );
+                    form.parent('.box-contato').css("opacity","1");
+                    form.find('.btn.form-submit').prop("disabled", false);
+                });
+            });    
+
+
+            /* Funcao que trata os dados do form de contato para envio para a API */
+            $(".form-contato-modal .form-submit").click(function(){
+
+                var url                 = "{{API_PATH}}/{{API_KEY}}/Formulario/Generico";
+                console.log(url);
+
+                var error               = null;
+                var form                = $(this).parents(".form-contato-modal");
+                
+                console.log(form);
+                
+                var message             = "";
+                var unindexed_array     = form.serializeArray();
+                var indexed_array       = IndexDataForm(unindexed_array);
+                var values_array        = indexed_array;
+                var values              = "";
+
+
+                // prepara os inputs com os data=values
+                values_array            = IndexDataForm( form.find(":input[data='values']").serializeArray() );
+                indexed_array.values    = JSON.stringify(values_array);
+
+                // valida os campos obrigatorios
+                form.find(".form-control").each(function(idx){
+                    var el          = $(this);
+                    var required    = el.attr("required");
+                    var value       = el.val();
+
+                    if ((required) && (value==="")){
+                        el.addClass("alert-danger");
+                        form.find('.contato-mss').html("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>Preencha os campos obrigatórios!</h6></div>");
+                        error = 1;
+                    }else{
+                        el.removeClass("alert-danger");
+                        if(!error){
+                            form.find('.contato-mss').html("");
+                        }
+                    }
+                });
+
+                if(validateEmail(indexed_array["Email"])){
+                    // email ok
+                }else{
+                    // email fora do formato
+                    $("input[name='Email']").addClass("alert-danger");
+                    form.find('.contato-mss').append("<div class='alert alert-danger  alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><h6>O Email está em um formato inválido!</h6></div>");
+                    error = 1;
+                    console.log(indexed_array);
+                }
+
+                if(error){
+                    return false;
+                }
+
+
+                form.parent('.box-contato').css("opacity","0.5");
+                form.find('.btn.form-submit').attr("disabled","disabled");
+
+                //return false;
+
+                // envia para a API
+                $.ajax({
+                    method: "POST",
+                    url:    url,
+                    data:   indexed_array
+                })
+                    .done(function( resp ) {
+                        console.log(resp);
+                        form.find('.formEnviar').hide();
+                        form.parent('.box-contato').css("opacity","1");
+                        form.find('.formResposta').show();
+
+                        // Código de Conversão do formulário
+                        gtag('event', 'conversion', {'send_to': 'AW-824816791/RFFQCIrgn3oQl-mmiQM'});
+
+                        //Shopback Tag Conversão
+                        window._st_account = 4455;
+                        window._cv_data = {
+                            'order_id': 0,      // Número do pedido
+                            'valor': 1          // Valor do pedido                             
+                        };
+                        (function () {
+                            var ss = document.createElement('script');
+                            ss.type = 'text/javascript';
+                            ss.async = true;
+                            ss.src = '//app.shoptarget.com.br/js/tracking.js';
+                            var sc = document.getElementsByTagName('script')[0];
+                            sc.parentNode.insertBefore(ss, sc);
+                        })();
+
+                    })
+                    .error(function(resp){
+                        console.log("erro de consumo da api");
+                        console.log(resp);
+                        form.find('.contato-titulo').html( "Erro de comunicação:" );
+                        form.find('.contato-mss').html( "Por favor, tente novamente." );
+                        form.parent('.box-contato').css("opacity","1");
+                        form.find('.btn.form-submit').prop("disabled", false);
+                    });
+            });
+
+            // Anchor Smooth Scroll
+            $('.ancor-menu a, a.anchor-link').click(function(event) {
+                event.preventDefault();
+                var diff = $('header .main-header').outerHeight(true);
+                var $anchor = $(this);
+                var posit = ( $($anchor.attr('href')).offset().top) - diff;
+
+                $('html, body').stop().animate({
+                    scrollTop: posit
+                }, 1500); 
+            });
+
+            // Tirando caracteres especiais e acentos dos ids e ancoras
+            var cleanChars = $('.js-topics');
+            if(cleanChars.length > 0) {
+                $(cleanChars).each(function(index, el) {
+                    var href = $(el).attr('href');
+                    var myId = $(el).attr('id');
+                    
+                    if(href) {
+                        $(el).attr('href', especialCharMask(href));
+                    }
+                    
+                    if(myId) {
+                        $(el).attr('id', especialCharMask(myId));
+                    }
+                    
+                });
+            }
+
+            function especialCharMask (especialChar){
+                    especialChar = especialChar.replace(/[áàãâä]/ui, 'a');
+                    especialChar = especialChar.replace(/[éèêë]/ui, 'e');
+                    especialChar = especialChar.replace(/[íìîï]/ui, 'i');
+                    especialChar = especialChar.replace(/[óòõôö]/ui, 'o');
+                    especialChar = especialChar.replace(/[úùûü]/ui, 'u');
+                    especialChar = especialChar.replace(/[ç]/ui, 'c');
+                    especialChar = especialChar.replace(/[^a-z0-9#]/i, '_');
+                    especialChar = especialChar.replace(/_+/, '_');
+                    return especialChar;
+            }
+
+            var $videoFrame = $('#video .descript iframe');
+            var $contentVideo = $('.content_iframe');
+            
+            $contentVideo.append($videoFrame);
+
+            
+        });
+        
+        // Scroll de ancoragem
+        $(document).on("scroll", onScroll);
+        function onScroll(event){
+            var scrollPos = $(document).scrollTop();
+            
+            $('.ancor-menu a').each(function () {
+                var currLink = $(this);
+                var refElement = $(currLink.attr("href"));
+
+                if ( (refElement.offset().top - 80) <= scrollPos) {
+                    $('.ancor-menu a').removeClass("active");
+                    currLink.addClass("active");
+                }
+                else{
+                    currLink.removeClass("active");
+                }
+            });
+        }
+            
+            
+        // funcao para verificar e carregar o cookie do visitante
+        function verifyGuest(){
+            // carrega o cookie do visitante
+            var cookieGuest     = getCookie('guest');
+            if(cookieGuest){ 
+                cookieGuest     = JSON.parse(cookieGuest); 
+            }else{
+                var strGuest  = '{{data.Guest|default("")|raw}}';
+                if(strGuest != ''){                        
+                    cookieGuest = JSON.parse(strGuest);
+                }
+            }
+
+        }
+
+        function imageToSvg() { 
+            $('img.tosvg').each(function() {
+                var $img = $(this);
+                var imgID = $img.attr('id');
+                var imgClass = $img.attr('class');
+                var imgURL = $img.attr('src');
+
+                $.get(imgURL, function(data) {
+                    // Get the SVG tag, ignore the rest
+                    var $svg = $(data).find('svg');
+
+                    // Add replaced image's ID to the new SVG
+                    if(typeof imgID !== 'undefined') {
+                        $svg = $svg.attr('id', imgID);
+                    }
+                    // Add replaced image's classes to the new SVG
+                    if(typeof imgClass !== 'undefined') {
+                        $svg = $svg.attr('class', imgClass+' replaced-svg');
+                    }
+
+                    // Remove any invalid XML tags as per http://validator.w3.org
+                    $svg = $svg.removeAttr('xmlns:a');
+                    
+                    // Check if the viewport is set, else we gonna set it if we can.
+                    if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                        $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+                    }
+
+                    // Replace image with new SVG
+                    $img.replaceWith($svg);
+
+                }, 'xml');
+
+            });
+        }
+        imageToSvg();
+
+        window.addEventListener('load', function(){
+            var outPage = false;
+            document.addEventListener('mouseleave', function(e){
+                e.stopPropagation();
+                if(!outPage){
+                    $('#FormOutpage').modal();
+                    console.log('não se vá!');
+                    outPage = true;
+                }
+            });
+
+
+        });
+            
+        </script>
+        
+        {% endif %}
+        
+        <!-- Custom JS -->
+        <script src="{{ asset('/js/custom.js') }}"></script>
+
+        <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/2869f5ce-aac7-4c73-b210-69fa5760780d-loader.js" ></script>
+    </body>
+</html>
+
+{% endspaceless %}

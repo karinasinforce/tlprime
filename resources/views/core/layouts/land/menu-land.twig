@@ -1,0 +1,7 @@
+{% if content.Topicos %}
+	{% for item in content.Topicos %}
+		<li class="menu_item_2 level1">
+			<a href="#{{item.Nome|replace({' ':'-', '.':''})|lower}}" class="js-topics" role="button" aria-haspopup="true" aria-expanded="false">{{item.Nome|replace({'.':''})}}</a>
+		</li>    
+	{% endfor %}
+{% endif %}

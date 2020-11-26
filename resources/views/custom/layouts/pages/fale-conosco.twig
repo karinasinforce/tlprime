@@ -1,0 +1,70 @@
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}Fale Conosco{% endblock %}
+
+{% block content_header_breadcrumb %}
+                {{data.breadcrumb|raw}}
+{% endblock %}
+
+{# {% block content_header_title %}
+                <span>{{data.Titulo|raw}}</span>
+{% endblock %} #}
+
+{% block content_header_title %}
+    <div class="">Fale Conosco</div>
+{% endblock %}
+
+{% block content_header_description %}
+                <span class="hide">Fale Conosco</span>
+{% endblock %}
+
+
+
+{% set actual_page = "page-fale-conosco page_form" %}
+
+{% block main_content %}
+    
+                <!-- CONTENT -->                                            
+                <div class="spark-screen">
+                    
+                    <div class="container">
+
+                        
+                        {#% if not data.isMobile %#}
+                        <div class="row box-fale-conosco">
+                            
+                            {% include ['custom.helpers.formulario-fale-conosco','core.helpers.formulario-fale-conosco'] with {data:data} %}
+                            
+                            
+                            {# include ['custom.helpers.sedes-no-mapa-2','core.helpers.sedes-no-mapa-2'] with {data:data} #}
+                        </div>
+                        {#% endif %#}
+
+                    </div>
+
+                            
+                </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+{#    <script src="{{ asset('/js/controller/fale-conosco.js') }}" type="text/javascript"></script> #}
+
+    {% if data.isMobile %}
+        <script src="{{ asset('/js/controller/busca-avancada.js') }}" type="text/javascript"></script>
+    {% endif %}
+
+{% endblock %}
+
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}
+{# ARQUIVO CORE / NÃO ALTERAR #}

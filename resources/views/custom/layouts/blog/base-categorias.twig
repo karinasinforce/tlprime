@@ -1,0 +1,44 @@
+
+{% extends ['custom.app','core.app'] %}
+
+{% block html_header_title %}
+    {% if content.NoticiaID %}
+        {{content.Titulo}} | Blog
+    {% else %}
+        Blog
+    {% endif %}
+{% endblock %}
+
+{# {% block content_header_breadcrumb %}    
+                {{data.breadcrumb|raw}}
+{% endblock %} #}
+
+{% set actual_page = "page-blog" %}
+
+{% block main_content %}
+
+    <!-- CONTENT -->                                            
+    <div class="spark-screen">
+            
+        {% if content.NoticiaID %}
+            {% include ['custom.layouts.blog.interna','core.layouts.blog.interna'] with { content: content, data: data }%}
+        {% else %}
+            {% include ['custom.layouts.blog.lista','core.layouts.blog.lista'] with { content: content, data: data }%}
+        {% endif %}
+    
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- EXTRA JS -->
+    {# <script src="/js/controller/blog.min.js" defer type="text/javascript"></script> #}
+    
+     <script>
+
+        window.addEventListener('DOMContentLoaded', function() {
+          });
+
+    </script>     
+
+{% endblock %}
+
